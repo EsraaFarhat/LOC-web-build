@@ -1,0 +1,84 @@
+/* .container{
+   margin-top: 20px;
+} */
+
+/* .table{
+    margin-top: 40px ;
+} */
+/*
+ .form-control{
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
+.btn-primary{
+    width: 25%;
+    margin: auto;
+    margin-top: 25px;
+    background-color:#222D58;
+    
+}
+.btn-primary:hover{
+    background-color: #0987b1;
+}
+
+a:link {
+  color: black;
+  text-decoration: none;
+  }
+
+a:hover {
+    cursor: pointer;
+  }
+  
+a:active {
+    color: black;
+  }
+  
+a:visited {
+    color: black;
+  }  
+
+
+.main {
+    width: 75%;
+    margin: auto;
+}
+
+.form-group .form-control {
+    padding-left: 2.375rem;
+}
+
+.form-group .form-control-icon {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+ */
+
+.Modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px;
+  background-color: #fff;
+  width: 40%;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}

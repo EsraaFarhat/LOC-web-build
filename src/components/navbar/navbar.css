@@ -1,0 +1,43 @@
+/* .navbar{
+    width: 100%;
+    height: 50px;
+    background-color: aqua;
+    position: sticky;
+    top:0;
+    display: flex;
+    align-items: center;
+}
+
+.navLeft, .navRight{
+ flex: 3;
+ background-color: blue;
+}
+
+.navCenter{
+    flex: 6;
+} */
+
+.container{
+    margin-top: 0;
+    width: 100%;
+    margin: auto;
+  }
+
+.justify-content-center{
+    margin-top: 0%;
+    width: 100%;
+}  
+
+.logo {
+    width: 50px;
+    height: 40px;
+}
+
+.navbar{
+    text-align: center;
+}
+
+hr{
+    border: 1.7px solid #12495c;
+    margin-top: 0;
+  }
