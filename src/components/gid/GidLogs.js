@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect , useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -11,7 +11,7 @@ import formatAMPM from "../../util/DateFormat";
 const GidLogs = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
-  const [flag , setFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
   const { id } = useParams();
   const {
     specificIdnetifier,
@@ -25,7 +25,7 @@ const GidLogs = () => {
   useEffect(() => {
     dispatch(onFetchingSpecificIdentifier(id, token));
     dispatch(onFetchingIdentifierLogs(id, token));
-  }, [dispatch, token ,flag]);
+  }, [dispatch, token, flag]);
 
   const handleMarkAsSeen = (time) => {
     console.log(token);
@@ -48,7 +48,7 @@ const GidLogs = () => {
         }
         if (resData.message) {
           // toast.success(resData.message);
-          setFlag(false)
+          setFlag(false);
         }
       });
   };
@@ -56,7 +56,7 @@ const GidLogs = () => {
   return (
     <Fragment>
       <div className="container">
-      <ToastContainer />
+        <ToastContainer />
         <div className="row">
           {specificIdnetifier && specificIdnetifier.gid ? (
             <div className="m-auto">
@@ -89,7 +89,7 @@ const GidLogs = () => {
                               </div>
                             </td>
                             <td>{identifier.user_name}</td>
-                            <td>{formatAMPM(new Date(identifier.time))}</td>
+                            <td>{new Date(identifier.time).toUTCString()}</td>
                             {/* <td>{identifier.state}</td> */}
                             {/* <td>{identifier.status_code}</td> */}
                             <td>
@@ -102,7 +102,7 @@ const GidLogs = () => {
                                   className="btn btn-primary"
                                   onClick={() => {
                                     handleMarkAsSeen(identifier.time);
-                                    setFlag(true)
+                                    setFlag(true);
                                   }}
                                 >
                                   Mark As Seen

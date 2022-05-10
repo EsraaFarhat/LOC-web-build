@@ -188,7 +188,7 @@ const UpdateDualLocInfo = () => {
         </Link> */}
         <div className="row">
           <div className="col-12 col-md-10 m-auto">
-            <h3 className="text-center mt-3">UPDATE DUAL LOC INFO</h3>
+            <h3 className="text-center mt-3">UPDATE Dual LOC’s INFO</h3>
             <form
               className="form-horizontal mt-3"
               role="form"
@@ -605,7 +605,7 @@ const UpdateDualLocInfo = () => {
 
               <div className="row">
                 <div className="col-10 col-md-8 col-lg-7 m-auto">
-                  {/* <h5 className="text-center my-3">LOC DESTINATION LOCATION</h5>
+                  {/* <h5 className="text-center my-3">LOC Location</h5>
                   <div className="bg-light mt-3">Map</div>
                   <div className="row my-3">
                     <div className="col">

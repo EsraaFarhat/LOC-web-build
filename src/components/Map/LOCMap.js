@@ -156,8 +156,8 @@ function LOCMap({ radius, locationLat, locationLong }) {
                   }
             }
             radius={parseFloat(radius)}
-            draggable={true}
-            editable={true}
+            // draggable={true}
+            // editable={true}
           />
         </GoogleMap>
       ) : (

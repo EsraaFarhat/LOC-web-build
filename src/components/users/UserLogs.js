@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect ,useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -13,7 +13,7 @@ const UserLogs = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   const { id } = useParams();
-  const [flag , setFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
   const {
     specificUser,
     loadSpecificUser,
@@ -26,8 +26,7 @@ const UserLogs = () => {
   useEffect(() => {
     dispatch(onFetchingSpecificUser(id, token));
     dispatch(onFetchingUserLogs(id, token));
-  }, [dispatch, token ,flag ]);
-
+  }, [dispatch, token, flag]);
 
   const handleMarkAsSeen = (time) => {
     console.log(time);
@@ -50,7 +49,7 @@ const UserLogs = () => {
         }
         // window.location.reload(false);
         if (resData.message) {
-          setFlag(false)
+          setFlag(false);
           // toast.success(resData.message);
         }
       });
@@ -64,7 +63,9 @@ const UserLogs = () => {
           {specificUser && specificUser.user_id ? (
             <div className="m-auto">
               <h3 className="text-center my-3">{specificUser.fullName} Logs</h3>
-              <div className="table-responsive">
+              <div
+                className="table-responsive"
+              >
                 <table className="table table-bordered mt-3">
                   <thead>
                     <tr style={{ color: "#0987B1" }}>
@@ -94,7 +95,7 @@ const UserLogs = () => {
                               </div>
                             </td>
                             <td>{log.user_name}</td>
-                            <td>{formatAMPM(new Date(log.time))}</td>
+                            <td>{new Date(log.time).toUTCString()}</td>
                             {/* <td>{log.method}</td> */}
                             {/* <td>{log.status_code}</td> */}
                             <td>
@@ -107,7 +108,7 @@ const UserLogs = () => {
                                   className="btn btn-primary"
                                   onClick={() => {
                                     handleMarkAsSeen(log.time);
-                                    setFlag(true)
+                                    setFlag(true);
                                   }}
                                 >
                                   Mark As Seen

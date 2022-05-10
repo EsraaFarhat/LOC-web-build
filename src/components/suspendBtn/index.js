@@ -4,7 +4,7 @@ export default function SuspendBtn(props) {
   const [btnColor, setBtnColor] = useState(
     "btn btn-primary btn-sm px-1 py-0 mx-1"
   );
-  const [btnText, setBtnText] = useState("suspend");
+  const [btnText, setBtnText] = useState("Suspend");
   const [flag, setFlag] = useState(false);
 
   const { handleSuspend } = props;
@@ -15,35 +15,34 @@ export default function SuspendBtn(props) {
   useEffect(() => {
     if (suspend) {
       setBtnColor("btn btn-danger btn-sm px-1 py-0 mx-1");
-      setBtnText("unsuspend");
+      setBtnText("Unsuspend");
       setFlag(false);
     } else {
       setBtnColor("btn btn-primary btn-sm px-1 py-0 mx-1");
-      setBtnText("suspend");
+      setBtnText("Suspend");
       setFlag(true);
     }
   }, []);
 
   const handleTheSuspend = async () => {
-    const result = await handleSuspend(id) ;
+    const result = await handleSuspend(id);
     console.log(result);
 
-   if (result == 'success') {
-    if (flag === false) {
-      setBtnColor("btn btn-primary btn-sm px-1 py-0 mx-1");
-      setBtnText("suspend");
+    if (result == "success") {
+      if (flag === false) {
+        setBtnColor("btn btn-primary btn-sm px-1 py-0 mx-1");
+        setBtnText("suspend");
         setFlag(true);
       } else {
         setBtnColor("btn btn-danger btn-sm px-1 py-0 mx-1");
         setBtnText("unsuspend");
         setFlag(false);
       }
-   }
+    }
+  };
+  //   const handleBtnColorAndText = () => {
 
-  }
-//   const handleBtnColorAndText = () => {
-   
-//   };
+  //   };
 
   return (
     <button

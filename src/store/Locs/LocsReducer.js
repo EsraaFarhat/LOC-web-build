@@ -1,5 +1,6 @@
 import { checkValidity, updateObject } from "../../util/utility";
 import { toast } from "react-toastify";
+import { locInitialState } from "./IS.js";
 
 const CHANGE_LOCS_INPUT_HANDLER =
   "KELTECH/STORE/LOCS/CHANGE_LOCS_INPUT_HANDLER";
@@ -41,225 +42,8 @@ const CHANGE_RENDERED_ITEM = "KELTECH/STORE/LOCS/CHANGE_RENDER_ITEM";
 const START_UPLOAD_FILE = "KELTECH/STORE/LOCS/START_UPLOAD_FILE";
 const FINISH_UPLOAD_FILE = "KELTECH/STORE/LOCS/FINISH_UPLOAD_FILE";
 
-const initialState = {
-  singleLocForm: {
-    routeId: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    origin: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    MISC: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-
-    filed1: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed2: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed3: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    origin_status: {
-      value: "unassigned",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-  },
-
-  dualLocForm: {
-    routeId: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    origin_status: {
-      value: "unassigned",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    destination_status: {
-      value: "unassigned",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    cableOrigin: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed1Origin: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed2Origin: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed3Origin: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-
-    cableDestination: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed1Destination: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed2Destination: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    filed3Destination: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-
-    lat: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-        // isNumber: true,
-      },
-      validationError: "Required must be a number",
-      touched: false,
-    },
-    long: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required must be a number",
-      touched: false,
-    },
-    radius: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required must be a number",
-      touched: false,
-    },
-  },
-
-  loading: false,
-
-  singleLocs: [],
-  dualLocs: [],
-  loadingLocs: false,
-
-  loadDelete: false,
-
-  specificLoc: {},
-  loadSpecificLoc: false,
-
-  searchSingleLocs: [],
-  searchDualLocs: [],
-  loadEdit: false,
-
-  renderedItem: "locs",
-
-  loadUpload: false,
-};
+const RESET_DUAL_LOC_FORM = "KELTECH/STORE/LOCS/RESET_DUAL_LOC_FORM";
+const RESET_SINGLE_LOC_FORM = "KELTECH/STORE/LOCS/RESET_SINGLE_LOC_FORM";
 
 // =============================================================
 export const onChangeLocsInputs = (text, inputIdentifier) => {
@@ -451,7 +235,7 @@ export const onAddingDualLoc = (
         destination_field_3,
         longitude: lat,
         latitude: long,
-        radius,
+        radius: radius ? radius : 10,
         gid,
       }),
     })
@@ -665,7 +449,7 @@ export const onEditingDualLoc = (
 ) => {
   e.preventDefault();
   return (dispatch) => {
-    console.log("ggggggggggggggg",gid);
+    console.log("ggggggggggggggg", gid);
     dispatch(onStartEditingDualLoc());
     fetch("http://63.33.18.108:5000/api/LOCs/" + locId, {
       method: "PATCH",
@@ -732,11 +516,11 @@ const startDeletingLoc = (state, action) => {
   return updateObject(state, { loadDelete: true });
 };
 
-export const onDeletingLoc = (e, id, token, type , gid) => {
+export const onDeletingLoc = (e, id, token, type, gid) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingLoc());
-    console.log("gggggggggggggggggg",gid);
+    console.log("gggggggggggggggggg", gid);
     fetch("http://63.33.18.108:5000/api/LOCs/" + id, {
       method: "DELETE",
       headers: {
@@ -750,7 +534,7 @@ export const onDeletingLoc = (e, id, token, type , gid) => {
       if (res.status === 204) {
         dispatch(onFinishDeletingLoc(id, type));
         toast.success("Deleting Loc Success.");
-      }else{
+      } else {
         return toast.error(res.statusText);
       }
     });
@@ -869,13 +653,38 @@ export const onFinishUploadFile = () => {
 const finishUploadingFile = (state, action) => {
   return updateObject(state, { loadUpload: false });
 };
+// ===================================================================
 
-export default function LocsReducers(state = initialState, action) {
+export const onResetingDualLocForm = () => {
+  return { type: RESET_DUAL_LOC_FORM };
+};
+
+const resetDualLocForm = (state, action) => {
+  return updateObject(state, { dualLocForm: locInitialState.dualLocForm });
+};
+
+// ===================================================================
+
+export const onResetingSingleLocForm = () => {
+  return { type: RESET_SINGLE_LOC_FORM };
+};
+
+const resetSingleLocForm = (state, action) => {
+  return updateObject(state, { singleLocForm: locInitialState.singleLocForm });
+};
+// ===================================================================
+
+export default function LocsReducers(state = locInitialState, action) {
   switch (action.type) {
     case CHANGE_LOCS_INPUT_HANDLER:
       return changeLocInputs(state, action);
     case CHANGE_DUAL_LOCS_INPUT_HANDLER:
       return changeLocDualInputs(state, action);
+
+    case RESET_DUAL_LOC_FORM:
+      return resetDualLocForm(state, action);
+    case RESET_SINGLE_LOC_FORM:
+      return resetSingleLocForm(state, action);
 
     case START_ADDING_SINGLE_LOG:
       return startAddingSingleLoc(state, action);

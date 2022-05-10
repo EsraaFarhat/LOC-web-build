@@ -35,10 +35,10 @@ const AssignedLocs = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
-  const [globalIdentifier , setGlobalIdenetifier] = useState(null)
+  const [globalIdentifier, setGlobalIdenetifier] = useState(null);
   const [gid, setGid] = useState("");
-  const [project , setProject] = useState(null)
-  const [location , setLocation] = useState(null)
+  const [project, setProject] = useState(null);
+  const [location, setLocation] = useState(null);
   const { selectedIdentifier } = useSelector((state) => state.globalIdentifier);
   const { selectedEditProject } = useSelector((state) => state.projects);
   const { selectedEditLocation } = useSelector((state) => state.locations);
@@ -98,28 +98,19 @@ const AssignedLocs = () => {
       });
   };
 
-
-
-
   useEffect(() => {
-    fetch(
-      `http://63.33.18.108:5000/api/locations/${id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    fetch(`http://63.33.18.108:5000/api/locations/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
-        setGlobalIdenetifier(resData.globalIdentifier)
-        setProject(resData.project)
-        setLocation(resData.location)
-        setGid(resData.globalIdentifier.gid)
-
+        setGlobalIdenetifier(resData.globalIdentifier);
+        setProject(resData.project);
+        setLocation(resData.location);
+        setGid(resData.globalIdentifier.gid);
       });
-      
   }, []);
-
 
   return (
     <Fragment>
@@ -127,28 +118,25 @@ const AssignedLocs = () => {
         <ToastContainer />
 
         {globalIdentifier?.name && project?.name && location?.name ? (
-           <Fragment>
-          <Link to={"/globalidenetifiers/projects/"+ globalIdentifier.gid} style={styleLinkBack}>
-            {globalIdentifier.name}
-          </Link>
-          <span className="mx-2" style={{ color: "#28345C" }}>
+          <Fragment>
+            <Link
+              to={"/globalidenetifiers/projects/" + globalIdentifier.gid}
+              style={styleLinkBack}
+            >
+              {globalIdentifier.name}
+            </Link>
+            <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/locations/" + project.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/locations/" + project.id} style={styleLinkBack}>
               {project.name}
             </Link>
             <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/viewlocs/" + location.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/viewlocs/" + location.id} style={styleLinkBack}>
               {location.name}
             </Link>
             <span className="mx-2" style={{ color: "#28345C" }}>
@@ -156,12 +144,10 @@ const AssignedLocs = () => {
               <i className="fas fa-chevron-right"></i>
             </span>
             <Link to={"/assignedlocs/" + id} style={styleLinkBack}>
-              ASSIGNED
+              Assigned
             </Link>
-
           </Fragment>
         ) : null}
-
 
         {/* {selectedEditProject.name && selectedIdentifier.name ? (
           <Fragment>
@@ -303,7 +289,7 @@ const AssignedLocs = () => {
         </div>
         <div className="row">
           <div className="col-7 col-md-4 m-auto">
-            <h3 className="text-center my-3">ASSIGNED LOCs</h3>
+            <h3 className="text-center my-3">Assigned LOC’s</h3>
             <div className="w-75 m-auto my-4" style={{ position: "relative" }}>
               <i
                 className="far fa-search text-dark"
@@ -331,8 +317,11 @@ const AssignedLocs = () => {
             </div>
           ) : singleLocs && singleLocs.length > 0 ? (
             <div className="row">
-              <h6 className="mt-4">SINGLE LOC</h6>
-              <div className="table-responsive col-12 col-md-10 text-center">
+              <h6 className="mt-4">Single LOC’s</h6>
+              <div
+                className="table-responsive col-12 col-md-10 text-center"
+                style={{ maxHeight: 400, overflowY: "auto" }}
+              >
                 <table
                   className="table table-bordered table-sm"
                   style={{ fontSize: "12px" }}
@@ -345,7 +334,9 @@ const AssignedLocs = () => {
                       <th scope="col">FIELD 2</th>
                       <th scope="col">FIELD 3</th>
                       {/* <th scope="col">MISC</th> */}
-                      <th scope="col" colspan="3">LOCATION</th>
+                      <th scope="col" colspan="2">
+                        LOCATION
+                      </th>
                       {/* <th scope="col">LATITUDE</th>
                       <th scope="col">LONGITUDE</th>
                       <th scope="col">RADIUS</th> */}
@@ -374,10 +365,24 @@ const AssignedLocs = () => {
                                 view
                               </button>
                             </td> */}
-                            <td><span style={{fontSize:"9px"}}>LATITUDE : {(Math.round(loc.Location.latitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>LONGITUDE : {(Math.round(loc.Location.longitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>RADIUS : {loc.Location.radius}</span></td>
-                            <td>{formatAMPM(new Date(loc.updatedAt))}</td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LATITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LONGITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
                             <td>{loc.User.email}</td>
                             <td>
                               <Link
@@ -436,10 +441,24 @@ const AssignedLocs = () => {
                                 view
                               </button>
                             </td> */}
-                            <td><span style={{fontSize:"9px"}}>LATITUDE : {(Math.round(loc.Location.latitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>LONGITUDE : {(Math.round(loc.Location.longitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>RADIUS : {loc.Location.radius}</span></td>
-                            <td>{formatAMPM(new Date(loc.updatedAt))}</td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LATITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LONGITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
                             <td>{loc.User.email}</td>
                             <td>
                               <Link
@@ -484,7 +503,9 @@ const AssignedLocs = () => {
               </div>
             </div>
           ) : (
-            <div style={{ textAlign: "center" }}>No Single Locs Added Yet.</div>
+            <h1 style={{ textAlign: "center", margin: "20px 0" }}>
+              No Single LOC’s added yet
+            </h1>
           )}
 
           {loadingLocs ? (
@@ -495,8 +516,13 @@ const AssignedLocs = () => {
             </div>
           ) : dualLocs && dualLocs.length > 0 ? (
             <div className="row">
-              <h6 className="mt-4">DUAL LOC</h6>
-              <div className="table-responsive">
+              <h6 className="mt-4">Dual LOC’s</h6>
+              <div
+                className="table-responsive"
+                style={{ maxHeight: 600, overflowY: "scroll" }}
+                style={{ maxHeight: 600, overflowY: "scroll" }}
+                style={{ maxHeight: 400, overflowY: "auto" }}
+              >
                 <table
                   className="table table-bordered table-sm text-center"
                   style={{ fontSize: "12px" }}
@@ -508,7 +534,9 @@ const AssignedLocs = () => {
                       <th scope="col">FIELD 1</th>
                       <th scope="col">FIELD 2</th>
                       <th scope="col">FIELD 3</th>
-                      <th scope="col" colspan="3">LOCATION</th>
+                      <th scope="col" colspan="2">
+                        LOCATION
+                      </th>
                       {/* <th scope="col">LATITUDE</th>
                       <th scope="col">LONGITUDE</th>
                       <th scope="col">RADIUS</th> */}
@@ -516,7 +544,9 @@ const AssignedLocs = () => {
                       <th scope="col">FIELD 1</th>
                       <th scope="col">FIELD 2</th>
                       <th scope="col">FIELD 3</th>
-                      <th scope="col" colspan="3">DESTINATION</th>
+                      <th scope="col" colspan="2">
+                        DESTINATION
+                      </th>
                       {/* <th scope="col">LATITUDE</th>
                       <th scope="col">LONGITUDE</th>
                       <th scope="col">RADIUS</th> */}
@@ -540,9 +570,23 @@ const AssignedLocs = () => {
                             <td>{loc.field_1}</td>
                             <td>{loc.field_2}</td>
                             <td>{loc.field_3}</td>
-                            <td><span style={{fontSize:"9px"}}>LATITUDE : {(Math.round(loc.Location.latitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>LONGITUDE : {(Math.round(loc.Location.longitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>RADIUS : {loc.Location.radius}</span></td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LATITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LONGITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+
                             <td>{loc.LOCDestination?.destination}</td>
                             <td>{loc.LOCDestination?.destination_field_1}</td>
                             <td>{loc.LOCDestination?.destination_field_2}</td>
@@ -561,10 +605,28 @@ const AssignedLocs = () => {
                             {/* <td>{loc.LOCDestination?.latitude}</td>
                             <td>{loc.LOCDestination?.longitude}</td>
                             <td>{loc.LOCDestination?.radius}</td> */}
-                            <td><span style={{fontSize:"9px"}}>LATITUDE : {(Math.round(loc.LOCDestination?.latitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>LONGITUDE : {(Math.round(loc.LOCDestination?.longitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>RADIUS : {loc.LOCDestination?.radius}</span></td>
-                            <td>{formatAMPM(new Date(loc.updatedAt))}</td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LATITUDE :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.latitude * 100
+                                  ) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LONGITUDE :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.longitude * 100
+                                  ) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
                             <td>{loc.User.email}</td>
                             <td>
                               <Link
@@ -609,9 +671,23 @@ const AssignedLocs = () => {
                             <td>{loc.field_1}</td>
                             <td>{loc.field_2}</td>
                             <td>{loc.field_3}</td>
-                            <td><span style={{fontSize:"9px"}}>LATITUDE : {(Math.round(loc.Location.latitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>LONGITUDE : {(Math.round(loc.Location.longitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>RADIUS : {loc.Location.radius}</span></td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LATITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LONGITUDE :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+
                             <td>{loc.LOCDestination?.destination}</td>
                             <td>{loc.LOCDestination?.destination_field_1}</td>
                             <td>{loc.LOCDestination?.destination_field_2}</td>
@@ -630,10 +706,28 @@ const AssignedLocs = () => {
                             {/* <td>{loc.LOCDestination?.latitude}</td>
                             <td>{loc.LOCDestination?.longitude}</td>
                             <td>{loc.LOCDestination?.radius}</td> */}
-                            <td><span style={{fontSize:"9px"}}>LATITUDE : {(Math.round(loc.LOCDestination?.latitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>LONGITUDE : {(Math.round(loc.LOCDestination?.longitude * 100) / 100).toFixed(4)} </span></td>
-                            <td><span style={{fontSize:"9px"}}>RADIUS : {loc.LOCDestination?.radius}</span></td>
-                            <td>{formatAMPM(new Date(loc.updatedAt))}</td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LATITUDE :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.latitude * 100
+                                  ) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                LONGITUDE :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.longitude * 100
+                                  ) / 100
+                                ).toFixed(4)}{" "}
+                              </span>
+                            </td>
+
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
                             <td>{loc.User.email}</td>
                             <td>
                               <Link
@@ -669,7 +763,9 @@ const AssignedLocs = () => {
               </div>
             </div>
           ) : (
-            <div style={{ textAlign: "center" }}>No Dual Locs Added Yet.</div>
+            <h1 style={{ textAlign: "center", margin: "20px 0" }}>
+              No dual LOC’s added yet
+            </h1>
           )}
         </div>
       </div>
@@ -688,7 +784,7 @@ const AssignedLocs = () => {
           <div className="row">
             <div className="col-10 m-auto">
               <h5 className="text-center my-3">
-                Are you sure you want to delete this ?
+                Are you sure you want to delete this?
               </h5>
 
               <div className="d-flex justify-content-center my-3">
@@ -696,7 +792,9 @@ const AssignedLocs = () => {
                   type="button"
                   className="btn btn-danger mx-2"
                   onClick={(e) => {
-                    dispatch(onDeletingLoc(e, singleLocID, token, "single" , gid));
+                    dispatch(
+                      onDeletingLoc(e, singleLocID, token, "single", gid)
+                    );
                     setDeleteSingleIsOpen(false);
                   }}
                 >
@@ -730,7 +828,7 @@ const AssignedLocs = () => {
           <div className="row">
             <div className="col-10 m-auto">
               <h5 className="text-center my-3">
-                Are you sure you want to delete this ?
+                Are you sure you want to delete this?
               </h5>
 
               <div className="d-flex justify-content-center my-3">
@@ -738,7 +836,7 @@ const AssignedLocs = () => {
                   type="button"
                   className="btn btn-danger mx-2"
                   onClick={(e) => {
-                    dispatch(onDeletingLoc(e, dualLocID, token, "dual" , gid));
+                    dispatch(onDeletingLoc(e, dualLocID, token, "dual", gid));
                     setDeleteDualIsOpen(false);
                   }}
                 >

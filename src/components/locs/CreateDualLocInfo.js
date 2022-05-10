@@ -33,7 +33,7 @@ const CreateDualLocInfo = () => {
   const { dualLocForm, loading } = useSelector((state) => state.locs);
   const { specificLocation } = useSelector((state) => state.locations);
   const token = useSelector((state) => state.login.token);
-  const [radius, setRadius] = useState(2000);
+  const [radius, setRadius] = useState(10);
   // const { selectedIdentifier } = useSelector((state) => state.globalIdentifier);
   // const { selectedEditProject } = useSelector((state) => state.projects);
   // const { selectedEditLocation } = useSelector((state) => state.locations);
@@ -41,7 +41,7 @@ const CreateDualLocInfo = () => {
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
   const [project, setProject] = useState(null);
   const [location, setLocation] = useState(null);
-  const [gid, setGid] = useState('')
+  const [gid, setGid] = useState("");
 
   useEffect(() => {
     fetch(`http://63.33.18.108:5000/api/locations/${id}`, {
@@ -136,7 +136,7 @@ const CreateDualLocInfo = () => {
         </Link> */}
         <div className="row">
           <div className="col-12 col-md-10 m-auto">
-            <h3 className="text-center mt-3">CREATE DUAL LOC INFO</h3>
+            <h3 className="text-center mt-3">Create dual LOC</h3>
             <form
               className="form-horizontal mt-3"
               role="form"
@@ -531,7 +531,7 @@ const CreateDualLocInfo = () => {
 
               <div className="row">
                 <div className="col-10 col-md-8 col-lg-7 m-auto">
-                  <h5 className="text-center my-3">LOC DESTINATION LOCATION</h5>
+                  <h5 className="text-center my-3">LOC Location</h5>
                   <LOCMap
                     radius={radius}
                     cmp={"dual"}
@@ -551,7 +551,11 @@ const CreateDualLocInfo = () => {
                             onChangeLocsDualInputs(e.target.value, "lat")
                           );
                         }}
-                        value={dualLocForm.lat.value}
+                        value={
+                          dualLocForm.lat.value !== ""
+                            ? dualLocForm.lat.value?.toFixed(2)
+                            : dualLocForm.lat.value
+                        }
                         style={
                           dualLocForm.lat.valid
                             ? {}
@@ -575,7 +579,11 @@ const CreateDualLocInfo = () => {
                             onChangeLocsDualInputs(e.target.value, "long")
                           )
                         }
-                        value={dualLocForm.long.value}
+                        value={
+                          dualLocForm.long.value !== ""
+                            ? dualLocForm.long.value?.toFixed(2)
+                            : dualLocForm.long.value
+                        }
                         style={
                           dualLocForm.long.valid
                             ? {}
@@ -592,8 +600,8 @@ const CreateDualLocInfo = () => {
 
                   <input
                     type="number"
-                    step={100}
-                    min={0}
+                    // step={100}
+                    // min={0}
                     className="form-control"
                     name="Radius"
                     placeholder="Radius"
@@ -604,18 +612,20 @@ const CreateDualLocInfo = () => {
                       );
                       setRadius(e.target.value);
                     }}
-                    value={dualLocForm.radius.value}
-                    style={
-                      dualLocForm.radius.valid
-                        ? {}
-                        : { border: "1px solid red" }
+                    value={
+                      dualLocForm.radius.value ? dualLocForm.radius.value : 10
                     }
+                    // style={
+                    //   dualLocForm.radius.valid
+                    //     ? {}
+                    //     : { border: "1px solid red" }
+                    // }
                   />
-                  {dualLocForm.radius.valid ? null : (
+                  {/* {dualLocForm.radius.valid ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {dualLocForm.radius.validationError}
                     </div>
-                  )}
+                  )} */}
 
                   {/* {dualLocForm.status.valid ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
@@ -640,9 +650,9 @@ const CreateDualLocInfo = () => {
                                 dualLocForm.filed2Destination.valid &&
                                 dualLocForm.filed3Destination.valid &&
                                 dualLocForm.lat.valid &&
-                                dualLocForm.long.valid &&
-                                dualLocForm.radius.valid
+                                dualLocForm.long.valid
                               )
+                              // && dualLocForm.radius.valid
                               // dualLocForm.status.valid
                             )
                       }

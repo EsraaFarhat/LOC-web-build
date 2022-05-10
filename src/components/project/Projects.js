@@ -311,7 +311,7 @@ export default function Projects() {
           <div className="row">
             <div className="col-10 m-auto">
               <h5 className="text-center my-3">
-                Are you sure you want to delete this ?
+                Are you sure you want to delete this?
               </h5>
 
               <div className="d-flex justify-content-center my-3">

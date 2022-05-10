@@ -56,11 +56,11 @@ export default function Users() {
   const [editIsOpen, setEditIsOpen] = React.useState(false);
   const [DeleteIsOpen, setDeleteIsOpen] = useState(false);
   const [userID, setUserID] = useState("");
-  const [flag , setFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
   // console.log(users[0].fullName);
   useEffect(() => {
     dispatch(onFetchingUsers(token));
-  }, [dispatch, token ]);
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (selectedUser && selectedUser.fullName) {
@@ -86,7 +86,7 @@ export default function Users() {
   }, [selectedUser, dispatch]);
 
   // const handleSuspend = (id) => {
-    
+
   //   console.log(id);
   //   fetch(`http://63.33.18.108:5000/api/users/${id}/suspend`, {
   //     method: "PATCH",
@@ -117,7 +117,6 @@ export default function Users() {
   // };
 
   const handleSuspend = (id) => {
-    
     return new Promise((resolve, reject) => {
       fetch(`http://63.33.18.108:5000/api/users/${id}/suspend`, {
         method: "PATCH",
@@ -133,7 +132,7 @@ export default function Users() {
           console.log("ssssssssssss", resData);
           if (resData.error) {
             toast(resData.error);
-            resolve('error')
+            resolve("error");
           }
           if (resData.error && resData.error[0]) {
             toast(resData.error[0].message);
@@ -142,20 +141,19 @@ export default function Users() {
             // setFlag(false)
             // dispatch(onFetchingUsers(token));
             toast.success(resData.message);
-            resolve('success')
+            resolve("success");
           }
         });
-    })
-      
-    };
+    });
+  };
 
   return (
     <Fragment>
       <div className="container">
         <ToastContainer />
         <div className="row">
-          <div className="col-11 col-md-10 col-lg-8 m-auto">
-            <h3 className="text-center mt-3">USERS</h3>
+          <div className="col-11 col-md-12 col-lg-11 m-auto">
+            <h3 className="text-center mt-3">Users</h3>
 
             {/* <input
               style={{ paddingLeft: 30 }}
@@ -180,7 +178,7 @@ export default function Users() {
                     style={{ position: "absolute", top: "30%", left: "3%" }}
                   ></i>
                   <input
-                    style={{ paddingLeft: 30 }}
+                    style={{ paddingLeft: 35 }}
                     type="text"
                     className="form-control "
                     name="search"
@@ -206,7 +204,7 @@ export default function Users() {
                   onChange={(e) => {
                     dispatch(onChangeSearchVal(e.target.value, "searchType"));
                   }}
-                  style={{ width: "70px" }}
+                  style={{ width: "70%" }}
                 >
                   <option value="">By</option>
                   <option value="fullName">Name</option>
@@ -295,22 +293,32 @@ export default function Users() {
                             // user.email !== "admin@gmail.com" ? (
                             <tbody key={user.user_id}>
                               <tr>
-                                <td scope="row">
+                                <td
+                                  scope="row"
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    textAlign: "left",
+                                  }}
+                                >
                                   {/* <a href="#">{user.fullName}</a> */}
-                                  <Link
-                                    to={"/userslogs/" + user.user_id}
-                                    style={{ textDecoration: "none" }}
-                                  >
-                                    {user.fullName}
-                                    <img
-                                      style={{
-                                        width: "18px",
-                                        height: "16px",
-                                        paddingLeft: "5px",
-                                      }}
-                                      src={log}
-                                    />
-                                  </Link>
+                                  {user.fullName}
+
+                                  <div style={{ marginRight: "20%" }}>
+                                    <Link
+                                      to={"/userslogs/" + user.user_id}
+                                      style={{ textDecoration: "none" }}
+                                    >
+                                      <img
+                                        style={{
+                                          width: "18px",
+                                          height: "16px",
+                                          paddingLeft: "5px",
+                                        }}
+                                        src={log}
+                                      />
+                                    </Link>
+                                  </div>
                                 </td>
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
@@ -339,10 +347,11 @@ export default function Users() {
 
                                   {/* suspend */}
 
-                                  
-
-                                  <SuspendBtn suspend={user.suspend} handleSuspend={handleSuspend} id={user.user_id}/>
-
+                                  <SuspendBtn
+                                    suspend={user.suspend}
+                                    handleSuspend={handleSuspend}
+                                    id={user.user_id}
+                                  />
                                 </td>
                               </tr>
                             </tbody>
@@ -375,22 +384,32 @@ export default function Users() {
                         user.email !== "admi@gmail.com" ? (
                           <tbody key={user.user_id}>
                             <tr>
-                              <td scope="row">
+                              <td
+                                scope="row"
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  textAlign: "left",
+                                }}
+                              >
                                 {/* <a href="#">{user.fullName}</a> */}
-                                <Link
-                                  to={"/userslogs/" + user.user_id}
-                                  style={{ textDecoration: "none" }}
-                                >
-                                  {user.fullName}
-                                  <img
-                                    style={{
-                                      width: "18px",
-                                      height: "16px",
-                                      paddingLeft: "5px",
-                                    }}
-                                    src={log}
-                                  />
-                                </Link>
+                                {user.fullName}
+
+                                <div style={{ marginRight: "20%" }}>
+                                  <Link
+                                    to={"/userslogs/" + user.user_id}
+                                    style={{ textDecoration: "none" }}
+                                  >
+                                    <img
+                                      style={{
+                                        width: "18px",
+                                        height: "16px",
+                                        paddingLeft: "5px",
+                                      }}
+                                      src={log}
+                                    />
+                                  </Link>
+                                </div>
                               </td>
                               <td>{user.email}</td>
                               <td>{user.role}</td>
@@ -420,29 +439,28 @@ export default function Users() {
                                 </button>
 
                                 {user.suspend ? (
-                                    <button
-                                      className="btn btn-danger btn-sm px-1 py-0 mx-1"
-                                      // type="button"
-                                      onClick={() => {
-                                        handleSuspend(user.user_id);
-                                        setFlag(true)
-                                      }}
-                                    >
-                                      unsuspend
-                                    </button>
-                                  ) : (
-                                    <button
-                                      className="btn btn-primary btn-sm px-1 py-0 mx-1"
-                                      // type="button"
-                                      onClick={() => {
-                                        handleSuspend(user.user_id);
-                                        setFlag(true)
-                                      }}
-                                    >
-                                      suspend
-                                    </button>
-                                  )}
-                                  
+                                  <button
+                                    className="btn btn-danger btn-sm px-1 py-0 mx-1"
+                                    // type="button"
+                                    onClick={() => {
+                                      handleSuspend(user.user_id);
+                                      setFlag(true);
+                                    }}
+                                  >
+                                    unsuspend
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-primary btn-sm px-1 py-0 mx-1"
+                                    // type="button"
+                                    onClick={() => {
+                                      handleSuspend(user.user_id);
+                                      setFlag(true);
+                                    }}
+                                  >
+                                    suspend
+                                  </button>
+                                )}
                               </td>
                             </tr>
                           </tbody>
@@ -897,7 +915,7 @@ export default function Users() {
             <div className="row">
               <div className="col-10 m-auto">
                 <h5 className="text-center my-3">
-                  Are you sure you want to delete this ?
+                  Are you sure you want to delete this?
                 </h5>
 
                 <div className="d-flex justify-content-center my-3">

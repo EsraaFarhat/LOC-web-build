@@ -34,59 +34,49 @@ const CreateSingleLocInfo = () => {
   const { selectedEditProject } = useSelector((state) => state.projects);
   const { selectedEditLocation } = useSelector((state) => state.locations);
 
-
-  const [globalIdentifier , setGlobalIdenetifier] = useState(null)
-  const [project , setProject] = useState(null)
-  const [location , setLocation] = useState(null)
-  const [gid, setGid] = useState('')
+  const [globalIdentifier, setGlobalIdenetifier] = useState(null);
+  const [project, setProject] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [gid, setGid] = useState("");
 
   useEffect(() => {
-    fetch(
-      `http://63.33.18.108:5000/api/locations/${id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    fetch(`http://63.33.18.108:5000/api/locations/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
-        setGlobalIdenetifier(resData.globalIdentifier)
-        setProject(resData.project)
-        setLocation(resData.location)
+        setGlobalIdenetifier(resData.globalIdentifier);
+        setProject(resData.project);
+        setLocation(resData.location);
         setGid(resData.globalIdentifier.gid);
-
       });
-      
   }, []);
-
 
   return (
     <Fragment>
       <div className="container">
         <ToastContainer />
         {globalIdentifier?.name && project?.name && location?.name ? (
-           <Fragment>
-          <Link to={"/globalidenetifiers/projects/"+ globalIdentifier.gid} style={styleLinkBack}>
-            {globalIdentifier.name}
-          </Link>
-          <span className="mx-2" style={{ color: "#28345C" }}>
+          <Fragment>
+            <Link
+              to={"/globalidenetifiers/projects/" + globalIdentifier.gid}
+              style={styleLinkBack}
+            >
+              {globalIdentifier.name}
+            </Link>
+            <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/locations/" + project.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/locations/" + project.id} style={styleLinkBack}>
               {project.name}
             </Link>
             <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/viewlocs/" + location.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/viewlocs/" + location.id} style={styleLinkBack}>
               {location.name}
             </Link>
           </Fragment>
@@ -139,7 +129,7 @@ const CreateSingleLocInfo = () => {
         </Link> */}
         <div className="row">
           <div className="col-12 col-md-6 m-auto">
-            <h3 className="text-center mt-3">CREATE SINGLE LOC INFO</h3>
+            <h3 className="text-center mt-3">Create single LOC</h3>
             <form
               className="form-horizontal mt-3"
               role="form"
@@ -182,7 +172,9 @@ const CreateSingleLocInfo = () => {
                   }
                   value={singleLocForm.routeId.value}
                   style={
-                    singleLocForm.routeId.valid ? {} : { border: "1px solid red" }
+                    singleLocForm.routeId.valid
+                      ? {}
+                      : { border: "1px solid red" }
                   }
                 />
                 {singleLocForm.routeId.valid ? null : (
@@ -210,7 +202,9 @@ const CreateSingleLocInfo = () => {
                   }
                   value={singleLocForm.origin.value}
                   style={
-                    singleLocForm.origin.valid ? {} : { border: "1px solid red" }
+                    singleLocForm.origin.valid
+                      ? {}
+                      : { border: "1px solid red" }
                   }
                 />
                 {singleLocForm.origin.valid ? null : (
@@ -258,7 +252,9 @@ const CreateSingleLocInfo = () => {
                   }
                   value={singleLocForm.filed1.value}
                   style={
-                    singleLocForm.filed1.valid ? {} : { border: "1px solid red" }
+                    singleLocForm.filed1.valid
+                      ? {}
+                      : { border: "1px solid red" }
                   }
                 />
                 {singleLocForm.filed1.valid ? null : (
@@ -286,7 +282,9 @@ const CreateSingleLocInfo = () => {
                   }
                   value={singleLocForm.filed2.value}
                   style={
-                    singleLocForm.filed2.valid ? {} : { border: "1px solid red" }
+                    singleLocForm.filed2.valid
+                      ? {}
+                      : { border: "1px solid red" }
                   }
                 />
                 {singleLocForm.filed2.valid ? null : (
@@ -314,7 +312,9 @@ const CreateSingleLocInfo = () => {
                   }
                   value={singleLocForm.filed3.value}
                   style={
-                    singleLocForm.filed3.valid ? {} : { border: "1px solid red" }
+                    singleLocForm.filed3.valid
+                      ? {}
+                      : { border: "1px solid red" }
                   }
                 />
                 {singleLocForm.filed3.valid ? null : (
@@ -351,11 +351,13 @@ const CreateSingleLocInfo = () => {
                     disableBtn
                       ? disableBtn
                       : !(
-                          singleLocForm.routeId.valid &&
-                          singleLocForm.origin.valid &&
-                          singleLocForm.filed1.valid &&
-                          singleLocForm.filed2.valid &&
-                          singleLocForm.filed3.valid 
+                          (
+                            singleLocForm.routeId.valid &&
+                            singleLocForm.origin.valid &&
+                            singleLocForm.filed1.valid &&
+                            singleLocForm.filed2.valid &&
+                            singleLocForm.filed3.valid
+                          )
                           // singleLocForm.status.valid
                         )
                   }
