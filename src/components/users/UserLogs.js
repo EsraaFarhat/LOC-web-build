@@ -78,19 +78,33 @@ const UserLogs = () => {
                 <h3 className="text-center my-3">
                   {specificUser.fullName} Logs
                 </h3>
-                <select
-                  id="select"
-                  className="form-select"
-                  onChange={(e) => {
-                    setRenderItem(e.target.value);
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "20%",
                   }}
-                  style={{ width: "20%" }}
                 >
-                  <option value="notSeen">Not seen</option>
-                  <option value="seen">Seen</option>
-                </select>
+                  <label style={{ marginRight: 5, fontSize: 18 }}>State</label>
+                  <select
+                    id="select"
+                    className="form-select"
+                    onChange={(e) => {
+                      setRenderItem(e.target.value);
+                    }}
+                    style={{ width: "100%" }}
+                  >
+                    <option value="notSeen">Not seen</option>
+                    <option value="seen">Seen</option>
+                  </select>
+                </div>
               </div>
-              <div className="table-responsive" style={{ maxHeight: 600 }}>
+              <div
+                className="table-responsive"
+                style={{ maxHeight: window.innerHeight - 200 }}
+              >
                 <table className="table table-bordered mt-3">
                   <thead>
                     <tr style={{ color: "#0987B1" }}>

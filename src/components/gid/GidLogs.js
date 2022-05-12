@@ -53,6 +53,10 @@ const GidLogs = () => {
       });
   };
 
+  const unSeenState = identifierLogs?.filter((log) => log.state === false);
+  const seenState = identifierLogs?.filter((log) => log.state === true);
+  const [renderItem, setRenderItem] = useState("notSeen");
+
   return (
     <Fragment>
       <div className="container">
@@ -60,10 +64,43 @@ const GidLogs = () => {
         <div className="row">
           {specificIdnetifier && specificIdnetifier.gid ? (
             <div className="m-auto">
-              <h3 className="text-center my-3">
-                {specificIdnetifier.name} Logs
-              </h3>
-              <div className="table-responsive">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
+                <h3 className="text-center my-3">
+                  {specificIdnetifier.name} Logs
+                </h3>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "20%",
+                  }}
+                >
+                  <label style={{ marginRight: 5, fontSize: 18 }}>State</label>
+                  <select
+                    id="select"
+                    className="form-select"
+                    onChange={(e) => {
+                      setRenderItem(e.target.value);
+                    }}
+                    style={{ width: "100%" }}
+                  >
+                    <option value="notSeen">Not seen</option>
+                    <option value="seen">Seen</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                className="table-responsive"
+                style={{ maxHeight: window.innerHeight - 200 }}
+              >
                 <table className="table table-bordered mt-3">
                   <thead>
                     <tr style={{ color: "#0987B1" }}>
@@ -73,51 +110,93 @@ const GidLogs = () => {
                       <th scope="col">STATE</th>
                     </tr>
                   </thead>
-                  {identifierLogs && identifierLogs.length > 0 ? (
-                    identifierLogs.map((identifier) => {
-                      return (
-                        <tbody key={identifier.time}>
-                          <tr scope="row">
-                            <td>
-                              <div
-                                style={{
-                                  width: "300px",
-                                  wordWrap: "break-word",
-                                }}
-                              >
-                                {identifier.description}
-                              </div>
-                            </td>
-                            <td>{identifier.user_name}</td>
-                            <td>{new Date(identifier.time).toUTCString()}</td>
-                            {/* <td>{identifier.state}</td> */}
-                            {/* <td>{identifier.status_code}</td> */}
-                            <td>
-                              {identifier.state ? (
-                                <button className="btn btn-primary" disabled>
-                                  Seen
-                                </button>
-                              ) : (
-                                <button
-                                  className="btn btn-primary"
-                                  onClick={() => {
-                                    handleMarkAsSeen(identifier.time);
-                                    setFlag(true);
+                  {identifierLogs &&
+                  identifierLogs.length > 0 &&
+                  renderItem === "notSeen"
+                    ? unSeenState.map((identifier) => {
+                        return (
+                          <tbody key={identifier.time}>
+                            <tr scope="row">
+                              <td>
+                                <div
+                                  style={{
+                                    width: "300px",
+                                    wordWrap: "break-word",
                                   }}
                                 >
-                                  Mark As Seen
-                                </button>
-                              )}
-                            </td>
-                          </tr>
-                        </tbody>
-                      );
-                    })
-                  ) : (
-                    <div style={{ textAlign: "center", padding: "20px 0" }}>
-                      There is no Logs till now.
-                    </div>
-                  )}
+                                  {identifier.description}
+                                </div>
+                              </td>
+                              <td>{identifier.user_name}</td>
+                              <td>{new Date(identifier.time).toUTCString()}</td>
+                              {/* <td>{identifier.state}</td> */}
+                              {/* <td>{identifier.status_code}</td> */}
+                              <td>
+                                {identifier.state ? (
+                                  <button className="btn btn-primary" disabled>
+                                    Seen
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                      handleMarkAsSeen(identifier.time);
+                                      setFlag(true);
+                                    }}
+                                  >
+                                    Mark As Seen
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                        );
+                      })
+                    : null}
+
+                  {identifierLogs &&
+                  identifierLogs.length > 0 &&
+                  renderItem === "seen"
+                    ? seenState.map((identifier) => {
+                        return (
+                          <tbody key={identifier.time}>
+                            <tr scope="row">
+                              <td>
+                                <div
+                                  style={{
+                                    width: "300px",
+                                    wordWrap: "break-word",
+                                  }}
+                                >
+                                  {identifier.description}
+                                </div>
+                              </td>
+                              <td>{identifier.user_name}</td>
+                              <td>{new Date(identifier.time).toUTCString()}</td>
+                              {/* <td>{identifier.state}</td> */}
+                              {/* <td>{identifier.status_code}</td> */}
+                              <td>
+                                {identifier.state ? (
+                                  <button className="btn btn-primary" disabled>
+                                    Seen
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                      handleMarkAsSeen(identifier.time);
+                                      setFlag(true);
+                                    }}
+                                  >
+                                    Mark As Seen
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                        );
+                      })
+                    : null}
                 </table>
               </div>
             </div>
