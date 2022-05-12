@@ -113,11 +113,7 @@ const AddNewLocation = () => {
                 type="text"
                 className="form-control"
                 placeholder="Name"
-                value={
-                  locationForm.name.value !== ""
-                    ? locationForm.name.value.toFixed(2)
-                    : locationForm.name.value
-                }
+                value={locationForm.name.value}
                 onChange={(e) =>
                   dispatch(onChangeLocationInputs(e.target.value, "name"))
                 }
@@ -144,19 +140,20 @@ const AddNewLocation = () => {
                     className="form-control"
                     name="Latitude"
                     placeholder="Latitude"
+                    disabled={true}
                     onChange={(e) =>
-                      dispatch(onChangeLocationInputs(e.target.value, "lat"))
+                      dispatch(
+                        onChangeLocationInputs(Number(e.target.value), "lat")
+                      )
                     }
                     value={
                       locationForm.lat.value !== ""
                         ? locationForm.lat.value.toFixed(2)
                         : locationForm.lat.value
                     }
-                    style={
-                      locationForm.lat.valid ? {} : { border: "1px solid red" }
-                    }
+                    style={true ? {} : { border: "1px solid red" }}
                   />
-                  {locationForm.lat.valid ? null : (
+                  {true ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {locationForm.lat.validationError}
                     </div>
@@ -168,19 +165,20 @@ const AddNewLocation = () => {
                     className="form-control"
                     name="Longitude"
                     placeholder="Longitude"
+                    disabled={true}
                     onChange={(e) =>
-                      dispatch(onChangeLocationInputs(e.target.value, "long"))
+                      dispatch(
+                        onChangeLocationInputs(Number(e.target.value), "long")
+                      )
                     }
                     value={
                       locationForm.long.value !== ""
                         ? locationForm.long.value.toFixed(2)
                         : locationForm.long.value
                     }
-                    style={
-                      locationForm.long.valid ? {} : { border: "1px solid red" }
-                    }
+                    style={true ? {} : { border: "1px solid red" }}
                   />
-                  {locationForm.long.valid ? null : (
+                  {true ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {locationForm.long.validationError}
                     </div>

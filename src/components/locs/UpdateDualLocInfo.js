@@ -614,14 +614,16 @@ const UpdateDualLocInfo = () => {
                         className="form-control"
                         name="Latitude"
                         placeholder="Latitude"
+disabled={true}
                       />
                     </div>
                     <div className="col">
                       <input
                         type="text"
                         className="form-control"
-                        name="Langitude"
-                        placeholder="Langitude"
+                        name="Longitude"
+                        placeholder="Longitude"
+disabled={true}
                       />
                     </div>
                   </div>

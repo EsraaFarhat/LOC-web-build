@@ -120,19 +120,20 @@ const AddNewProject = () => {
                     className="form-control"
                     name="Latitude"
                     placeholder="Latitude"
+                    disabled={true}
                     onChange={(e) =>
-                      dispatch(onChangeProjectInputs(e.target.value, "lat"))
+                      dispatch(
+                        onChangeProjectInputs(Number(e.target.value), "lat")
+                      )
                     }
                     value={
                       projectForm.lat.value === ""
                         ? projectForm.lat.value
                         : projectForm.lat.value.toFixed(2)
                     }
-                    style={
-                      projectForm.lat.valid ? {} : { border: "1px solid red" }
-                    }
+                    style={true ? {} : { border: "1px solid red" }}
                   />
-                  {projectForm.lat.valid ? null : (
+                  {true ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {projectForm.lat.validationError}
                     </div>
@@ -144,19 +145,20 @@ const AddNewProject = () => {
                     className="form-control"
                     name="Longitude"
                     placeholder="Longitude"
+                    disabled={true}
                     onChange={(e) =>
-                      dispatch(onChangeProjectInputs(e.target.value, "long"))
+                      dispatch(
+                        onChangeProjectInputs(Number(e.target.value), "long")
+                      )
                     }
                     value={
                       projectForm.long.value === ""
                         ? projectForm.long.value
                         : projectForm.long.value.toFixed(2)
                     }
-                    style={
-                      projectForm.long.valid ? {} : { border: "1px solid red" }
-                    }
+                    style={true ? {} : { border: "1px solid red" }}
                   />
-                  {projectForm.long.valid ? null : (
+                  {true ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {projectForm.long.validationError}
                     </div>

@@ -169,7 +169,7 @@ export const locInitialState = {
     },
 
     lat: {
-      value: "",
+      value: 0,
       valid: false,
       validation: {
         required: true,
@@ -179,7 +179,7 @@ export const locInitialState = {
       touched: false,
     },
     long: {
-      value: "",
+      value: 0,
       valid: false,
       validation: {
         required: true,

@@ -26,7 +26,7 @@ export default function NavBar() {
                   </div>
                   <div style={{ lineHeight: "5px", marginTop: "15px" }}>
                     <span className="d-block" style={{ fontSize: "10px" }}>
-                      KelTech IOT
+                      KelTech IoT
                     </span>
 
                     <span style={{ fontSize: "5px", color: "#2EA6AF" }}>

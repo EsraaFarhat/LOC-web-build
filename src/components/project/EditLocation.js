@@ -160,19 +160,20 @@ const EditLocation = () => {
                     className="form-control"
                     name="Latitude"
                     placeholder="Latitude"
+                    disabled={true}
                     value={
                       locationForm.lat.value !== ""
                         ? locationForm.lat.value.toFixed(2)
                         : locationForm.lat.value
                     }
                     onChange={(e) =>
-                      dispatch(onChangeLocationInputs(e.target.value, "lat"))
+                      dispatch(
+                        onChangeLocationInputs(Number(e.target.value), "lat")
+                      )
                     }
-                    style={
-                      locationForm.lat.valid ? {} : { border: "1px solid red" }
-                    }
+                    style={true ? {} : { border: "1px solid red" }}
                   />
-                  {locationForm.lat.valid ? null : (
+                  {true ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {locationForm.lat.validationError}
                     </div>
@@ -184,19 +185,20 @@ const EditLocation = () => {
                     className="form-control"
                     name="Longitude"
                     placeholder="Longitude"
+                    disabled={true}
                     value={
                       locationForm.long.value !== ""
                         ? locationForm.long.value.toFixed(2)
                         : locationForm.long.value
                     }
                     onChange={(e) =>
-                      dispatch(onChangeLocationInputs(e.target.value, "long"))
+                      dispatch(
+                        onChangeLocationInputs(Number(e.target.value), "long")
+                      )
                     }
-                    style={
-                      locationForm.long.valid ? {} : { border: "1px solid red" }
-                    }
+                    style={true ? {} : { border: "1px solid red" }}
                   />
-                  {locationForm.long.valid ? null : (
+                  {true ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {locationForm.long.validationError}
                     </div>

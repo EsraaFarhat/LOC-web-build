@@ -19,7 +19,7 @@ const SignUp = () => {
             <div className="d-flex justify-content-center ms-3">
               <img style={{ width: "75px", height: "65px" }} src={logo} />
               <div className="col-6 pt-3">
-                <span style={{ fontSize: "16px" }}>KelTech IOT</span>
+                <span style={{ fontSize: "16px" }}>KelTech IoT</span>
                 <span
                   className="d-block"
                   style={{ fontSize: "9px", color: "#2EA6AF" }}

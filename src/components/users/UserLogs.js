@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { renderIntoDocument } from "react-dom/test-utils";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -7,6 +8,7 @@ import {
   onFetchingSpecificUser,
   onFetchingUserLogs,
 } from "../../store/LogsReducer/LogsReducer";
+import { onChangeSearchVal } from "../../store/Projects/ProjectsReducer";
 import formatAMPM from "../../util/DateFormat";
 
 const UserLogs = () => {
@@ -55,6 +57,10 @@ const UserLogs = () => {
       });
   };
 
+  const unSeenState = userLogs?.filter((log) => log.state === false);
+  const seenState = userLogs?.filter((log) => log.state === true);
+  const [renderItem, setRenderItem] = useState("notSeen");
+
   return (
     <Fragment>
       <div className="container">
@@ -62,10 +68,29 @@ const UserLogs = () => {
         <div className="row">
           {specificUser && specificUser.user_id ? (
             <div className="m-auto">
-              <h3 className="text-center my-3">{specificUser.fullName} Logs</h3>
               <div
-                className="table-responsive"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
               >
+                <h3 className="text-center my-3">
+                  {specificUser.fullName} Logs
+                </h3>
+                <select
+                  id="select"
+                  className="form-select"
+                  onChange={(e) => {
+                    setRenderItem(e.target.value);
+                  }}
+                  style={{ width: "20%" }}
+                >
+                  <option value="notSeen">Not seen</option>
+                  <option value="seen">Seen</option>
+                </select>
+              </div>
+              <div className="table-responsive" style={{ maxHeight: 600 }}>
                 <table className="table table-bordered mt-3">
                   <thead>
                     <tr style={{ color: "#0987B1" }}>
@@ -79,8 +104,10 @@ const UserLogs = () => {
                   </thead>
                   {error ? (
                     <div>{errorMsg}</div>
-                  ) : userLogs && userLogs.length > 0 ? (
-                    userLogs.map((log) => {
+                  ) : userLogs &&
+                    userLogs.length > 0 &&
+                    renderItem === "notSeen" ? (
+                    unSeenState.map((log) => {
                       return (
                         <tbody key={log.time}>
                           <tr scope="row">
@@ -119,11 +146,41 @@ const UserLogs = () => {
                         </tbody>
                       );
                     })
-                  ) : (
-                    <div style={{ textAlign: "center", padding: "20px 0" }}>
-                      There is no Logs till now.
-                    </div>
-                  )}
+                  ) : null}
+                  {console.log("166-", renderItem)}
+                  {error ? (
+                    <div>{errorMsg}</div>
+                  ) : userLogs &&
+                    userLogs.length > 0 &&
+                    renderItem === "seen" ? (
+                    seenState.map((log) => {
+                      return (
+                        <tbody key={log.time}>
+                          <tr scope="row">
+                            <td>
+                              <div
+                                style={{
+                                  width: "300px",
+                                  wordWrap: "break-word",
+                                }}
+                              >
+                                {log.description}
+                              </div>
+                            </td>
+                            <td>{log.user_name}</td>
+                            <td>{new Date(log.time).toUTCString()}</td>
+                            {/* <td>{log.method}</td> */}
+                            {/* <td>{log.status_code}</td> */}
+                            <td>
+                              <button className="btn btn-primary" disabled>
+                                Seen
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      );
+                    })
+                  ) : null}
                 </table>
               </div>
             </div>

@@ -546,9 +546,13 @@ const CreateDualLocInfo = () => {
                         className="form-control"
                         name="Latitude"
                         placeholder="Latitude"
+                        disabled={true}
                         onChange={(e) => {
                           dispatch(
-                            onChangeLocsDualInputs(e.target.value, "lat")
+                            onChangeLocsDualInputs(
+                              Number(e.target.value),
+                              "lat"
+                            )
                           );
                         }}
                         value={
@@ -562,7 +566,7 @@ const CreateDualLocInfo = () => {
                             : { border: "1px solid red" }
                         }
                       />
-                      {dualLocForm.lat.valid ? null : (
+                      {true? null : (
                         <div style={{ color: "red", fontSize: 14 }}>
                           {dualLocForm.lat.validationError}
                         </div>
@@ -572,11 +576,15 @@ const CreateDualLocInfo = () => {
                       <input
                         type="text"
                         className="form-control"
-                        name="Langitude"
-                        placeholder="Langitude"
+                        name="Longitude"
+                        placeholder="Longitude"
+disabled={true}
                         onChange={(e) =>
                           dispatch(
-                            onChangeLocsDualInputs(e.target.value, "long")
+                            onChangeLocsDualInputs(
+                              Number(e.target.value),
+                              "long"
+                            )
                           )
                         }
                         value={
@@ -590,7 +598,7 @@ const CreateDualLocInfo = () => {
                             : { border: "1px solid red" }
                         }
                       />
-                      {dualLocForm.long.valid ? null : (
+                      {true? null : (
                         <div style={{ color: "red", fontSize: 14 }}>
                           {dualLocForm.long.validationError}
                         </div>
@@ -649,7 +657,7 @@ const CreateDualLocInfo = () => {
                                 dualLocForm.filed1Destination.valid &&
                                 dualLocForm.filed2Destination.valid &&
                                 dualLocForm.filed3Destination.valid &&
-                                dualLocForm.lat.valid &&
+                                true&&
                                 dualLocForm.long.valid
                               )
                               // && dualLocForm.radius.valid
