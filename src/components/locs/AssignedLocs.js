@@ -319,7 +319,7 @@ const AssignedLocs = () => {
             <div className="row">
               <h6 className="mt-4">Single LOC’s</h6>
               <div
-                className="table-responsive col-12 col-md-10 text-center"
+                className="table-responsive col-12 col-md-12 text-center"
                 style={{ maxHeight: 400, overflowY: "auto" }}
               >
                 <table
