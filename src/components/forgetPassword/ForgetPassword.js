@@ -81,7 +81,7 @@ export default function ForgetPassword() {
           <div className="col-10 col-md-6 col-lg-4 m-auto ">
             <div className="d-flex justify-content-center ms-3">
               <img style={{ width: "75px", height: "65px" }} src={logo} />
-              <div className="col-6 pt-3">
+              <div className="col-4 pt-3">
                 <span style={{ fontSize: "16px" }}>KelTech IoT</span>
                 <span
                   className="d-block"
