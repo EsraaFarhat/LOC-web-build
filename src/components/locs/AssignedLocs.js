@@ -328,7 +328,7 @@ const AssignedLocs = () => {
                 >
                   <thead>
                     <tr style={{ color: "#0987B1" }}>
-                      <th scope="col">Rout ID</th>
+                      <th scope="col">Route ID</th>
                       <th scope="col">ORIGIN</th>
                       <th scope="col">FIELD 1</th>
                       <th scope="col">FIELD 2</th>
@@ -529,7 +529,7 @@ const AssignedLocs = () => {
                 >
                   <thead>
                     <tr style={{ color: "#0987B1" }}>
-                      <th scope="col">Rout ID</th>
+                      <th scope="col">Route ID</th>
                       <th scope="col">ORIGIN</th>
                       <th scope="col">FIELD 1</th>
                       <th scope="col">FIELD 2</th>

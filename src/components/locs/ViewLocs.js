@@ -122,8 +122,8 @@ const ViewLocs = () => {
                 className="btn btn-primary p-3 w-50"
                 style={{ fontSize: 15 }}
               >
-                <i className="fas fa-check" style={{ paddingRight: 10 }}></i>
                 VIEW ASSIGNED LOCs
+                <i className="fas fa-check" style={{ paddingRight: 10 }}></i>
               </Link>
             </div>
           </div>
@@ -137,8 +137,8 @@ const ViewLocs = () => {
                 className="btn btn-success p-3 w-50"
                 style={{ backgroundColor: "#09B13B", fontSize: 15 }}
               >
-                <i className="fas fa-close" style={{ paddingRight: 3 }}></i>
                 VIEW UNASSIGNED LOCS
+                <i className="fas fa-close" style={{ paddingRight: 3 }}></i>
               </Link>
             </div>
           </div>
