@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import logo from "../../assets/images/LOC.gif";
-import LOClogo from "../../assets/images/logo.png";
+import LOClogo from "../../assets/images/loc-logo.png";
 
 const Home = () => {
   return (
@@ -8,7 +8,23 @@ const Home = () => {
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-12 col-lg-5 m-auto">
-            {/* <img style={{ width: "75px", height: "65px" }} src={LOClogo} /> */}
+            <div
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                style={{
+                  width: "120px",
+                  height: "100px",
+                  display: "block",
+                  margin: "auto",
+                }}
+                src={LOClogo}
+              />
+            </div>
             <h5 className="text-center mt-5">WELCOME TO LABEL ON CABLE</h5>
             <p className="text-center">
               An Asset Identification Software Platform for efficient,
