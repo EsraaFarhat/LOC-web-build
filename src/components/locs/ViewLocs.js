@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 
-import {
-  onFetchingLocations,
-} from "../../store/Locations/LocationsReducers";
+import { onFetchingLocations } from "../../store/Locations/LocationsReducers";
 
 const styleLinkBack = {
   textDecoration: "none",
@@ -20,62 +18,51 @@ const ViewLocs = () => {
   // const { selectedEditProject } = useSelector((state) => state.projects);
   // const { selectedEditLocation } = useSelector((state) => state.locations);
 
-  const [globalIdentifier , setGlobalIdenetifier] = useState(null)
-  const [project , setProject] = useState(null)
-  const [location , setLocation] = useState(null)
+  const [globalIdentifier, setGlobalIdenetifier] = useState(null);
+  const [project, setProject] = useState(null);
+  const [location, setLocation] = useState(null);
   const dispatch = useDispatch();
-  
 
   useEffect(() => {
     dispatch(onFetchingLocations(id, token));
 
-    fetch(
-      `http://63.33.18.108:5000/api/locations/${id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    fetch(`http://63.33.18.108:5000/api/locations/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
-        setGlobalIdenetifier(resData.globalIdentifier)
-        setProject(resData.project)
-        setLocation(resData.location)
+        setGlobalIdenetifier(resData.globalIdentifier);
+        setProject(resData.project);
+        setLocation(resData.location);
       });
-      
   }, [dispatch]);
-
 
   return (
     <Fragment>
       <div className="container">
-
-      {globalIdentifier?.name && project?.name && location?.name ? (
-           <Fragment>
-          <Link to={"/globalidenetifiers/projects/"+ globalIdentifier.gid} style={styleLinkBack}>
-            {globalIdentifier.name}
-          </Link>
-          <span className="mx-2" style={{ color: "#28345C" }}>
+        {globalIdentifier?.name && project?.name && location?.name ? (
+          <Fragment>
+            <Link
+              to={"/globalidenetifiers/projects/" + globalIdentifier.gid}
+              style={styleLinkBack}
+            >
+              {globalIdentifier.name}
+            </Link>
+            <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/locations/" + project.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/locations/" + project.id} style={styleLinkBack}>
               {project.name}
             </Link>
             <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/viewlocs/" + location.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/viewlocs/" + location.id} style={styleLinkBack}>
               {location.name}
             </Link>
-
           </Fragment>
         ) : null}
 
@@ -133,7 +120,9 @@ const ViewLocs = () => {
               <Link
                 to={"/assignedlocs/" + id}
                 className="btn btn-primary p-3 w-50"
+                style={{ fontSize: 15 }}
               >
+                <i className="fas fa-check" style={{ paddingRight: 10 }}></i>
                 VIEW ASSIGNED LOCs
               </Link>
             </div>
@@ -146,8 +135,9 @@ const ViewLocs = () => {
               <Link
                 to={"/unassignedlocs/" + id}
                 className="btn btn-success p-3 w-50"
-                style={{ backgroundColor: "#09B13B" }}
+                style={{ backgroundColor: "#09B13B", fontSize: 15 }}
               >
+                <i className="fas fa-close" style={{ paddingRight: 3 }}></i>
                 VIEW UNASSIGNED LOCS
               </Link>
             </div>
