@@ -55,7 +55,7 @@ const GidLogs = () => {
 
   const unSeenState = identifierLogs?.filter((log) => log.state === false);
   const seenState = identifierLogs?.filter((log) => log.state === true);
-  const [renderItem, setRenderItem] = useState("notSeen");
+  const [renderItem, setRenderItem] = useState("all");
 
   return (
     <Fragment>
@@ -83,7 +83,7 @@ const GidLogs = () => {
                     width: "20%",
                   }}
                 >
-                  <label style={{ marginRight: 5, fontSize: 18 }}>State</label>
+                  {/* <label style={{ marginRight: 5, fontSize: 18 }}>State</label> */}
                   <select
                     id="select"
                     className="form-select"
@@ -92,6 +92,7 @@ const GidLogs = () => {
                     }}
                     style={{ width: "100%" }}
                   >
+                    <option value="all">Filter By</option>
                     <option value="notSeen">Not seen</option>
                     <option value="seen">Seen</option>
                   </select>
@@ -110,6 +111,50 @@ const GidLogs = () => {
                       <th scope="col">STATE</th>
                     </tr>
                   </thead>
+                  {identifierLogs &&
+                  identifierLogs.length > 0 &&
+                  renderItem === "all"
+                    ? identifierLogs.map((identifier) => {
+                        return (
+                          <tbody key={identifier.time}>
+                            <tr scope="row">
+                              <td>
+                                <div
+                                  style={{
+                                    width: "300px",
+                                    wordWrap: "break-word",
+                                  }}
+                                >
+                                  {identifier.description}
+                                </div>
+                              </td>
+                              <td>{identifier.user_name}</td>
+                              <td>{new Date(identifier.time).toUTCString()}</td>
+                              {/* <td>{identifier.state}</td> */}
+                              {/* <td>{identifier.status_code}</td> */}
+                              <td>
+                                {identifier.state ? (
+                                  <button className="btn btn-primary" disabled>
+                                    Seen
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                      handleMarkAsSeen(identifier.time);
+                                      setFlag(true);
+                                    }}
+                                  >
+                                    Mark As Seen
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                        );
+                      })
+                    : null}
+
                   {identifierLogs &&
                   identifierLogs.length > 0 &&
                   renderItem === "notSeen"

@@ -206,7 +206,7 @@ export default function Users() {
                   }}
                   style={{ width: "70%" }}
                 >
-                  <option value="">By</option>
+                  <option value="">Filter By</option>
                   <option value="fullName">Name</option>
                   <option value="email">Email</option>
                 </select>

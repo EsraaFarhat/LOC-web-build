@@ -59,7 +59,7 @@ const UserLogs = () => {
 
   const unSeenState = userLogs?.filter((log) => log.state === false);
   const seenState = userLogs?.filter((log) => log.state === true);
-  const [renderItem, setRenderItem] = useState("notSeen");
+  const [renderItem, setRenderItem] = useState("all");
 
   return (
     <Fragment>
@@ -87,7 +87,7 @@ const UserLogs = () => {
                     width: "20%",
                   }}
                 >
-                  <label style={{ marginRight: 5, fontSize: 18 }}>State</label>
+                  {/* <label style={{ marginRight: 5, fontSize: 18 }}>State</label> */}
                   <select
                     id="select"
                     className="form-select"
@@ -96,6 +96,7 @@ const UserLogs = () => {
                     }}
                     style={{ width: "100%" }}
                   >
+                    <option value="all">Filter By</option>
                     <option value="notSeen">Not seen</option>
                     <option value="seen">Seen</option>
                   </select>
@@ -116,6 +117,53 @@ const UserLogs = () => {
                       <th scope="col">STATE</th>
                     </tr>
                   </thead>
+
+                  {error ? (
+                    <div>{errorMsg}</div>
+                  ) : userLogs &&
+                    userLogs.length > 0 &&
+                    renderItem === "all" ? (
+                    userLogs.map((log) => {
+                      return (
+                        <tbody key={log.time}>
+                          <tr scope="row">
+                            <td>
+                              <div
+                                style={{
+                                  width: "300px",
+                                  wordWrap: "break-word",
+                                }}
+                              >
+                                {log.description}
+                              </div>
+                            </td>
+                            <td>{log.user_name}</td>
+                            <td>{new Date(log.time).toUTCString()}</td>
+                            {/* <td>{log.method}</td> */}
+                            {/* <td>{log.status_code}</td> */}
+                            <td>
+                              {log.state ? (
+                                <button className="btn btn-primary" disabled>
+                                  Seen
+                                </button>
+                              ) : (
+                                <button
+                                  className="btn btn-primary"
+                                  onClick={() => {
+                                    handleMarkAsSeen(log.time);
+                                    setFlag(true);
+                                  }}
+                                >
+                                  Mark As Seen
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        </tbody>
+                      );
+                    })
+                  ) : null}
+
                   {error ? (
                     <div>{errorMsg}</div>
                   ) : userLogs &&
@@ -161,7 +209,7 @@ const UserLogs = () => {
                       );
                     })
                   ) : null}
-                  {console.log("166-", renderItem)}
+
                   {error ? (
                     <div>{errorMsg}</div>
                   ) : userLogs &&
