@@ -367,18 +367,18 @@ const AssignedLocs = () => {
                             </td> */}
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LATITUDE :{" "}
+                                Latitude :{" "}
                                 {(
                                   Math.round(loc.Location.latitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LONGITUDE :{" "}
+                                Longitude :{" "}
                                 {(
                                   Math.round(loc.Location.longitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
 
@@ -443,18 +443,18 @@ const AssignedLocs = () => {
                             </td> */}
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LATITUDE :{" "}
+                                Latitude :{" "}
                                 {(
                                   Math.round(loc.Location.latitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LONGITUDE :{" "}
+                                Longitude :{" "}
                                 {(
                                   Math.round(loc.Location.longitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
 
@@ -572,18 +572,18 @@ const AssignedLocs = () => {
                             <td>{loc.field_3}</td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LATITUDE :{" "}
+                                Latitude :{" "}
                                 {(
                                   Math.round(loc.Location.latitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LONGITUDE :{" "}
+                                Longitude :{" "}
                                 {(
                                   Math.round(loc.Location.longitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
 
@@ -607,22 +607,22 @@ const AssignedLocs = () => {
                             <td>{loc.LOCDestination?.radius}</td> */}
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LATITUDE :{" "}
+                                Latitude :{" "}
                                 {(
                                   Math.round(
                                     loc.LOCDestination?.latitude * 100
                                   ) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LONGITUDE :{" "}
+                                Longitude :{" "}
                                 {(
                                   Math.round(
                                     loc.LOCDestination?.longitude * 100
                                   ) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
 
@@ -673,18 +673,18 @@ const AssignedLocs = () => {
                             <td>{loc.field_3}</td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LATITUDE :{" "}
+                                Latitude :{" "}
                                 {(
                                   Math.round(loc.Location.latitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LONGITUDE :{" "}
+                                Longitude :{" "}
                                 {(
                                   Math.round(loc.Location.longitude * 100) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
 
@@ -708,22 +708,22 @@ const AssignedLocs = () => {
                             <td>{loc.LOCDestination?.radius}</td> */}
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LATITUDE :{" "}
+                                Latitude :{" "}
                                 {(
                                   Math.round(
                                     loc.LOCDestination?.latitude * 100
                                   ) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
                             <td>
                               <span style={{ fontSize: "9px" }}>
-                                LONGITUDE :{" "}
+                                Longitude :{" "}
                                 {(
                                   Math.round(
                                     loc.LOCDestination?.longitude * 100
                                   ) / 100
-                                ).toFixed(4)}{" "}
+                                ).toFixed(2)}{" "}
                               </span>
                             </td>
 
