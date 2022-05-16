@@ -149,7 +149,7 @@ const EditLocation = () => {
 
               {/* <ProjectsMap radius={radius} />   */}
               <EditLocationMap
-                radius={specificLocation.radius}
+                radius={locationForm.radius.value}
                 locationLat={locationForm.lat.value}
                 locationLong={locationForm.long.value}
               />

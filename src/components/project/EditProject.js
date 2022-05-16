@@ -124,7 +124,7 @@ const EditProject = () => {
               {/* <ProjectsMap radius={radius} /> */}
 
               <EditProjectMap
-                radius={selectedEditProject.radius}
+                radius={projectForm.radius.value}
                 projectLat={projectForm.lat.value}
                 projectLong={projectForm.long.value}
               />
@@ -190,7 +190,7 @@ const EditProject = () => {
                 }}
               >
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   name="Radius"
                   placeholder="Radius"

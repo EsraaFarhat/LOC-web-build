@@ -132,6 +132,7 @@ function ProjectsMap({ cmp, radius }) {
               lng: state.markerPosition.lng,
             }}
           />
+          {console.log("135-", radius)}
           <Circle
             center={{ lat: state.mapPosition.lat, lng: state.mapPosition.lng }}
             radius={parseFloat(radius)}

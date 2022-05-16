@@ -34,7 +34,7 @@ const AddNewProject = () => {
     fontSize: "22px",
   };
 
-  const [radius, setRadius] = useState(2000);
+  const [radius, setRadius] = useState(10);
 
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
 
