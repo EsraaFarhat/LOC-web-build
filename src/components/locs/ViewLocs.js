@@ -132,7 +132,7 @@ const ViewLocs = () => {
                 <div
                   style={{
                     marginLeft: 10,
-                    backgroundColor: "#000",
+                    backgroundColor: "#222d58",
                     width: 25,
                     height: 25,
                     borderRadius: 12.5,
@@ -167,7 +167,7 @@ const ViewLocs = () => {
                 <div
                   style={{
                     marginLeft: 10,
-                    backgroundColor: "#000",
+                    backgroundColor: "#09B13B",
                     width: 25,
                     height: 25,
                     borderRadius: 12.5,
