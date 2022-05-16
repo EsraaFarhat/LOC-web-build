@@ -57,7 +57,7 @@ export default function GlobalIdenetifiers() {
     renderedItem,
   } = useSelector((state) => state.globalIdentifier);
 
-  const handleDownload = (id) => {
+  const handleDownload = (id, globalidenetifier) => {
     console.log(id);
     fetch(`http://63.33.18.108:5000/api/globalIdentifiers/${id}/download-web`, {
       headers: {
@@ -66,7 +66,8 @@ export default function GlobalIdenetifiers() {
     })
       .then((response) => response.blob())
       .then((blob) => {
-        fileDownload(blob, "filename.xlsx");
+        console.log("69-", blob);
+        fileDownload(blob, `${globalidenetifier.name}.xlsx`);
         // return res.json();
         // const downloadLink = document.getElementById(`${id}`);
         // res.blob().then((excelBlob) => {
@@ -200,9 +201,12 @@ export default function GlobalIdenetifiers() {
 
                             <i
                               className="fa fa-download text-secondary mt-1"
-                              onClick={() =>
-                                handleDownload(globalIdentifier.gid)
-                              }
+                              onClick={() => {
+                                handleDownload(
+                                  globalIdentifier.gid,
+                                  globalIdentifier
+                                );
+                              }}
                             ></i>
 
                             <i
@@ -284,7 +288,10 @@ export default function GlobalIdenetifiers() {
                             <i
                               className="fa fa-download text-secondary mt-1"
                               onClick={() => {
-                                handleDownload(globalIdentifier.gid);
+                                handleDownload(
+                                  globalIdentifier.gid,
+                                  globalIdentifier
+                                );
                               }}
                             ></i>
                             {/* <a

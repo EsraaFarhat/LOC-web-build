@@ -52,7 +52,7 @@ export default function Projects() {
 
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
 
-  const handleDownload = (id) => {
+  const handleDownload = (id, project) => {
     console.log(id);
     fetch(`http://63.33.18.108:5000/api/projects/${id}/download-web`, {
       headers: {
@@ -61,7 +61,7 @@ export default function Projects() {
     })
       .then((response) => response.blob())
       .then((blob) => {
-        fileDownload(blob, "filename.xlsx");
+        fileDownload(blob, `${project.name}.xlsx`);
         // .then((res) => {
         //   // return res.json();
         //   const downloadLink = document.getElementById(`${id}`);
@@ -191,7 +191,7 @@ export default function Projects() {
 
                           <i
                             className="fa fa-download text-secondary mt-1"
-                            onClick={() => handleDownload(project.id)}
+                            onClick={() => handleDownload(project.id, project)}
                           ></i>
 
                           <Link to={"/editproject/" + project.id}>
@@ -245,7 +245,7 @@ export default function Projects() {
                           <i
                             className="fa fa-download text-secondary mt-1"
                             onClick={() => {
-                              handleDownload(project.id);
+                              handleDownload(project.id, project);
                             }}
                           ></i>
                           {/* <a

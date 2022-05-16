@@ -61,7 +61,7 @@ export default function Project() {
   const [project, setProject] = useState(null);
   const [gid, setGid] = useState("");
 
-  const handleDownload = (id) => {
+  const handleDownload = (id, location) => {
     console.log(id);
     fetch(`http://63.33.18.108:5000/api/locations/${id}/download-web`, {
       headers: {
@@ -70,7 +70,7 @@ export default function Project() {
     })
       .then((response) => response.blob())
       .then((blob) => {
-        fileDownload(blob, "filename.xlsx");
+        fileDownload(blob, `${location.name}.xlsx`);
         console.log("ffffffffffffff", blob.error);
         // .then((res) => {
         //   // return res.json();
@@ -220,7 +220,9 @@ export default function Project() {
 
                           <i
                             className="fa fa-download text-secondary mt-1"
-                            onClick={() => handleDownload(location.id)}
+                            onClick={() =>
+                              handleDownload(location.id, location)
+                            }
                           ></i>
                           <Link
                             to={"/editlocation/" + location.id}
@@ -277,7 +279,7 @@ export default function Project() {
                         <div className="col-4 col-md-5 d-flex justify-content-end">
                           <i
                             className="fa fa-download text-secondary mt-1"
-                            onClick={() => handleDownload(result.id)}
+                            onClick={() => handleDownload(result.id, result)}
                           ></i>
                           <Link
                             to={"/editlocation/" + result.id}
