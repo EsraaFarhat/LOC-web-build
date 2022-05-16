@@ -109,6 +109,7 @@ export const onAddingProject = (
     })
       .then((res) => res.json())
       .then((resData) => {
+        dispatch(onFinishAddingProject());
         if (resData.error && resData.error[0].message) {
           toast(resData.error[0].message);
           dispatch(onFinishAddingProject());
