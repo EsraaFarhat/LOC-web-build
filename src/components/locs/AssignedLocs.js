@@ -288,25 +288,51 @@ const AssignedLocs = () => {
           {/* End Model */}
         </div>
         <div className="row">
-          <div className="col-7 col-md-4 m-auto">
+          <div className="col-7 col-md-7 m-auto">
             <h3 className="text-center my-3">Assigned LOC’s</h3>
-            <div className="w-75 m-auto my-4" style={{ position: "relative" }}>
-              <i
-                className="far fa-search text-dark"
-                style={{ position: "absolute", top: "30%", left: "3%" }}
-              ></i>
-              <input
-                style={{ paddingLeft: 30 }}
-                type="text"
-                className="form-control"
-                name="search"
-                placeholder="Search"
-                onChange={(e) =>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div
+                className="w-75 m-auto my-4"
+                style={{ position: "relative" }}
+              >
+                <i
+                  className="far fa-search text-dark"
+                  style={{ position: "absolute", top: "30%", left: "3%" }}
+                ></i>
+                <input
+                  style={{ paddingLeft: 30 }}
+                  type="text"
+                  className="form-control"
+                  name="search"
+                  placeholder="Search"
+                  onChange={(e) =>
+                    dispatch(
+                      onSearchingLoc(id, e.target.value, token, "assigned")
+                    )
+                  }
+                />
+              </div>
+              <select
+                id="select"
+                className="form-select"
+                onChange={(e) => {
                   dispatch(
-                    onSearchingLoc(id, e.target.value, token, "assigned")
-                  )
-                }
-              />
+                    onFetchingLocs(id, token, "assigned", e.target.value)
+                  );
+                }}
+                style={{ width: "30%", marginLeft: 10 }}
+              >
+                <option value="">Sort By</option>
+                <option value="createdAt">Date</option>
+                <option value="route_id">Route ID</option>
+              </select>
             </div>
           </div>
           {loadingLocs ? (

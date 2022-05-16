@@ -6,6 +6,7 @@ import {
   onFetchingLocs,
   onResetingDualLocForm,
   onResetingSingleLocForm,
+  onSearchingLoc,
 } from "../../store/Locs/LocsReducer";
 import formatAMPM from "../../util/DateFormat";
 import { toast, ToastContainer } from "react-toastify";
@@ -46,9 +47,16 @@ const UnAssignedLocs = () => {
   const { selectedEditProject } = useSelector((state) => state.projects);
   const { selectedEditLocation } = useSelector((state) => state.locations);
   const [flag, setFlag] = useState(false);
-  const { singleLocs, dualLocs, loadingLocs } = useSelector(
-    (state) => state.locs
-  );
+
+  const {
+    singleLocs,
+    dualLocs,
+    loadingLocs,
+    renderedItem,
+    searchSingleLocs,
+    searchDualLocs,
+    loadSearch,
+  } = useSelector((state) => state.locs);
 
   useEffect(() => {
     dispatch(onFetchingLocs(id, token, "unassigned"));
@@ -309,20 +317,51 @@ const UnAssignedLocs = () => {
           {/* End Model */}
         </div>
         <div className="row">
-          <div className="col-7 col-md-4 m-auto">
+          <div className="col-7 col-md-7 m-auto">
             <h3 className="text-center my-3">Unassigned LOC’s</h3>
-            <div className="w-75 m-auto my-4" style={{ position: "relative" }}>
-              <i
-                className="far fa-search text-dark"
-                style={{ position: "absolute", top: "30%", left: "3%" }}
-              ></i>
-              <input
-                style={{ paddingLeft: 30 }}
-                type="text"
-                className="form-control"
-                name="search"
-                placeholder="Search"
-              />
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div
+                className="w-75 m-auto my-4"
+                style={{ position: "relative" }}
+              >
+                <i
+                  className="far fa-search text-dark"
+                  style={{ position: "absolute", top: "30%", left: "3%" }}
+                ></i>
+                <input
+                  style={{ paddingLeft: 30 }}
+                  type="text"
+                  className="form-control"
+                  name="search"
+                  placeholder="Search"
+                  onChange={(e) =>
+                    dispatch(
+                      onSearchingLoc(id, e.target.value, token, "unassigned")
+                    )
+                  }
+                />
+              </div>
+              <select
+                id="select"
+                className="form-select"
+                onChange={(e) => {
+                  dispatch(
+                    onFetchingLocs(id, token, "unassigned", e.target.value)
+                  );
+                }}
+                style={{ width: "30%", marginLeft: 10 }}
+              >
+                <option value="">Sort By</option>
+                <option value="createdAt">Date</option>
+                <option value="route_id">Route ID</option>
+              </select>
             </div>
           </div>
           {loadingLocs ? (
@@ -363,16 +402,17 @@ const UnAssignedLocs = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {singleLocs.map((loc) => {
-                      return (
-                        <tr>
-                          <td scope="row">{loc.route_id}</td>
-                          <td>{loc.origin}</td>
-                          <td>{loc.field_1}</td>
-                          <td>{loc.field_2}</td>
-                          <td>{loc.field_3}</td>
-                          {/* <td>{loc.MISC}</td> */}
-                          {/* <td className="d-flex justify-content-center">
+                    {renderedItem === "locs" ? (
+                      singleLocs.map((loc) => {
+                        return (
+                          <tr>
+                            <td scope="row">{loc.route_id}</td>
+                            <td>{loc.origin}</td>
+                            <td>{loc.field_1}</td>
+                            <td>{loc.field_2}</td>
+                            <td>{loc.field_3}</td>
+                            {/* <td>{loc.MISC}</td> */}
+                            {/* <td className="d-flex justify-content-center">
                             <button
                               type="button"
                               className="btn btn-primary btn-sm w-75"
@@ -380,56 +420,137 @@ const UnAssignedLocs = () => {
                               view
                             </button>
                           </td> */}
-                          {/* <td>{loc.Location.latitude}</td>
+                            {/* <td>{loc.Location.latitude}</td>
                           <td>{loc.Location.longitude}</td>
                           <td>{loc.Location.radius}</td> */}
-                          <td>
-                            <span style={{ fontSize: "9px" }}>
-                              Latitude :{" "}
-                              {(
-                                Math.round(loc.Location.latitude * 100) / 100
-                              ).toFixed(2)}{" "}
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ fontSize: "9px" }}>
-                              Longitude :{" "}
-                              {(
-                                Math.round(loc.Location.longitude * 100) / 100
-                              ).toFixed(2)}{" "}
-                            </span>
-                          </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Latitude :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Longitude :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
 
-                          <td>{new Date(loc.updatedAt).toUTCString()}</td>
-                          <td>{loc.User.email}</td>
-                          <td>
-                            <Link
-                              to={"/UpdateSingleLocInfo/" + loc.loc_id}
-                              className="btn p-0 m-o mx-2"
-                              type="button"
-                            >
-                              <i className="fas fa-pencil-alt text-secondary"></i>
-                            </Link>
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
+                            <td>{loc.User.email}</td>
+                            <td>
+                              <Link
+                                to={"/UpdateSingleLocInfo/" + loc.loc_id}
+                                className="btn p-0 m-o mx-2"
+                                type="button"
+                              >
+                                <i className="fas fa-pencil-alt text-secondary"></i>
+                              </Link>
 
-                            <button
-                              className="btn p-0 m-o"
-                              type="button"
-                              // onClick={(e) =>
-                              //   dispatch(
-                              //     onDeletingLoc(e, loc.loc_id, token, "single")
-                              //   )
-                              // }
-                              onClick={(e) => {
-                                setSingleLocID(loc.loc_id);
-                                setDeleteSingleIsOpen(true);
-                              }}
-                            >
-                              <i className="far fa-trash-alt text-danger"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                              <button
+                                className="btn p-0 m-o"
+                                type="button"
+                                // onClick={(e) =>
+                                //   dispatch(
+                                //     onDeletingLoc(e, loc.loc_id, token, "single")
+                                //   )
+                                // }
+                                onClick={(e) => {
+                                  setSingleLocID(loc.loc_id);
+                                  setDeleteSingleIsOpen(true);
+                                }}
+                              >
+                                <i className="far fa-trash-alt text-danger"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : loadSearch ? (
+                      <div style={{ textAlign: "center", padding: "20px 0" }}>
+                        <div className="spinner-border" role="status">
+                          {/* <span className="sr-only">Loading...</span> */}
+                        </div>
+                      </div>
+                    ) : searchSingleLocs && searchSingleLocs.length > 0 ? (
+                      searchSingleLocs.map((loc) => {
+                        return (
+                          <tr key={loc.route_id}>
+                            <td scope="row">{loc.route_id}</td>
+                            <td>{loc.origin}</td>
+                            <td>{loc.field_1}</td>
+                            <td>{loc.field_2}</td>
+                            <td>{loc.field_3}</td>
+                            {/* <td>{loc.MISC}</td> */}
+                            {/* <td className="d-flex justify-content-center">
+                                <button
+                                  type="button"
+                                  className="btn btn-primary btn-sm w-75"
+                                >
+                                  view
+                                </button>
+                              </td> */}
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Latitude :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Longitude :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
+                            <td>{loc.User.email}</td>
+                            <td>
+                              <Link
+                                to={"/UpdateSingleLocInfo/" + loc.loc_id}
+                                className="btn p-0 m-o mx-2"
+                                type="button"
+                              >
+                                <i className="fas fa-pencil-alt text-secondary"></i>
+                              </Link>
+
+                              <button
+                                className="btn p-0 m-o"
+                                type="button"
+                                // onClick={(e) =>
+                                //   dispatch(
+                                //     onDeletingLoc(
+                                //       e,
+                                //       loc.loc_id,
+                                //       token,
+                                //       "single"
+                                //     )
+                                //   )
+                                // }
+                                onClick={(e) => {
+                                  setSingleLocID(loc.loc_id);
+                                  setDeleteSingleIsOpen(true);
+                                }}
+                              >
+                                <i className="far fa-trash-alt text-danger"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <div style={{ textAlign: "center" }}>
+                        Locs don't found.
+                      </div>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -490,43 +611,44 @@ const UnAssignedLocs = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {dualLocs.map((loc) => {
-                      console.log("320", loc);
-                      return (
-                        <tr key={loc.loc_id}>
-                          <td scope="row">{loc.route_id}</td>
-                          <td>{loc.origin}</td>
-                          <td>{loc.field_1}</td>
-                          <td>{loc.field_2}</td>
-                          <td>{loc.field_3}</td>
-                          {/* <td>{loc.Location.latitude}</td>
+                    {renderedItem === "locs" ? (
+                      dualLocs.map((loc) => {
+                        console.log("320", loc);
+                        return (
+                          <tr key={loc.loc_id}>
+                            <td scope="row">{loc.route_id}</td>
+                            <td>{loc.origin}</td>
+                            <td>{loc.field_1}</td>
+                            <td>{loc.field_2}</td>
+                            <td>{loc.field_3}</td>
+                            {/* <td>{loc.Location.latitude}</td>
                           <td>{loc.Location.longitude}</td>
                           <td>{loc.Location.radius}</td> */}
-                          <td>
-                            <span style={{ fontSize: "9px" }}>
-                              Latitude :{" "}
-                              {(
-                                Math.round(loc.Location.latitude * 100) / 100
-                              ).toFixed(2)}{" "}
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ fontSize: "9px" }}>
-                              Longitude :{" "}
-                              {(
-                                Math.round(loc.Location.longitude * 100) / 100
-                              ).toFixed(2)}{" "}
-                            </span>
-                          </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Latitude :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Longitude :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
 
-                          <td>{loc.LOCDestination?.destination}</td>
-                          <td>{loc.LOCDestination?.destination_field_1}</td>
-                          <td>{loc.LOCDestination?.destination_field_2}</td>
-                          <td>{loc.LOCDestination?.destination_field_3}</td>
-                          {/* <td>{loc.MISC}</td> */}
-                          {/* <td>DF11</td>
+                            <td>{loc.LOCDestination?.destination}</td>
+                            <td>{loc.LOCDestination?.destination_field_1}</td>
+                            <td>{loc.LOCDestination?.destination_field_2}</td>
+                            <td>{loc.LOCDestination?.destination_field_3}</td>
+                            {/* <td>{loc.MISC}</td> */}
+                            {/* <td>DF11</td>
                           <td>DF11</td> */}
-                          {/* <td className="d-flex justify-content-center">
+                            {/* <td className="d-flex justify-content-center">
                             <button
                               type="button"
                               className="btn btn-primary btn-sm w-75"
@@ -534,59 +656,162 @@ const UnAssignedLocs = () => {
                               view
                             </button>
                           </td> */}
-                          {/* <td>{loc.LOCDestination?.latitude}</td>
+                            {/* <td>{loc.LOCDestination?.latitude}</td>
                           <td>{loc.LOCDestination?.longitude}</td>
                           <td>{loc.LOCDestination?.radius}</td> */}
-                          <td>
-                            <span style={{ fontSize: "9px" }}>
-                              Latitude :{" "}
-                              {(
-                                Math.round(loc.LOCDestination?.latitude * 100) /
-                                100
-                              ).toFixed(2)}{" "}
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ fontSize: "9px" }}>
-                              Longitude :{" "}
-                              {(
-                                Math.round(
-                                  loc.LOCDestination?.longitude * 100
-                                ) / 100
-                              ).toFixed(2)}{" "}
-                            </span>
-                          </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Latitude :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.latitude * 100
+                                  ) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Longitude :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.longitude * 100
+                                  ) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
 
-                          <td>{new Date(loc.updatedAt).toUTCString()}</td>
-                          <td>{loc.User.email}</td>
-                          <td>
-                            <Link
-                              to={"/UpdateDualLocInfo/" + loc.loc_id}
-                              className="btn p-0 m-o mx-2"
-                              type="button"
-                            >
-                              <i className="fas fa-pencil-alt text-secondary"></i>
-                            </Link>
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
+                            <td>{loc.User.email}</td>
+                            <td>
+                              <Link
+                                to={"/UpdateDualLocInfo/" + loc.loc_id}
+                                className="btn p-0 m-o mx-2"
+                                type="button"
+                              >
+                                <i className="fas fa-pencil-alt text-secondary"></i>
+                              </Link>
 
-                            <button
-                              className="btn p-0 m-o"
-                              type="button"
-                              // onClick={(e) =>
-                              //   dispatch(
-                              //     onDeletingLoc(e, loc.loc_id, token, "dual")
-                              //   )
-                              // }
-                              onClick={(e) => {
-                                setDualLocID(loc.loc_id);
-                                setDeleteDualIsOpen(true);
-                              }}
-                            >
-                              <i className="far fa-trash-alt text-danger"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                              <button
+                                className="btn p-0 m-o"
+                                type="button"
+                                // onClick={(e) =>
+                                //   dispatch(
+                                //     onDeletingLoc(e, loc.loc_id, token, "dual")
+                                //   )
+                                // }
+                                onClick={(e) => {
+                                  setDualLocID(loc.loc_id);
+                                  setDeleteDualIsOpen(true);
+                                }}
+                              >
+                                <i className="far fa-trash-alt text-danger"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : loadSearch ? (
+                      <div style={{ textAlign: "center", padding: "20px 0" }}>
+                        <div className="spinner-border" role="status">
+                          {/* <span className="sr-only">Loading...</span> */}
+                        </div>
+                      </div>
+                    ) : searchDualLocs && searchDualLocs.length > 0 ? (
+                      searchDualLocs.map((loc) => {
+                        return (
+                          <tr key={loc.route_id}>
+                            <td scope="row">{loc.route_id}</td>
+                            <td>{loc.origin}</td>
+                            <td>{loc.field_1}</td>
+                            <td>{loc.field_2}</td>
+                            <td>{loc.field_3}</td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Latitude :{" "}
+                                {(
+                                  Math.round(loc.Location.latitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Longitude :{" "}
+                                {(
+                                  Math.round(loc.Location.longitude * 100) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+
+                            <td>{loc.LOCDestination?.destination}</td>
+                            <td>{loc.LOCDestination?.destination_field_1}</td>
+                            <td>{loc.LOCDestination?.destination_field_2}</td>
+                            <td>{loc.LOCDestination?.destination_field_3}</td>
+                            {/* <td>{loc.MISC}</td> */}
+                            {/* <td>DF11</td>
+                      <td>DF11</td> */}
+                            {/* <td className="d-flex justify-content-center">
+                                <button
+                                  type="button"
+                                  className="btn btn-primary btn-sm w-75"
+                                >
+                                  view
+                                </button>
+                              </td> */}
+                            {/* <td>{loc.LOCDestination?.latitude}</td>
+                              <td>{loc.LOCDestination?.longitude}</td>
+                              <td>{loc.LOCDestination?.radius}</td> */}
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Latitude :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.latitude * 100
+                                  ) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{ fontSize: "9px" }}>
+                                Longitude :{" "}
+                                {(
+                                  Math.round(
+                                    loc.LOCDestination?.longitude * 100
+                                  ) / 100
+                                ).toFixed(2)}{" "}
+                              </span>
+                            </td>
+
+                            <td>{new Date(loc.updatedAt).toUTCString()}</td>
+                            <td>{loc.User.email}</td>
+                            <td>
+                              <Link
+                                to={"/UpdateDualLocInfo/" + loc.loc_id}
+                                className="btn p-0 m-o mx-2"
+                                type="button"
+                              >
+                                <i className="fas fa-pencil-alt text-secondary"></i>
+                              </Link>
+
+                              <button
+                                className="btn p-0 m-o"
+                                type="button"
+                                // onClick={(e) =>
+                                //   dispatch(
+                                //     onDeletingLoc(e, loc.loc_id, token, "dual")
+                                //   )
+                                // }
+                                onClick={(e) => {
+                                  setDualLocID(loc.loc_id);
+                                  setDeleteDualIsOpen(true);
+                                }}
+                              >
+                                <i className="far fa-trash-alt text-danger"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    ) : null}
                   </tbody>
                 </table>
               </div>

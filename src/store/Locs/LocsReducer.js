@@ -277,12 +277,17 @@ const startFetchingLocs = (state, action) => {
   return updateObject(state, { loadingLocs: true });
 };
 
-export const onFetchingLocs = (id, token, assigned) => {
+export const onFetchingLocs = (id, token, assigned, sortBy) => {
   return (dispatch) => {
     dispatch(onStartFetchingLocs());
-    fetch("http://63.33.18.108:5000/api/LOCs/" + id + "/" + assigned, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(
+      `http://63.33.18.108:5000/api/LOCs/${id}/${assigned}?order_by=${
+        sortBy ? sortBy : "createdAt"
+      }`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
