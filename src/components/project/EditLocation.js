@@ -227,7 +227,7 @@ const EditLocation = () => {
                     locationForm.radius.valid ? {} : { border: "1px solid red" }
                   }
                 />
-                <span style={{ marginLeft: 5 }}>Radian</span>
+                <span style={{ marginLeft: 5 }}>Meter</span>
               </div>
               {locationForm.radius.valid ? null : (
                 <div style={{ color: "red", fontSize: 14 }}>

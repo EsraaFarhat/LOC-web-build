@@ -188,7 +188,7 @@ const AddNewProject = () => {
                     projectForm.radius.value ? projectForm.radius.value : 10
                   }
                 />
-                <span style={{ marginLeft: 5 }}>Radian</span>
+                <span style={{ marginLeft: 5 }}>Meter</span>
               </div>
 
               {/* {projectForm.radius.valid ? null : (

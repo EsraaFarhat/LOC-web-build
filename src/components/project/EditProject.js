@@ -208,7 +208,7 @@ const EditProject = () => {
                     projectForm.radius.valid ? {} : { border: "1px solid red" }
                   }
                 />
-                <span style={{ marginLeft: 5 }}>Radian</span>
+                <span style={{ marginLeft: 5 }}>Meter</span>
               </div>
               {projectForm.radius.valid ? null : (
                 <div style={{ color: "red", fontSize: 14 }}>
