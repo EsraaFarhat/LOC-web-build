@@ -263,7 +263,7 @@ const UnAssignedLocs = () => {
               data-bs-target="#ImportModal"
               onClick={() => setAddFileIsOpen(true)}
             >
-              mport LOC’s via Excel
+              Import LOC’s via Excel
             </button>
           </div>
           {/* Model */}
