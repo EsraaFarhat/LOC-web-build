@@ -221,7 +221,10 @@ export default function Users() {
                   </div>
                 </div>
               ) : (
-                <div className="table-responsive mt-4">
+                <div
+                  className="table-responsive mt-4"
+                  style={{ maxHeight: window.innerHeight - 300 }}
+                >
                   <table className="table table-borderless mt-3">
                     <thead>
                       <tr>

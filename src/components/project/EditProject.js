@@ -181,26 +181,35 @@ const EditProject = () => {
                   )}
                 </div>
               </div>
-
-              <input
-                type="text"
-                className="form-control"
-                name="Radius"
-                placeholder="Radius"
-                id="Radius"
-                onChange={(e) => {
-                  setRadius(e.target.value);
-                  dispatch(onChangeProjectInputs(e.target.value, "radius"));
+              <div
+                style={{
+                  width: "90%",
+                  display: "flex",
+                  // justifyContent: "space-between",
+                  alignItems: "center",
                 }}
-                value={
-                  projectForm.radius.value !== ""
-                    ? projectForm.radius.value
-                    : selectedEditProject && selectedEditProject.radius
-                }
-                style={
-                  projectForm.radius.valid ? {} : { border: "1px solid red" }
-                }
-              />
+              >
+                <input
+                  type="text"
+                  className="form-control"
+                  name="Radius"
+                  placeholder="Radius"
+                  id="Radius"
+                  onChange={(e) => {
+                    setRadius(e.target.value);
+                    dispatch(onChangeProjectInputs(e.target.value, "radius"));
+                  }}
+                  value={
+                    projectForm.radius.value !== ""
+                      ? projectForm.radius.value
+                      : selectedEditProject && selectedEditProject.radius
+                  }
+                  style={
+                    projectForm.radius.valid ? {} : { border: "1px solid red" }
+                  }
+                />
+                <span style={{ marginLeft: 5 }}>Radian</span>
+              </div>
               {projectForm.radius.valid ? null : (
                 <div style={{ color: "red", fontSize: 14 }}>
                   {projectForm.radius.validationError}

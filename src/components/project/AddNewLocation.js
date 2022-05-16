@@ -185,28 +185,37 @@ const AddNewLocation = () => {
                   )}
                 </div>
               </div>
-
-              <input
-                type="number"
-                // step={100}
-                // min={0}
-                className="form-control"
-                name="Radius"
-                placeholder="Radius"
-                id="Radius"
-                onChange={(e) => {
-                  dispatch(onChangeLocationInputs(e.target.value, "radius"));
-                  setRadius(e.target.value);
+              <div
+                style={{
+                  width: "90%",
+                  display: "flex",
+                  // justifyContent: "space-between",
+                  alignItems: "center",
                 }}
-                value={
-                  locationForm.radius.value !== ""
-                    ? locationForm.radius.value
-                    : 10
-                }
-                // style={
-                //   locationForm.radius.valid ? {} : { border: "1px solid red" }
-                // }
-              />
+              >
+                <input
+                  type="number"
+                  // step={100}
+                  // min={0}
+                  className="form-control"
+                  name="Radius"
+                  placeholder="Radius"
+                  id="Radius"
+                  onChange={(e) => {
+                    dispatch(onChangeLocationInputs(e.target.value, "radius"));
+                    setRadius(e.target.value);
+                  }}
+                  value={
+                    locationForm.radius.value !== ""
+                      ? locationForm.radius.value
+                      : 10
+                  }
+                  // style={
+                  //   locationForm.radius.valid ? {} : { border: "1px solid red" }
+                  // }
+                />
+                <span style={{ marginLeft: 5 }}>Radian</span>
+              </div>
               {/* {locationForm.radius.valid ? null : (
                 <div style={{ color: "red", fontSize: 14 }}>
                   {locationForm.radius.validationError}

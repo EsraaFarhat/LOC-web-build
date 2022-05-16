@@ -110,7 +110,6 @@ const AddNewProject = () => {
                   {projectForm.name.validationError}
                 </div>
               )}
-
               <ProjectsMap radius={radius} />
               {/* <div className="bg-light mt-3">Map</div> */}
               <div className="row my-3">
@@ -165,20 +164,33 @@ const AddNewProject = () => {
                   )}
                 </div>
               </div>
-              <input
-                type="number"
-                // step={100}
-                // min={0}
-                className="form-control"
-                name="Radius"
-                placeholder="Radius"
-                id="Radius"
-                onChange={(e) => {
-                  dispatch(onChangeProjectInputs(e.target.value, "radius"));
-                  setRadius(e.target.value);
+              <div
+                style={{
+                  width: "90%",
+                  display: "flex",
+                  // justifyContent: "space-between",
+                  alignItems: "center",
                 }}
-                value={projectForm.radius.value ? projectForm.radius.value : 10}
-              />
+              >
+                <input
+                  type="number"
+                  // step={100}
+                  // min={0}
+                  className="form-control"
+                  name="Radius"
+                  placeholder="Radius"
+                  id="Radius"
+                  onChange={(e) => {
+                    dispatch(onChangeProjectInputs(e.target.value, "radius"));
+                    setRadius(e.target.value);
+                  }}
+                  value={
+                    projectForm.radius.value ? projectForm.radius.value : 10
+                  }
+                />
+                <span style={{ marginLeft: 5 }}>Radian</span>
+              </div>
+
               {/* {projectForm.radius.valid ? null : (
                 <div style={{ color: "red", fontSize: 14 }}>
                   {projectForm.radius.validationError}

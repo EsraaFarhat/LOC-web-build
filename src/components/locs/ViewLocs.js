@@ -120,10 +120,30 @@ const ViewLocs = () => {
               <Link
                 to={"/assignedlocs/" + id}
                 className="btn btn-primary p-3 w-50"
-                style={{ fontSize: 15 }}
+                style={{
+                  width: "100%",
+                  fontSize: 15,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                VIEW ASSIGNED LOCs
-                <i className="fas fa-check" style={{ paddingRight: 10 }}></i>
+                <span style={{ width: "80%" }}>VIEW ASSIGNED LOCs</span>
+                <div
+                  style={{
+                    marginLeft: 10,
+                    backgroundColor: "#000",
+                    width: 25,
+                    height: 25,
+                    borderRadius: 12.5,
+                    border: "1px solid #fff",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <i className="fas fa-check"></i>
+                </div>
               </Link>
             </div>
           </div>
@@ -135,10 +155,30 @@ const ViewLocs = () => {
               <Link
                 to={"/unassignedlocs/" + id}
                 className="btn btn-success p-3 w-50"
-                style={{ backgroundColor: "#09B13B", fontSize: 15 }}
+                style={{
+                  backgroundColor: "#09B13B",
+                  fontSize: 15,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                VIEW UNASSIGNED LOCS
-                <i className="fas fa-close" style={{ paddingRight: 3 }}></i>
+                <span style={{ width: "80%" }}>VIEW UNASSIGNED LOCS</span>
+                <div
+                  style={{
+                    marginLeft: 10,
+                    backgroundColor: "#000",
+                    width: 25,
+                    height: 25,
+                    borderRadius: 12.5,
+                    border: "1px solid #fff",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <i className="fas fa-close"></i>
+                </div>
               </Link>
             </div>
           </div>

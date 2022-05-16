@@ -103,8 +103,8 @@ function ProjectsMap({ cmp, radius }) {
         });
 
         // if (state.mapPosition.lat !== 53.349804) {
-          dispatch(onChangeProjectInputs(newLat, "lat"));
-          dispatch(onChangeProjectInputs(newLng, "long"));
+        dispatch(onChangeProjectInputs(newLat, "lat"));
+        dispatch(onChangeProjectInputs(newLng, "long"));
         // }
       },
       (error) => {
@@ -134,8 +134,8 @@ function ProjectsMap({ cmp, radius }) {
           />
           <Circle
             center={{ lat: state.mapPosition.lat, lng: state.mapPosition.lng }}
-            radius={100}
-            
+            radius={parseFloat(radius)}
+
             // draggable={true}
             // editable={true}
           />

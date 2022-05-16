@@ -45,14 +45,16 @@ export default function SuspendBtn(props) {
   //   };
 
   return (
-    <button
-      className={btnColor}
-      onClick={() => {
-        // handleBtnColorAndText();
-        handleTheSuspend();
-      }}
-    >
-      {btnText}
-    </button>
+    <span style={{ marginLeft: 10 }}>
+      <button
+        className={btnColor}
+        onClick={() => {
+          // handleBtnColorAndText();
+          handleTheSuspend();
+        }}
+      >
+        {btnText}
+      </button>
+    </span>
   );
 }

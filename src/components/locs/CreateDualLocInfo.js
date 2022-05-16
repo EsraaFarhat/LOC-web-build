@@ -566,7 +566,7 @@ const CreateDualLocInfo = () => {
                             : { border: "1px solid red" }
                         }
                       />
-                      {true? null : (
+                      {true ? null : (
                         <div style={{ color: "red", fontSize: 14 }}>
                           {dualLocForm.lat.validationError}
                         </div>
@@ -578,7 +578,7 @@ const CreateDualLocInfo = () => {
                         className="form-control"
                         name="Longitude"
                         placeholder="Longitude"
-disabled={true}
+                        disabled={true}
                         onChange={(e) =>
                           dispatch(
                             onChangeLocsDualInputs(
@@ -598,37 +598,46 @@ disabled={true}
                             : { border: "1px solid red" }
                         }
                       />
-                      {true? null : (
+                      {true ? null : (
                         <div style={{ color: "red", fontSize: 14 }}>
                           {dualLocForm.long.validationError}
                         </div>
                       )}
                     </div>
                   </div>
-
-                  <input
-                    type="number"
-                    // step={100}
-                    // min={0}
-                    className="form-control"
-                    name="Radius"
-                    placeholder="Radius"
-                    id="Radius"
-                    onChange={(e) => {
-                      dispatch(
-                        onChangeLocsDualInputs(e.target.value, "radius")
-                      );
-                      setRadius(e.target.value);
+                  <div
+                    style={{
+                      width: "90%",
+                      display: "flex",
+                      // justifyContent: "space-between",
+                      alignItems: "center",
                     }}
-                    value={
-                      dualLocForm.radius.value ? dualLocForm.radius.value : 10
-                    }
-                    // style={
-                    //   dualLocForm.radius.valid
-                    //     ? {}
-                    //     : { border: "1px solid red" }
-                    // }
-                  />
+                  >
+                    <input
+                      type="number"
+                      // step={100}
+                      // min={0}
+                      className="form-control"
+                      name="Radius"
+                      placeholder="Radius"
+                      id="Radius"
+                      onChange={(e) => {
+                        dispatch(
+                          onChangeLocsDualInputs(e.target.value, "radius")
+                        );
+                        setRadius(e.target.value);
+                      }}
+                      value={
+                        dualLocForm.radius.value ? dualLocForm.radius.value : 10
+                      }
+                      // style={
+                      //   dualLocForm.radius.valid
+                      //     ? {}
+                      //     : { border: "1px solid red" }
+                      // }
+                    />
+                    <span style={{ marginLeft: 5 }}>Radian</span>
+                  </div>
                   {/* {dualLocForm.radius.valid ? null : (
                     <div style={{ color: "red", fontSize: 14 }}>
                       {dualLocForm.radius.validationError}
@@ -657,7 +666,7 @@ disabled={true}
                                 dualLocForm.filed1Destination.valid &&
                                 dualLocForm.filed2Destination.valid &&
                                 dualLocForm.filed3Destination.valid &&
-                                true&&
+                                true &&
                                 dualLocForm.long.valid
                               )
                               // && dualLocForm.radius.valid
