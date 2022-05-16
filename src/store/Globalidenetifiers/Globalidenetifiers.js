@@ -36,6 +36,9 @@ const FINISH_SEARCHING_IDENTIFIER =
 
 const CHANGE_RENDERED_ITEM = "KELTECH/STORE/IDENTIFIER/CHANGE_RENDER_ITEM";
 
+const RESET_GOLOBALE_IDENTIFIER_FORM =
+  "KELTECH/IDENTIFIER/RESET_GLOBAL_IDENTIFIER";
+
 const initialState = {
   globalIdentifierName: {
     name: {
@@ -107,6 +110,30 @@ const changeGlobalIdentifierInputHandler = (state, action) => {
     globalIdentifierName: updatedGlobalIdentifierName,
   });
 };
+// =============================================================
+export const onResettingGlobalIdentifierForm = () => {
+  return { type: RESET_GOLOBALE_IDENTIFIER_FORM };
+};
+
+const resetGlobalIdentifierForm = (state, action) => {
+  const updatedGlobalIdentifierName = updateObject(state.globalIdentifierName, {
+    ["name"]: updateObject(state.globalIdentifierName["name"], {
+      value: "",
+      valid: false,
+      validation: {
+        required: true,
+      },
+      validationError: "Required",
+      touched: false,
+    }),
+  });
+
+  return updateObject(state, {
+    ...state,
+    globalIdentifierName: updatedGlobalIdentifierName,
+  });
+};
+
 // =============================================================
 // Adding Global Identifier
 export const onStartAddingGlobalIdentifier = () => {
@@ -221,17 +248,14 @@ export const onEditingIdentifier = (e, token, identifierId, name) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingIdentifier());
-    fetch(
-      "http://63.33.18.108:5000/api/globalIdentifiers/" + identifierId,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name }),
-      }
-    )
+    fetch("http://63.33.18.108:5000/api/globalIdentifiers/" + identifierId, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name }),
+    })
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
@@ -293,15 +317,15 @@ const startDeletingIdentifier = (state, action) => {
 export const onDeletingIdentifier = (identifierId, token) => {
   return (dispatch) => {
     dispatch(onStartDeletingIdentifier());
-    fetch(
-      "http://63.33.18.108:5000/api/globalIdentifiers/" + identifierId,
-      { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
-    ).then((res) => {
+    fetch("http://63.33.18.108:5000/api/globalIdentifiers/" + identifierId, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    }).then((res) => {
       if (res.status === 204) {
         dispatch(onChangeRenderedItem("identifier"));
         dispatch(onFinishDeletingIdentifier(identifierId));
         toast.success("Deleting Global Identifier Success.");
-      }else{
+      } else {
         return toast.error(res.statusText);
       }
     });
@@ -368,14 +392,11 @@ const startSearchingIdentifier = (state, action) => {
 export const onSearchingIdentifier = (text, token, id) => {
   return (dispatch) => {
     dispatch(onStartSearchingIdentifier());
-    fetch(
-      `http://63.33.18.108:5000/api/globalIdentifiers?name=${text}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`http://63.33.18.108:5000/api/globalIdentifiers?name=${text}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         return res.json();
       })
@@ -453,6 +474,8 @@ export default function GlobalIdenetifierReducer(state = initialState, action) {
     case CHANGE_RENDERED_ITEM:
       return changeReneredItem(state, action);
 
+    case RESET_GOLOBALE_IDENTIFIER_FORM:
+      return resetGlobalIdentifierForm(state, action);
     default:
       return state;
   }

@@ -10,6 +10,7 @@ import {
   onDeletingIdentifier,
   onEditingIdentifier,
   onFetchingGlobalIdentifiers,
+  onResettingGlobalIdentifierForm,
   onSearchingIdentifier,
   onSelectingIdentifier,
 } from "../../store/Globalidenetifiers/Globalidenetifiers";
@@ -335,7 +336,11 @@ export default function GlobalIdenetifiers() {
             {/* <button type="button" className="btn btn-primary">
               Add new Global Identifier
             </button> */}
-            <Link className="btn btn-primary" to={"/addglobalidenetifiers"}>
+            <Link
+              onClick={() => dispatch(onResettingGlobalIdentifierForm())}
+              className="btn btn-primary"
+              to={"/addglobalidenetifiers"}
+            >
               Add new Global Identifier
             </Link>
           </div>
