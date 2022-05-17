@@ -1,6 +1,7 @@
 import { createDispatchHook } from "react-redux";
 import { toast } from "react-toastify";
 import { checkValidity, updateObject } from "../../util/utility";
+import { userIS } from "./userIS";
 
 const INPUT_CHANGE_HANDLER = "KELTECH/STORE/ADDUSERS/INPUT_CHANGE_HANDLER";
 
@@ -26,103 +27,7 @@ const FINISH_SEARCHING_USER = "KELTECH/STORE/USERS/FINISH_SEARCH_USER";
 
 const CHANGE_RENDERED_ITEM = "KELTECH/STORE/USERS/CHANGE_RENDER_ITEM";
 
-const initialState = {
-  userForm: {
-    firstName: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    lastName: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-    email: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-        isEmail: true,
-      },
-      validationError: "Required. Must be a valid e-mail address",
-      touched: false,
-    },
-    password: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-        minLength: 5,
-      },
-      validationError: "Required. Password must be at least 5 characters",
-      touched: false,
-    },
-    confirmPassword: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-        minLength: 5,
-      },
-      validationError: "Required. Password must be at least 5 characters",
-      touched: false,
-    },
-    role: {
-      value: "",
-      valid: false,
-      validation: {
-        required: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-  },
-  loading: false,
-
-  users: [],
-  loadFetching: true,
-
-  loadingDeleteUser: false,
-  loadEditing: false,
-
-  searchForm: {
-    textVal: {
-      value: "",
-      valid: false,
-      validation: {
-        // required: true,
-        isEmail: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-
-    searchType: {
-      value: "",
-      valid: false,
-      validation: {
-        // required: true,
-        isEmail: true,
-      },
-      validationError: "Required",
-      touched: false,
-    },
-  },
-
-  searchResult: [],
-  loadSearch: false,
-
-  renderedItem: "users",
-};
+const RESET_NEW_USER_FORM = "KELTECH/STORE/USERS/RESET_NEW_USER_FORM";
 
 // =============================================================
 export const onChangeAddUserInput = (text, inputIdentifier) => {
@@ -206,13 +111,7 @@ export const onAddingNewUser = ({
   };
 };
 
-
-
-export const onSendingMailForResetPassword = ({
-  e,
-  email,
-  navigate,
-}) => {
+export const onSendingMailForResetPassword = ({ e, email, navigate }) => {
   e && e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingUser());
@@ -238,13 +137,12 @@ export const onSendingMailForResetPassword = ({
         if (resData.message) {
           toast.success(resData.message);
           setTimeout(() => {
-            navigate("/login")
+            navigate("/login");
           }, 2000);
         }
       });
   };
 };
-
 
 export const onSendingPasswordForResetPassword = ({
   e,
@@ -263,7 +161,7 @@ export const onSendingPasswordForResetPassword = ({
       },
       body: JSON.stringify({
         password: password,
-        confirmPassword:confirmPassword,
+        confirmPassword: confirmPassword,
       }),
     })
       .then((res) => {
@@ -280,23 +178,26 @@ export const onSendingPasswordForResetPassword = ({
         if (resData.message) {
           toast.success(resData.message);
           setTimeout(() => {
-                navigate("/login")
-              }, 2000);
+            navigate("/login");
+          }, 2000);
           // navigate("/login")
         }
       });
   };
 };
 
-
 export const onFinishAddingUser = (userInfo) => {
   return { type: FINISH_ADDING_USER, userInfo };
 };
 
 const finishAddingUser = (state, action) => {
-  const users = [...state.users];
-  users.push(action.userInfo);
-  return updateObject(state, { loading: false, users });
+  if (action.userInfo) {
+    const users = [...state.users];
+    users.push(action.userInfo);
+    return updateObject(state, { loading: false, users });
+  } else {
+    return updateObject(state, { loading: false });
+  }
 };
 // =============================================================
 
@@ -380,8 +281,9 @@ export const onEditingUser = ({
       body: JSON.stringify({
         fullName: firstName + " " + lastName,
         email: email,
-        password:password,
-        confirmPassword,confirmPassword,
+        password: password,
+        confirmPassword,
+        confirmPassword,
         role: role,
       }),
     })
@@ -389,12 +291,15 @@ export const onEditingUser = ({
       .then((resData) => {
         console.log("237", resData);
         dispatch(onFinishEditingUser(resData.user, userId));
+
         if (resData.error) {
-          return toast.error(resData.error);
+          if (Array.isArray(resData.error)) {
+            return toast.error(resData.error[0].message);
+          } else {
+            return toast.error(resData.error);
+          }
         }
-        if (resData.error && resData.error[0]) {
-          toast(resData.error[0].message);
-        }
+
         if (resData.message) {
           dispatch(onChangeRenderedItem("users"));
           toast.success(resData.message);
@@ -408,12 +313,16 @@ export const onFinishEditingUser = (user, userId) => {
 };
 
 const finishEditingUser = (state, action) => {
-  const users = [...state.users];
-  const updatedUserIndex = users.findIndex(
-    (user) => user.user_id === action.userId
-  );
-  users[updatedUserIndex] = action.user;
-  return updateObject(state, { loadEditing: false, users: users });
+  if (action.user) {
+    const users = [...state.users];
+    const updatedUserIndex = users.findIndex(
+      (user) => user.user_id === action.userId
+    );
+    users[updatedUserIndex] = action.user;
+    return updateObject(state, { loadEditing: false, users: users });
+  } else {
+    return updateObject(state, { loadEditing: false });
+  }
 };
 // =============================================================
 
@@ -439,7 +348,7 @@ export const onDeletingUser = (e, userId, token) => {
           dispatch(onChangeRenderedItem("users"));
           dispatch(onFinishDeletingUser(userId));
           toast.success("Deleting Success.");
-        }else{
+        } else {
           return toast.error(res.statusText);
         }
       })
@@ -556,7 +465,22 @@ const changeReneredItem = (state, action) => {
 };
 // =============================================================
 
-export default function AddUsersReducer(state = initialState, action) {
+export const onResetNewUserForm = () => {
+  return { type: RESET_NEW_USER_FORM };
+};
+
+const resetNewUserForm = (state, action) => {
+  const updatedUserForm = updateObject(state.userForm, userIS.userForm);
+
+  console.log("470-", updatedUserForm);
+  return updateObject(state, {
+    ...state,
+    userForm: updatedUserForm,
+  });
+};
+// =============================================================
+
+export default function AddUsersReducer(state = userIS, action) {
   switch (action.type) {
     case INPUT_CHANGE_HANDLER:
       return changeInputHandler(state, action);
@@ -592,6 +516,8 @@ export default function AddUsersReducer(state = initialState, action) {
 
     case CHANGE_RENDERED_ITEM:
       return changeReneredItem(state, action);
+    case RESET_NEW_USER_FORM:
+      return resetNewUserForm(state, action);
 
     default:
       return state;

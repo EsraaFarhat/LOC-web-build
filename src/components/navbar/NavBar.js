@@ -18,8 +18,11 @@ export default function NavBar() {
       <div className="col-12 col-md-8">
         <div className="d-flex justify-content-center w-75 m-auto">
           <nav className="navbar navbar-expand-lg navbar-light  w-100 m-auto text-center py-0 rounded">
-            <div className="container-fluid" style={{paddingLeft:"0px" , paddingRight:"0px"}}>
-              <a href="" className="navbar-brand">
+            <div
+              className="container-fluid"
+              style={{ paddingLeft: "0px", paddingRight: "0px" }}
+            >
+              <Link to={"/"} className="navbar-brand">
                 <div className="d-flex justify-content-start">
                   <div>
                     <img className="logo" src={logo} />
@@ -40,7 +43,7 @@ export default function NavBar() {
                     Smart solutions for smart infrastructure
                   </p>
                 </div>
-              </a>
+              </Link>
               <button
                 className="custom-toggler navbar-toggler"
                 type="button"

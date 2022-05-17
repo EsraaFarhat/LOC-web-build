@@ -191,6 +191,8 @@ const EditProject = () => {
               >
                 <input
                   type="number"
+                  step={10}
+                  min={0}
                   className="form-control"
                   name="Radius"
                   placeholder="Radius"

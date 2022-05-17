@@ -615,8 +615,8 @@ const CreateDualLocInfo = () => {
                   >
                     <input
                       type="number"
-                      // step={100}
-                      // min={0}
+                      step={10}
+                      min={0}
                       className="form-control"
                       name="Radius"
                       placeholder="Radius"

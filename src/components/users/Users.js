@@ -10,6 +10,7 @@ import {
   onDeletingUser,
   onEditingUser,
   onFetchingUsers,
+  onResetNewUserForm,
   onSearchingUser,
   onSelectEditUser,
 } from "../../store/AddUsers/AddUsers";
@@ -83,7 +84,7 @@ export default function Users() {
       dispatch(onChangeAddUserInput(selectedUser.email, "email"));
       dispatch(onChangeAddUserInput(selectedUser.role, "role"));
     }
-  }, [selectedUser, dispatch]);
+  }, [selectedUser]);
 
   // const handleSuspend = (id) => {
 
@@ -482,7 +483,10 @@ export default function Users() {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={() => setAddIsOpen(true)}
+                  onClick={() => {
+                    setAddIsOpen(true);
+                    dispatch(onResetNewUserForm());
+                  }}
                 >
                   Add User
                 </button>
