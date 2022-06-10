@@ -40,7 +40,7 @@ export default function ForgetPassword() {
     e.preventDefault();
    console.log(password,confirmPassword);
 
-   fetch(`http://63.33.18.108:5000/api/users/update-password?token=${token}`, {
+   fetch(`https://api.loc.store/api/users/update-password?token=${token}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

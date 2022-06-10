@@ -90,7 +90,7 @@ const UnAssignedLocs = () => {
     formData.append("LocFile", file);
 
     console.log("65", file);
-    fetch(`http://63.33.18.108:5000/api/LOCs/upload/${id}`, {
+    fetch(`https://api.loc.store/api/LOCs/upload/${id}`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -123,7 +123,7 @@ const UnAssignedLocs = () => {
   };
 
   useEffect(() => {
-    fetch(`http://63.33.18.108:5000/api/locations/${id}`, {
+    fetch(`https://api.loc.store/api/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

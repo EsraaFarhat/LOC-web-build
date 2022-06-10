@@ -33,7 +33,7 @@ export default function MailForResetPassword() {
   //   e.preventDefault();
   //  console.log(email);
 
-  //  fetch("http://63.33.18.108:5000/api/users/reset-password", {
+  //  fetch("https://api.loc.store/api/users/reset-password", {
   //   method: "POST",
   //   headers: {
   //     "Content-Type": "application/json",

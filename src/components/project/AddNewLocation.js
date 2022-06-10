@@ -43,7 +43,7 @@ const AddNewLocation = () => {
   const [project, setProject] = useState(null);
 
   useEffect(() => {
-    fetch(`http://63.33.18.108:5000/api/projects/${id}/locations`, {
+    fetch(`https://api.loc.store/api/projects/${id}/locations`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

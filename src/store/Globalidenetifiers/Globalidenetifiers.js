@@ -148,7 +148,7 @@ export const onAddingGlobalIdentifier = (e, token, name, navigate) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingGlobalIdentifier());
-    fetch("http://63.33.18.108:5000/api/globalIdentifiers", {
+    fetch("https://api.loc.store/api/globalIdentifiers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -197,7 +197,7 @@ const startFetchingGlobalIdentifiers = (state, action) => {
 export const onFetchingGlobalIdentifiers = (token) => {
   return (dispatch) => {
     dispatch(onStartFetchingGlobalIdentifiers());
-    fetch("http://63.33.18.108:5000/api/globalIdentifiers", {
+    fetch("https://api.loc.store/api/globalIdentifiers", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -248,7 +248,7 @@ export const onEditingIdentifier = (e, token, identifierId, name) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingIdentifier());
-    fetch("http://63.33.18.108:5000/api/globalIdentifiers/" + identifierId, {
+    fetch("https://api.loc.store/api/globalIdentifiers/" + identifierId, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -317,7 +317,7 @@ const startDeletingIdentifier = (state, action) => {
 export const onDeletingIdentifier = (identifierId, token) => {
   return (dispatch) => {
     dispatch(onStartDeletingIdentifier());
-    fetch("http://63.33.18.108:5000/api/globalIdentifiers/" + identifierId, {
+    fetch("https://api.loc.store/api/globalIdentifiers/" + identifierId, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     }).then((res) => {
@@ -392,7 +392,7 @@ const startSearchingIdentifier = (state, action) => {
 export const onSearchingIdentifier = (text, token, id) => {
   return (dispatch) => {
     dispatch(onStartSearchingIdentifier());
-    fetch(`http://63.33.18.108:5000/api/globalIdentifiers?name=${text}`, {
+    fetch(`https://api.loc.store/api/globalIdentifiers?name=${text}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

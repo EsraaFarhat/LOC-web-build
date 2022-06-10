@@ -63,7 +63,7 @@ export default function Project() {
 
   const handleDownload = (id, location) => {
     console.log(id);
-    fetch(`http://63.33.18.108:5000/api/locations/${id}/download-web`, {
+    fetch(`https://api.loc.store/api/locations/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -97,7 +97,7 @@ export default function Project() {
   useEffect(() => {
     dispatch(onFetchingLocations(id, token));
 
-    fetch(`http://63.33.18.108:5000/api/projects/${id}/locations`, {
+    fetch(`https://api.loc.store/api/projects/${id}/locations`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

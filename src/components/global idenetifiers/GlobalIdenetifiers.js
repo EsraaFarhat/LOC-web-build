@@ -59,7 +59,7 @@ export default function GlobalIdenetifiers() {
 
   const handleDownload = (id, globalidenetifier) => {
     console.log(id);
-    fetch(`http://63.33.18.108:5000/api/globalIdentifiers/${id}/download-web`, {
+    fetch(`https://api.loc.store/api/globalIdentifiers/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

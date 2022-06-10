@@ -128,7 +128,7 @@ export const onAddingSingleLoc = (
     console.log({ route_id, origin });
     console.log(gid);
     dispatch(onStartAddingSingleLoc());
-    fetch("http://63.33.18.108:5000/api/LOCs", {
+    fetch("https://api.loc.store/api/LOCs", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -212,7 +212,7 @@ export const onAddingDualLoc = (
     console.log(gid);
     console.log({ route_id, origin });
     dispatch(onStartAddingDualLoc());
-    fetch("http://63.33.18.108:5000/api/LOCs", {
+    fetch("https://api.loc.store/api/LOCs", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -281,7 +281,7 @@ export const onFetchingLocs = (id, token, assigned, sortBy) => {
   return (dispatch) => {
     dispatch(onStartFetchingLocs());
     fetch(
-      `http://63.33.18.108:5000/api/LOCs/${id}/${assigned}?order_by=${
+      `https://api.loc.store/api/LOCs/${id}/${assigned}?order_by=${
         sortBy ? sortBy : "createdAt"
       }`,
       {
@@ -320,7 +320,7 @@ const startFetchingSpecificLoc = (state, action) => {
 export const onFetchingSpecificLoc = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificLoc());
-    fetch("http://63.33.18.108:5000/api/LOCs/" + id, {
+    fetch("https://api.loc.store/api/LOCs/" + id, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -371,7 +371,7 @@ export const onEditingSingleLoc = (
   return (dispatch) => {
     // console.log("ggggggggggggggg",gid);
     dispatch(onStartEditingSingleLoc());
-    fetch("http://63.33.18.108:5000/api/LOCs/" + locId, {
+    fetch("https://api.loc.store/api/LOCs/" + locId, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -456,7 +456,7 @@ export const onEditingDualLoc = (
   return (dispatch) => {
     console.log("ggggggggggggggg", gid);
     dispatch(onStartEditingDualLoc());
-    fetch("http://63.33.18.108:5000/api/LOCs/" + locId, {
+    fetch("https://api.loc.store/api/LOCs/" + locId, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -526,7 +526,7 @@ export const onDeletingLoc = (e, id, token, type, gid) => {
   return (dispatch) => {
     dispatch(onStartDeletingLoc());
     console.log("gggggggggggggggggg", gid);
-    fetch("http://63.33.18.108:5000/api/LOCs/" + id, {
+    fetch("https://api.loc.store/api/LOCs/" + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -608,7 +608,7 @@ export const onSearchingLoc = (id, text, token, type) => {
   console.log("778", text);
   return (dispatch) => {
     dispatch(onStartSearchingLoc());
-    fetch(`http://63.33.18.108:5000/api/LOCs/${id}/${type}?route_id=${text}`, {
+    fetch(`https://api.loc.store/api/LOCs/${id}/${type}?route_id=${text}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -647,7 +647,7 @@ const startUploadingFile = (state, action) => {
 
 export const onUploadFile = () => {
   return (dispatch) => {
-    fetch(`http://63.33.18.108:5000/api/LOCs/upload`);
+    fetch(`https://api.loc.store/api/LOCs/upload`);
   };
 };
 

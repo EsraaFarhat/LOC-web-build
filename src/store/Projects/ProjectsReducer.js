@@ -93,7 +93,7 @@ export const onAddingProject = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingProject());
-    fetch("http://63.33.18.108:5000/api/projects", {
+    fetch("https://api.loc.store/api/projects", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,7 +166,7 @@ const startFetchingSpecificProject = (state, action) => {
 export const onFetchingSpecificProject = (projectId, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificProject());
-    fetch(`http://63.33.18.108:5000/api/projects/${projectId}`, {
+    fetch(`https://api.loc.store/api/projects/${projectId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -206,7 +206,7 @@ export const onFetchingProjects = (identifierId, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingProjects());
     fetch(
-      `http://63.33.18.108:5000/api/globalIdentifiers/${identifierId}/projects`,
+      `https://api.loc.store/api/globalIdentifiers/${identifierId}/projects`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -273,7 +273,7 @@ export const onEditingProject = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartFetchingProjects());
-    fetch(`http://63.33.18.108:5000/api/projects/${projectId}`, {
+    fetch(`https://api.loc.store/api/projects/${projectId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -324,7 +324,7 @@ export const onDeletingProject = (e, projectId, token) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingProject());
-    fetch(`http://63.33.18.108:5000/api/projects/${projectId}`, {
+    fetch(`https://api.loc.store/api/projects/${projectId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -402,7 +402,7 @@ export const onSearchingProject = (text, token, id) => {
   return (dispatch) => {
     dispatch(onStartSearchingProject());
     fetch(
-      `http://63.33.18.108:5000/api/globalIdentifiers/${id}/projects?name=${text}`,
+      `https://api.loc.store/api/globalIdentifiers/${id}/projects?name=${text}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -89,7 +89,7 @@ export default function Users() {
   // const handleSuspend = (id) => {
 
   //   console.log(id);
-  //   fetch(`http://63.33.18.108:5000/api/users/${id}/suspend`, {
+  //   fetch(`https://api.loc.store/api/users/${id}/suspend`, {
   //     method: "PATCH",
   //     headers: {
   //       Authorization: `Bearer ${token}`,
@@ -119,7 +119,7 @@ export default function Users() {
 
   const handleSuspend = (id) => {
     return new Promise((resolve, reject) => {
-      fetch(`http://63.33.18.108:5000/api/users/${id}/suspend`, {
+      fetch(`https://api.loc.store/api/users/${id}/suspend`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,

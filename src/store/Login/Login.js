@@ -103,7 +103,7 @@ export const onLoginHandler = (e, email, pass, navigate) => {
   console.log("44", authData);
   return (dispatch) => {
     dispatch(onStartLogin());
-    fetch("http://63.33.18.108:5000/api/auth/login", {
+    fetch("https://api.loc.store/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

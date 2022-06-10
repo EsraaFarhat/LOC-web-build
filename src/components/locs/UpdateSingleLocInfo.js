@@ -62,7 +62,7 @@ const UpdateSingleLocInfo = () => {
 
   useEffect(() => {
     fetch(
-      `http://63.33.18.108:5000/api/LOCs/${id}`,
+      `https://api.loc.store/api/LOCs/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

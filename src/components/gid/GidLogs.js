@@ -29,7 +29,7 @@ const GidLogs = () => {
 
   const handleMarkAsSeen = (time) => {
     console.log(token);
-    fetch(`http://63.33.18.108:5000/api/logs/${time}`, {
+    fetch(`https://api.loc.store/api/logs/${time}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

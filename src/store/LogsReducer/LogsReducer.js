@@ -49,7 +49,7 @@ const startFetchingSpecificUser = (state, action) => {
 export const onFetchingSpecificUser = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificUser());
-    fetch("http://63.33.18.108:5000/api/users/" + id, {
+    fetch("https://api.loc.store/api/users/" + id, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -82,7 +82,7 @@ const startFetchingUserLogs = (state, action) => {
 export const onFetchingUserLogs = (id, token) => {
   return (disptach) => {
     disptach(onStartFetchingUserLogs());
-    fetch(`http://63.33.18.108:5000/api/users/${id}/logs`, {
+    fetch(`https://api.loc.store/api/users/${id}/logs`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -129,7 +129,7 @@ const startFetchingSpecificIdentifier = (state, action) => {
 export const onFetchingSpecificIdentifier = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificIdentifier());
-    fetch("http://63.33.18.108:5000/api/globalIdentifiers/" + id, {
+    fetch("https://api.loc.store/api/globalIdentifiers/" + id, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -164,7 +164,7 @@ export const onFetchingIdentifierLogs = (id, token) => {
   return (disptach) => {
     disptach(onStartFetchingIdentifierLogs());
     fetch(
-      `http://63.33.18.108:5000/api/globalidentifiers/${id}/logs`,
+      `https://api.loc.store/api/globalidentifiers/${id}/logs`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

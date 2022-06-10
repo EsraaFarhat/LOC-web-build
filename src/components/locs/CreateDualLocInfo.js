@@ -44,7 +44,7 @@ const CreateDualLocInfo = () => {
   const [gid, setGid] = useState("");
 
   useEffect(() => {
-    fetch(`http://63.33.18.108:5000/api/locations/${id}`, {
+    fetch(`https://api.loc.store/api/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

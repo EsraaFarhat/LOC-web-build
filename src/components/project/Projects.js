@@ -54,7 +54,7 @@ export default function Projects() {
 
   const handleDownload = (id, project) => {
     console.log(id);
-    fetch(`http://63.33.18.108:5000/api/projects/${id}/download-web`, {
+    fetch(`https://api.loc.store/api/projects/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -87,7 +87,7 @@ export default function Projects() {
   useEffect(() => {
     dispatch(onFetchingProjects(id, token));
     // console.log("jjjjj",globalIdentifier);
-    fetch(`http://63.33.18.108:5000/api/globalIdentifiers/${id}/projects`, {
+    fetch(`https://api.loc.store/api/globalIdentifiers/${id}/projects`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

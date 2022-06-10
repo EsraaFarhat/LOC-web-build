@@ -82,7 +82,7 @@ export const onAddingNewUser = ({
   e && e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingUser());
-    fetch("http://63.33.18.108:5000/api/users", {
+    fetch("https://api.loc.store/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export const onSendingMailForResetPassword = ({ e, email, navigate }) => {
   e && e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingUser());
-    fetch("http://63.33.18.108:5000/api/users/reset-password", {
+    fetch("https://api.loc.store/api/users/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -154,7 +154,7 @@ export const onSendingPasswordForResetPassword = ({
   e && e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingUser());
-    fetch(`http://63.33.18.108:5000/api/users/update-password?token=${token}`, {
+    fetch(`https://api.loc.store/api/users/update-password?token=${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -212,7 +212,7 @@ const startFetchingUsers = (state, action) => {
 export const onFetchingUsers = (token) => {
   return (dispatch) => {
     dispatch(onStartFetchingUsers());
-    fetch("http://63.33.18.108:5000/api/users", {
+    fetch("https://api.loc.store/api/users", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -272,7 +272,7 @@ export const onEditingUser = ({
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingUser());
-    fetch("http://63.33.18.108:5000/api/users/" + userId, {
+    fetch("https://api.loc.store/api/users/" + userId, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -338,7 +338,7 @@ export const onDeletingUser = (e, userId, token) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingUser());
-    fetch("http://63.33.18.108:5000/api/users/" + userId, {
+    fetch("https://api.loc.store/api/users/" + userId, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -419,8 +419,8 @@ export const onSearchingUser = (text, token, type) => {
     dispatch(onStartSearchingUser());
     fetch(
       type === "email"
-        ? `http://63.33.18.108:5000/api/users?email=${text}`
-        : `http://63.33.18.108:5000/api/users?fullName=${text}`,
+        ? `https://api.loc.store/api/users?email=${text}`
+        : `https://api.loc.store/api/users?fullName=${text}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

@@ -78,7 +78,7 @@ const startFetchingLocations = (state, action) => {
 export const onFetchingLocations = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingLocations());
-    fetch(`http://63.33.18.108:5000/api/projects/${id}/locations`, {
+    fetch(`https://api.loc.store/api/projects/${id}/locations`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -122,7 +122,7 @@ export const onAddingLocation = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingLocation());
-    fetch("http://63.33.18.108:5000/api/locations", {
+    fetch("https://api.loc.store/api/locations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -208,7 +208,7 @@ export const onEditingLocation = (
   return (dispatch) => {
     console.log("ggggggggggggggggggggggggg", globalIdentifierGID);
     dispatch(onStartEditingLocation());
-    fetch(`http://63.33.18.108:5000/api/locations/${locationId}`, {
+    fetch(`https://api.loc.store/api/locations/${locationId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -269,7 +269,7 @@ export const onDeletingLocation = (
   return (dispatch) => {
     console.log("dddddddddddd", globalIdentifierGID);
     dispatch(onStartDeletingLocation());
-    fetch(`http://63.33.18.108:5000/api/locations/${locationId}`, {
+    fetch(`https://api.loc.store/api/locations/${locationId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -348,7 +348,7 @@ export const onSearchingLocation = (text, token, id) => {
   return (dispatch) => {
     dispatch(onStartSearchingLocation());
     fetch(
-      `http://63.33.18.108:5000/api/projects/${id}/locations?name=${text}`,
+      `https://api.loc.store/api/projects/${id}/locations?name=${text}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -406,7 +406,7 @@ const startFetchingSpecificLocation = (state, action) => {
 export const onFetchingSpecificLocation = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificLocation());
-    fetch(`http://63.33.18.108:5000/api/locations/${id}`, {
+    fetch(`https://api.loc.store/api/locations/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
