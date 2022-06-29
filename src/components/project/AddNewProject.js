@@ -39,15 +39,12 @@ const AddNewProject = () => {
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
 
   useEffect(() => {
-    // console.log("jjjjj",globalIdentifier);
     fetch(`https://api.loc.store/api/globalIdentifiers/${id}/projects`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((resData) => {
         setGlobalIdenetifier(resData.globalIdentifier);
-        // dispatch(onFinishFetchingProjects(resData.projects));
-        // dispatch(onFinishFetchingGlobalIdentifiers(resData.globalIdentifier));
       });
   }, []);
 

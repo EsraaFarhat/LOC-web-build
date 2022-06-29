@@ -58,7 +58,6 @@ export default function Users() {
   const [DeleteIsOpen, setDeleteIsOpen] = useState(false);
   const [userID, setUserID] = useState("");
   const [flag, setFlag] = useState(false);
-  // console.log(users[0].fullName);
   useEffect(() => {
     dispatch(onFetchingUsers(token));
   }, [dispatch, token]);
@@ -85,37 +84,6 @@ export default function Users() {
       dispatch(onChangeAddUserInput(selectedUser.role, "role"));
     }
   }, [selectedUser]);
-
-  // const handleSuspend = (id) => {
-
-  //   console.log(id);
-  //   fetch(`https://api.loc.store/api/users/${id}/suspend`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((resData) => {
-  //       console.log("ssssssssssss", resData);
-  //       if (resData.error) {
-  //         toast(resData.error);
-  //         return new Promise.resolve('error')
-  //       }
-  //       if (resData.error && resData.error[0]) {
-  //         toast(resData.error[0].message);
-  //       }
-  //       if (resData.message) {
-  //         // setFlag(false)
-  //         // dispatch(onFetchingUsers(token));
-  //         toast.success(resData.message);
-  //         return new Promise.resolve('success')
-  //       }
-  //     });
-  // };
 
   const handleSuspend = (id) => {
     return new Promise((resolve, reject) => {
@@ -154,19 +122,6 @@ export default function Users() {
         <div className="row">
           <div className="col-11 col-md-12 col-lg-11 m-auto">
             <h3 className="text-center mt-3">Users</h3>
-
-            {/* <input
-              style={{ paddingLeft: 30 }}
-              type="text"
-              className="form-control"
-              name="search"
-              placeholder="Search"
-              onChange={(e) => {
-                dispatch(onChangeSearchVal(e.target.value, "textVal"));
-                dispatch(onSearchingUser(e.target.value, token));
-              }}
-            />
-          </div> */}
             <div className="row m-auto">
               <div
                 className="col-6 col-md-8 d-flex justify-content-end"
@@ -235,63 +190,8 @@ export default function Users() {
                       </tr>
                     </thead>
 
-                    {/* test */}
-                    {/* {users.map((user) => {
-                      return (
-                        <>
-                          <tbody key={user.user_id}>
-                            <tr>
-                              <td scope="row">
-                                <Link
-                                  to={"/userslogs/" + user.user_id}
-                                  style={{ textDecoration: "none" }}
-                                >
-                                  {user.fullName}
-                                  <img
-                                    style={{
-                                      width: "18px",
-                                      height: "16px",
-                                      paddingLeft: "5px",
-                                    }}
-                                    src={log}
-                                  />
-                                </Link>
-                              </td>
-                              <td>{user.email}</td>
-                              <td>{user.role}</td>
-                              <td>
-                                <button
-                                  className="btn p-0 m-0 mx-2"
-                                  type="button"
-                                  onClick={() => {
-                                    dispatch(onSelectEditUser(user.user_id));
-                                    setEditIsOpen(true);
-                                  }}
-                                >
-                                  <i className="fas fa-pencil-alt text-secondary "></i>
-                                </button>
-
-                                <button
-                                  className="btn p-0 m-0"
-                                  type="button"
-                                  onClick={() => {
-                                    setUserID(user.user_id);
-                                    setDeleteIsOpen(true);
-                                  }}
-                                >
-                                  <i className="far fa-trash-alt text-danger"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </>
-                      );
-                    })} */}
-                    {/* test */}
-
                     {users && users.length > 0
                       ? users.map((user) => {
-                          // console.log(user.fullName);
                           return user ? (
                             // user.email !== "admin@gmail.com" ? (
                             <tbody key={user.user_id}>
@@ -818,20 +718,6 @@ export default function Users() {
                       {userForm.confirmPassword.validationError}
                     </div>
                   )}
-
-                  {/* <input
-                    type="password"
-                    className="form-control mt-3 p-2"
-                    placeholder="Password"
-                    name="password"
-                  />
-
-                  <input
-                    type="password"
-                    className="form-control mt-3 p-2"
-                    placeholder="Confirm Password"
-                    name="confirmpassword"
-                  /> */}
 
                   <select
                     id="select1"

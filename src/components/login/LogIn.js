@@ -20,13 +20,6 @@ const styleIcon = {
 };
 
 const LogIn = (props) => {
-  // const onSignoutSuccess = () => {
-  //     alert("You have been logged out successfully");
-  //     console.clear();
-  //     setShowloginButton(true);
-  //     setShowlogoutButton(false);
-  // };
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loginForm, loading } = useSelector((state) => state.login);
@@ -36,28 +29,7 @@ const LogIn = (props) => {
     border-color: red;
   `;
 
-  const [showloginButton, setShowloginButton] = useState(true);
-  const [showlogoutButton, setShowlogoutButton] = useState(false);
   const token = useSelector((state) => state.login.token);
-  const onLoginSuccess = (res) => {
-    dispatch(
-      onAddingNewUser({
-        e: null,
-        token,
-        firstName: res.profileObj.givenName,
-        lastName: res.profileObj.familyName,
-        email: res.profileObj.email,
-        role: "user",
-      })
-    );
-    setShowloginButton(false);
-    setShowlogoutButton(true);
-  };
-
-  const onLoginFailure = (res) => {
-    console.log("Login Failed:", res);
-  };
-
   return (
     <Fragment>
       <div className="container">
@@ -181,51 +153,6 @@ const LogIn = (props) => {
                 </button>
               </div>
             </form>
-            {/* <p
-              style={{
-                fontSize: "12px",
-                textAlign: "center",
-                color: "#2EA6AF",
-                marginBottom: "4px",
-              }}
-            >
-              OR CONNECT USING
-            </p> */}
-            {/* <div className="d-flex justify-content-center mb-4">
-              <button
-                type="button"
-                className="btn btn-danger btn-sm"
-                style={{ backgroundColor: "#dd4b39" }}
-              >
-                <i className="fab fa-google me-2"></i> 
-                
-              </button>
-              <GoogleLogin
-                clientId={clientId}
-                buttonText="Google"
-                onSuccess={onLoginSuccess}
-                onFailure={onLoginFailure}
-                cookiePolicy={"single_host_origin"}
-                isSignedIn={true}
-              />
-            </div> */}
-
-            {/* <p
-              className="mt-2"
-              style={{
-                fontSize: "12px",
-                textAlign: "center",
-                color: "#494949",
-              }}
-            >
-              Don't Have Account?{" "}
-              <Link
-                style={{ color: "#2EA6AF", textDecoration: "none" }}
-                to={"/signup"}
-              >
-                Sign Up
-              </Link>
-            </p> */}
           </div>
         </div>
       </div>

@@ -66,26 +66,7 @@ export default function GlobalIdenetifiers() {
       .then((response) => response.blob())
       .then((blob) => {
         fileDownload(blob, `${globalidenetifier.name}.xlsx`);
-        // return res.json();
-        // const downloadLink = document.getElementById(`${id}`);
-        // res.blob().then((excelBlob) => {
-        //   const excelBlobURL = URL.createObjectURL(excelBlob);
-        //   downloadLink.href = excelBlobURL;
-        // setDownloadLink(excelBlobURL)
-        // });
       });
-    // .then((resData) => {
-    //   console.log("34", resData);
-    //   if (resData.error) {
-    //     toast(resData.error);
-    //   }
-    //   if (resData.error && resData.error[0]) {
-    //     toast(resData.error[0].message);
-    //   }
-    //   if (resData.message) {
-    //     toast.success(resData.message);
-    //   }
-    // });
   };
 
   useEffect(() => {

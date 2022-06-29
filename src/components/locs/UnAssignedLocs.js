@@ -90,22 +90,9 @@ const UnAssignedLocs = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        // if (resData.message) {
-        //   toast(resData.message);
-        // }
-        // console.log(resData[0].row2[0]);
-        // console.log(resData);
-
         if (resData[0]) {
           toast("Error in upload");
-          // toast(resData[0]);
         }
-        // if (resData[0].row2[0]) {
-        //   toast(resData[0].row2[0]);
-        // }
-        // if (resData[0].row2[0] && resData[1].row3[0]) {
-        //   toast(resData[1].row3[0]);
-        // }
         if (resData.message) {
           toast.success(resData.message);
           setFlag(true);
@@ -120,15 +107,12 @@ const UnAssignedLocs = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
         setProject(resData.project);
         setLocation(resData.location);
         setGid(resData.globalIdentifier.gid);
       });
   }, []);
-
-  // console.log("vvvvvvvvvvvvvvvvvvvvvvvv",id);
   return (
     <Fragment>
       <div className="container">

@@ -85,11 +85,7 @@ const AssignedLocs = () => {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        console.log(resData);
-      });
+    }).then((res) => res.json());
   };
 
   useEffect(() => {

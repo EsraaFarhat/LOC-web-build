@@ -38,22 +38,17 @@ export default function Projects() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const token = useSelector((state) => state.login.token);
-  // const { selectedIdentifier } = useSelector((state) => state.globalIdentifier);
-  const { selectedEditProject } = useSelector((state) => state.projects);
   const {
     projects,
     loadFetchingProjects,
-    searchForm,
     searchResult,
     renderedItem,
     loadSearch,
-    // globalIdentifier,
   } = useSelector((state) => state.projects);
 
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
 
   const handleDownload = (id, project) => {
-    console.log(id);
     fetch(`https://api.loc.store/api/projects/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -62,40 +57,17 @@ export default function Projects() {
       .then((response) => response.blob())
       .then((blob) => {
         fileDownload(blob, `${project.name}.xlsx`);
-        // .then((res) => {
-        //   // return res.json();
-        //   const downloadLink = document.getElementById(`${id}`);
-        //   res.blob().then((excelBlob) => {
-        //     const excelBlobURL = URL.createObjectURL(excelBlob);
-        //     downloadLink.href = excelBlobURL;
-        //   });
       });
-    // .then((resData) => {
-    //   console.log("34", resData);
-    //   if (resData.error) {
-    //     toast(resData.error);
-    //   }
-    //   if (resData.error && resData.error[0]) {
-    //     toast(resData.error[0].message);
-    //   }
-    //   if (resData.message) {
-    //     toast.success(resData.message);
-    //   }
-    // });
   };
 
   useEffect(() => {
     dispatch(onFetchingProjects(id, token));
-    // console.log("jjjjj",globalIdentifier);
     fetch(`https://api.loc.store/api/globalIdentifiers/${id}/projects`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
-        // dispatch(onFinishFetchingProjects(resData.projects));
-        // dispatch(onFinishFetchingGlobalIdentifiers(resData.globalIdentifier));
       });
   }, []);
   return (
@@ -110,13 +82,6 @@ export default function Projects() {
             {globalIdentifier.name}
           </Link>
         ) : null}
-        {/* <span className="mx-2" style={{ color: "#28345C" }}>
-          <i className="fas fa-chevron-right"></i>
-          <i className="fas fa-chevron-right"></i>
-        </span>
-        <Link to={"/gid"} style={styleLinkBack}>
-          Project 1
-        </Link> */}
         <div className="row">
           <div className="col-12 col-md-6  m-auto">
             <h3 className="text-center mt-2">Projects</h3>
@@ -165,30 +130,8 @@ export default function Projects() {
                             {project.name}
                           </Link>
                         </div>
-                        {/* <div className="col-8 col-md-7 d-flex justify-content-end">
-                          <Link
-                            to={"/locations/" + project.id}
-                            style={{ textDecoration: "none" }}
-                          >
-                            {project.name}
-                          </Link>
-                        </div> */}
-                        <div className="col-4 col-md-5 d-flex justify-content-end ">
-                          {/* <i
-                            className="fa fa-download text-secondary mt-1"
-                            onClick={() => {
-                              handleDownload(project.id);
-                            }}
-                          ></i> */}
-                          {/* <a
-                            id={project.id}
-                            href="#"
-                            download
-                            onClick={() => handleDownload(project.id)}
-                          >
-                            <i className="fa fa-download text-secondary mt-1"></i>
-                          </a> */}
 
+                        <div className="col-4 col-md-5 d-flex justify-content-end ">
                           <i
                             className="fa fa-download text-secondary mt-1"
                             onClick={() => handleDownload(project.id, project)}
@@ -199,9 +142,6 @@ export default function Projects() {
                           </Link>
                           <i
                             className="far fa-trash-alt text-danger mx-2 mt-1"
-                            // onClick={(e) =>
-                            //   dispatch(onDeletingProject(e, project.id, token))
-                            // }
                             onClick={(e) => {
                               setProjectID(project.id);
                               setDeleteIsOpen(true);
@@ -248,22 +188,11 @@ export default function Projects() {
                               handleDownload(project.id, project);
                             }}
                           ></i>
-                          {/* <a
-                            id={project.id}
-                            href="#"
-                            download
-                            onClick={() => handleDownload(project.id)}
-                          >
-                            <i className="fa fa-download text-secondary mt-1"></i>
-                          </a> */}
                           <Link to={"/editproject/" + project.id}>
                             <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
                           </Link>
                           <i
                             className="far fa-trash-alt text-danger mx-2 mt-1"
-                            // onClick={(e) =>
-                            //   dispatch(onDeletingProject(e, project.id, token))
-                            // }
                             onClick={(e) => {
                               setProjectID(project.id);
                               setDeleteIsOpen(true);
@@ -283,9 +212,6 @@ export default function Projects() {
 
         <div className="row my-4">
           <div className="col-6 col-md-5 w-100 d-flex justify-content-center">
-            {/* <button type="button" className="btn btn-primary">
-              Add New Location
-            </button> */}
             <Link
               onClick={() => dispatch(onResetProjectForm())}
               className="btn btn-primary"

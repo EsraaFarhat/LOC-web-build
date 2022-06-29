@@ -173,11 +173,10 @@ export const onFetchingSpecificProject = (projectId, token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log("224", resData);
         dispatch(onFinishFetchingSpecificProject(resData.project));
       })
       .catch((err) => {
-        console.log("226", err);
+        console.log(err);
       });
   };
 };
@@ -213,7 +212,6 @@ export const onFetchingProjects = (identifierId, token) => {
     )
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishFetchingProjects(resData.projects));
       });
   };
@@ -237,13 +235,10 @@ export const onSelectingProject = (projectId) => {
 
 const selectingProject = (state, action) => {
   if (state.projects) {
-    console.log("209", action.projectId);
     const projects = [...state.projects];
-    console.log("211", projects);
     const selectedEditProject = projects.find(
       (project) => project.id.toString() === action.projectId.toString()
     );
-    console.log("213", selectedEditProject);
     return updateObject(state, { selectedEditProject: selectedEditProject });
   } else {
     return "null";
@@ -288,11 +283,9 @@ export const onEditingProject = (
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         if (resData.message === "Project updated successfully..") {
           dispatch(onChangeRenderedItem("projects"));
           toast.success(resData.message);
-          // navigate(-1);
           setTimeout(() => {
             navigate(-1);
           }, 1500);
@@ -331,7 +324,6 @@ export const onDeletingProject = (e, projectId, token) => {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log(res);
       if (res.status === 204) {
         dispatch(onChangeRenderedItem("projects"));
         dispatch(onFinishDeletingProject(projectId));
@@ -348,12 +340,10 @@ export const onFinishDeletingProject = (projectId) => {
 };
 
 const finishDeleteProject = (state, action) => {
-  console.log("314", action.projectId);
   const projects = [...state.projects];
   const updatedProjectsList = projects.filter(
     (project) => project.id !== action.projectId
   );
-  console.log("319", updatedProjectsList);
   return updateObject(state, { projects: updatedProjectsList });
 };
 // =============================================================
@@ -398,7 +388,6 @@ const startSearchingProject = (state, action) => {
 };
 
 export const onSearchingProject = (text, token, id) => {
-  console.log("390", token);
   return (dispatch) => {
     dispatch(onStartSearchingProject());
     fetch(
@@ -413,9 +402,7 @@ export const onSearchingProject = (text, token, id) => {
         return res.json();
       })
       .then((resData) => {
-        console.log("api searching project", resData);
         dispatch(onFinishSearchingProject(resData.projects));
-        console.log("396", text);
         if (text === "") {
           dispatch(onChangeRenderedItem("projects"));
         } else {

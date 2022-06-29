@@ -110,7 +110,6 @@ export const onLoginHandler = (e, email, pass, navigate) => {
       body: JSON.stringify(authData),
     })
       .then((res) => {
-        console.log("110", res);
         return res.json();
       })
       .then((resData) => {
@@ -119,8 +118,6 @@ export const onLoginHandler = (e, email, pass, navigate) => {
         if (resData.error) {
           toast.error(resData.error);
         }
-        console.log(resData);
-
         if (resData.token !== undefined) {
           localStorage.setItem("token", resData.token);
           localStorage.setItem("userId", resData.user.user_id);
@@ -129,7 +126,6 @@ export const onLoginHandler = (e, email, pass, navigate) => {
         return resData;
       })
       .then((resData) => {
-        console.log("128", resData);
         dispatch(
           resData &&
             resData.user &&
@@ -174,8 +170,6 @@ export const authCheckState = (navigate) => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-    console.log("105", token);
-    console.log("105", userId);
     if (!token) {
       dispatch(onSubmitLogout());
     } else {

@@ -347,7 +347,7 @@ export const onDeletingUser = (e, userId, token) => {
         }
       })
       .catch((err) => {
-        console.log("242", err);
+        console.log(err);
       });
   };
 };

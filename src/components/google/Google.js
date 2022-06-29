@@ -16,14 +16,6 @@ function Google() {
   const onLoginFailure = (res) => {
     console.log("Login Failed:", res);
   };
-
-  const onSignoutSuccess = () => {
-    alert("You have been logged out successfully");
-    console.clear();
-    setShowloginButton(true);
-    setShowlogoutButton(false);
-  };
-
   return (
     <div>
       {showloginButton ? (
@@ -36,14 +28,6 @@ function Google() {
           isSignedIn={true}
         />
       ) : null}
-
-      {/* {showlogoutButton ? (
-        <GoogleLogout
-          clientId={clientId}
-          buttonText="Sign Out"
-          onLogoutSuccess={onSignoutSuccess}
-        ></GoogleLogout>
-      ) : null} */}
     </div>
   );
 }

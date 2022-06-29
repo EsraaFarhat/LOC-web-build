@@ -113,14 +113,7 @@ function ProjectsMap({ cmp, radius }) {
   return (
     <div style={{ width: "100%", margin: "10px 0" }}>
       {isLoaded ? (
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-          // onLoad={onLoad}
-          // onUnmount={onUnmount}
-        >
-          {/* Child components, such as markers, info windows, etc. */}
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
           <Marker
             name={"Dolores park"}
             draggable={true}
@@ -130,13 +123,9 @@ function ProjectsMap({ cmp, radius }) {
               lng: state.markerPosition.lng,
             }}
           />
-          {console.log("135-", radius)}
           <Circle
             center={{ lat: state.mapPosition.lat, lng: state.mapPosition.lng }}
             radius={parseFloat(radius)}
-
-            // draggable={true}
-            // editable={true}
           />
         </GoogleMap>
       ) : (

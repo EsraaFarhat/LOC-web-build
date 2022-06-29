@@ -54,7 +54,6 @@ export const onFetchingSpecificUser = (id, token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishFetchingSpecificUser(resData.user));
       });
   };
@@ -89,10 +88,9 @@ export const onFetchingUserLogs = (id, token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log("fetching logs 28", resData);
         disptach(onFinishFetchingUserLogs(resData && resData.logs));
       })
-      .catch((err) => {        
+      .catch((err) => {
         disptach(onFinishFetchingUserLogs([], "Network request failed."));
       });
   };
@@ -134,7 +132,6 @@ export const onFetchingSpecificIdentifier = (id, token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishFetchingSpecificIdnetifier(resData.globalIdentifier));
       });
   };
@@ -163,17 +160,13 @@ const startFetchingIdentifierLogs = (state, action) => {
 export const onFetchingIdentifierLogs = (id, token) => {
   return (disptach) => {
     disptach(onStartFetchingIdentifierLogs());
-    fetch(
-      `https://api.loc.store/api/globalidentifiers/${id}/logs`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`https://api.loc.store/api/globalidentifiers/${id}/logs`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((resData) => {
-        console.log("117", resData);
         disptach(onFinishFetchingIdentifierLogs(resData.logs));
       });
   };

@@ -71,14 +71,6 @@ function LocationMap({ radius, projectLat, projectLong }) {
         console.error(error);
       }
     );
-    // if (state.mapPosition.lat !== 53.349804) {
-    //   dispatch(onChangeLocationInputs(state.markerPosition.lat, "lat"));
-    //   dispatch(onChangeLocationInputs(state.markerPosition.lng, "long"));
-    // } else {
-    // console.log({ projectLat, projectLong });
-    // dispatch(onChangeLocationInputs(projectLat, "lat"));
-    // dispatch(onChangeLocationInputs(projectLong, "long"));
-    // }
   }, [projectLat]);
 
   const onMarkerDragEnd = (event) => {

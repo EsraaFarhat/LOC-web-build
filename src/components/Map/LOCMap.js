@@ -115,14 +115,7 @@ function LOCMap({ radius, locationLat, locationLong }) {
   return (
     <div style={{ width: "100%", margin: "10px 0" }}>
       {isLoaded && locationLat && locationLong ? (
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
-          // onLoad={onLoad}
-          // onUnmount={onUnmount}
-        >
-          {console.log("128", locationLat)}
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
           {/* Child components, such as markers, info windows, etc. */}
           <Marker
             name={"Dolores park"}

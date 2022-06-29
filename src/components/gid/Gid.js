@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
 
 const styleLinkBack = {
   textDecoration: "none",
@@ -11,7 +10,7 @@ export default function Gid() {
   return (
     <Fragment>
       <div className="container">
-      {/* <Link to={"/gid"} style={styleLinkBack}>
+        {/* <Link to={"/gid"} style={styleLinkBack}>
             GID 1
         </Link> */}
         <div className="row">

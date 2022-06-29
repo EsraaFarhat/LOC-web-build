@@ -125,8 +125,6 @@ export const onAddingSingleLoc = (
 ) => {
   e.preventDefault();
   return (dispatch) => {
-    console.log({ route_id, origin });
-    console.log(gid);
     dispatch(onStartAddingSingleLoc());
     fetch("https://api.loc.store/api/LOCs", {
       method: "POST",
@@ -149,7 +147,6 @@ export const onAddingSingleLoc = (
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishAddingSingleLoc());
         if (resData.error) {
           return toast.error(resData.error);
@@ -209,8 +206,6 @@ export const onAddingDualLoc = (
 ) => {
   e.preventDefault();
   return (dispatch) => {
-    console.log(gid);
-    console.log({ route_id, origin });
     dispatch(onStartAddingDualLoc());
     fetch("https://api.loc.store/api/LOCs", {
       method: "POST",
@@ -241,7 +236,6 @@ export const onAddingDualLoc = (
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishAddingDualLoc());
         if (resData.error) {
           return toast.error(resData.error);
@@ -250,7 +244,6 @@ export const onAddingDualLoc = (
           return toast(resData.error[0].message);
         }
         if (resData.message) {
-          console.log("done");
           toast.success(resData.message);
           setTimeout(() => {
             navigate(-1);
@@ -290,7 +283,6 @@ export const onFetchingLocs = (id, token, assigned, sortBy) => {
     )
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishFetchingLocs(resData.dualLOCs, resData.singleLOCs));
       });
   };
@@ -325,7 +317,6 @@ export const onFetchingSpecificLoc = (id, token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishFetchingSpecificLoc(resData.loc));
       });
   };
@@ -369,7 +360,6 @@ export const onEditingSingleLoc = (
 ) => {
   e.preventDefault();
   return (dispatch) => {
-    // console.log("ggggggggggggggg",gid);
     dispatch(onStartEditingSingleLoc());
     fetch("https://api.loc.store/api/LOCs/" + locId, {
       method: "PATCH",
@@ -392,7 +382,6 @@ export const onEditingSingleLoc = (
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishEditingSingleLoc(resData.loc));
         if (resData.error) {
           return toast.error(resData.error);
@@ -454,7 +443,6 @@ export const onEditingDualLoc = (
 ) => {
   e.preventDefault();
   return (dispatch) => {
-    console.log("ggggggggggggggg", gid);
     dispatch(onStartEditingDualLoc());
     fetch("https://api.loc.store/api/LOCs/" + locId, {
       method: "PATCH",
@@ -482,7 +470,6 @@ export const onEditingDualLoc = (
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishEditingDualLoc(resData.loc));
         if (resData.error) {
           return toast.error(resData.error);
@@ -525,7 +512,6 @@ export const onDeletingLoc = (e, id, token, type, gid) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingLoc());
-    console.log("gggggggggggggggggg", gid);
     fetch("https://api.loc.store/api/LOCs/" + id, {
       method: "DELETE",
       headers: {
@@ -557,7 +543,6 @@ const finishDeletingLoc = (state, action) => {
   } else {
     locs = [...state.dualLocs];
   }
-  console.log("505", locs);
   const updateLocsList =
     locs && locs.filter((loc) => loc.loc_id !== action.locId);
   if (action.locType === "single") {
@@ -605,7 +590,6 @@ const startSearchingLoc = (state, action) => {
 };
 
 export const onSearchingLoc = (id, text, token, type) => {
-  console.log("778", text);
   return (dispatch) => {
     dispatch(onStartSearchingLoc());
     fetch(`https://api.loc.store/api/LOCs/${id}/${type}?route_id=${text}`, {
@@ -619,7 +603,6 @@ export const onSearchingLoc = (id, text, token, type) => {
           dispatch(onChangeRenderedItem("locs"));
         }
         dispatch(onFinishSearchingLoc(resData.dualLOCs, resData.singleLOCs));
-        console.log("788 searching loc", resData);
       });
   };
 };

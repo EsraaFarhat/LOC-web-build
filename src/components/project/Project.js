@@ -43,26 +43,20 @@ export default function Project() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const token = useSelector((state) => state.login.token);
-  const { selectedIdentifier } = useSelector((state) => state.globalIdentifier);
-  const { selectedEditProject } = useSelector((state) => state.projects);
   const {
-    locationForm,
     locations,
-    selectedEditLocation,
     loadLocations,
     searchResult,
     searchForm,
     loadSearch,
     renderedItem,
   } = useSelector((state) => state.locations);
-  // console.log(loadLocations);
 
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
   const [project, setProject] = useState(null);
   const [gid, setGid] = useState("");
 
   const handleDownload = (id, location) => {
-    console.log(id);
     fetch(`https://api.loc.store/api/locations/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -71,26 +65,7 @@ export default function Project() {
       .then((response) => response.blob())
       .then((blob) => {
         fileDownload(blob, `${location.name}.xlsx`);
-        // .then((res) => {
-        //   // return res.json();
-        //   const downloadLink = document.getElementById(`${id}`);
-        //   res.blob().then((excelBlob) => {
-        //     const excelBlobURL = URL.createObjectURL(excelBlob);
-        //     downloadLink.href = excelBlobURL;
-        //   });
       });
-    // .then((resData) => {
-    //   console.log("34", resData);
-    //   if (resData.error) {
-    //     toast(resData.error);
-    //   }
-    //   if (resData.error && resData.error[0]) {
-    //     toast(resData.error[0].message);
-    //   }
-    //   if (resData.message) {
-    //     toast.success(resData.message);
-    //   }
-    // });
   };
 
   useEffect(() => {
@@ -127,32 +102,6 @@ export default function Project() {
             </Link>
           </Fragment>
         ) : null}
-
-        {/* {selectedEditProject.name && selectedIdentifier.name ? (
-          <Fragment>
-          <Link to={"/globalidenetifiers/projects/"+ selectedEditProject.gid} style={styleLinkBack}>
-            {selectedIdentifier.name}
-          </Link>
-            <span className="mx-2" style={{ color: "#28345C" }}>
-              <i className="fas fa-chevron-right"></i>
-              <i className="fas fa-chevron-right"></i>
-            </span>
-            <Link
-              to={"/locations/" + selectedEditProject.id}
-              style={styleLinkBack}
-            >
-              {selectedEditProject.name}
-            </Link>
-          </Fragment>
-        ) : null} */}
-
-        {/* <span className="mx-2" style={{ color: "#28345C" }}>
-          <i className="fas fa-chevron-right"></i>
-          <i className="fas fa-chevron-right"></i>
-        </span>
-        <Link to={"/gid"} style={styleLinkBack}>
-          Location 1
-        </Link> */}
         <div className="row">
           <div className="col-12 col-md-6  m-auto">
             <h3 className="text-center mt-2">Locations</h3>
@@ -181,9 +130,7 @@ export default function Project() {
           {renderedItem === "locations" ? (
             loadLocations ? (
               <div style={{ textAlign: "center" }}>
-                <div className="spinner-border" role="status">
-                  {/* <span className="sr-only">Loading...</span> */}
-                </div>
+                <div className="spinner-border" role="status"></div>
               </div>
             ) : locations && locations.length > 0 ? (
               locations.map((location) => {
@@ -206,15 +153,6 @@ export default function Project() {
                           </Link>
                         </div>
                         <div className="col-4 col-md-5 d-flex justify-content-end ">
-                          {/* <a
-                            id={location.id}
-                            href="#"
-                            download
-                            onClick={() => handleDownload(location.id)}
-                          >
-                            <i className="fa fa-download text-secondary mt-1"></i>
-                          </a> */}
-
                           <i
                             className="fa fa-download text-secondary mt-1"
                             onClick={() =>
@@ -231,11 +169,6 @@ export default function Project() {
                           </Link>
                           <i
                             className="far fa-trash-alt text-danger mx-2 mt-1"
-                            // onClick={(e) =>
-                            //   dispatch(
-                            //     onDeletingLocation(e, location.id, token)
-                            //   )
-                            // }
                             onClick={() => {
                               setLocationID(location.id);
                               setDeleteIsOpen(true);
@@ -255,9 +188,7 @@ export default function Project() {
           {renderedItem === "searchResult" ? (
             loadSearch ? (
               <div style={{ textAlign: "center" }}>
-                <div className="spinner-border" role="status">
-                  {/* <span className="sr-only">Loading...</span> */}
-                </div>
+                <div className="spinner-border" role="status"></div>
               </div>
             ) : searchResult && searchResult.length > 0 ? (
               searchResult.map((result) => {
@@ -288,9 +219,6 @@ export default function Project() {
                           </Link>
                           <i
                             className="far fa-trash-alt text-danger mx-2 mt-1"
-                            // onClick={(e) =>
-                            //   dispatch(onDeletingLocation(e, result.id, token))
-                            // }
                             onClick={(e) => {
                               setLocationID(result.id);
                               setDeleteIsOpen(true);
@@ -310,9 +238,6 @@ export default function Project() {
 
         <div className="row my-4">
           <div className="col-6 col-md-5 w-100 d-flex justify-content-center">
-            {/* <button type="button" className="btn btn-primary">
-              Add New Location
-            </button> */}
             <Link
               onClick={() => dispatch(onResetingLocationForm())}
               className="btn btn-primary"

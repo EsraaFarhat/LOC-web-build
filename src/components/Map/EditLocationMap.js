@@ -42,7 +42,6 @@ function EditLocationMap({ radius, locationLat, locationLong }) {
     },
   });
   const center = { lat: locationLat, lng: locationLong };
-  // console.log("===================",locationLat,"-------",locationLong);
   useEffect(() => {
     Geocode.fromLatLng(state.mapPosition.lat, state.mapPosition.lng).then(
       (response) => {

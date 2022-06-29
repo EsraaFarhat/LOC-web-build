@@ -32,7 +32,6 @@ export const checkValidity = (value, rules, newPassword) => {
   if (rules.isEmail) {
     isValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value);
   }
-  console.log(35, rules);
   if (rules.isNumber) {
     isValid = /^-?\d+$/.test(value);
   }

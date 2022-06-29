@@ -53,7 +53,6 @@ const CreateDualLocInfo = () => {
         setProject(resData.project);
         setLocation(resData.location);
         setGid(resData.globalIdentifier.gid);
-        // console.log(location);
       });
 
     dispatch(onFetchingSpecificLocation(id, token));

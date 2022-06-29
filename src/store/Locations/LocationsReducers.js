@@ -83,7 +83,6 @@ export const onFetchingLocations = (id, token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishFetchingLocations(resData.locations));
       });
   };
@@ -222,7 +221,6 @@ export const onEditingLocation = (
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishEditingLocation());
         if (resData.error && resData.error[0]) {
           return toast(resData.error[0].message);
@@ -351,9 +349,7 @@ export const onSearchingLocation = (text, token, id) => {
         return res.json();
       })
       .then((resData) => {
-        console.log("api searching location", resData);
         dispatch(onFinishSearchingLocation(resData.locations));
-        console.log("396", text);
         if (text === "") {
           dispatch(onChangeRenderedItem("locations"));
         } else {
@@ -405,7 +401,6 @@ export const onFetchingSpecificLocation = (id, token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        // console.log("lllllllllllllllllllll", resData);
         dispatch(onFinishFetchingSpecificLocation(resData.location));
       });
   };

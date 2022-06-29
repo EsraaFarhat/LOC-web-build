@@ -24,46 +24,9 @@ const override = css`
 
 export default function MailForResetPassword() {
   const { userForm, loading } = useSelector((state) => state.newUser);
-  // const [email, setEmail] = useState("");
   const [disableBtn, setDisableBtn] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //  console.log(email);
-
-  //  fetch("https://api.loc.store/api/users/reset-password", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     // Authorization: `Bearer ${token}`,
-  //   },
-  //   body: JSON.stringify({
-  //     email: email,
-  //   }),
-  // })
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then((resData) => {
-  //     console.log("34", resData);
-  //     if (resData.error) {
-  //       toast(resData.error);
-  //     }
-  //     if (resData.error && resData.error[0]) {
-  //       toast(resData.error[0].message);
-  //     }
-  //     if (resData.message) {
-  //       toast.success(resData.message);
-  //       setTimeout(() => {
-  //         navigate("/login")
-  //       }, 2000);
-  //       // navigate("/login")
-  //     }
-  //   });
-
-  // };
 
   return (
     <Fragment>
@@ -100,40 +63,6 @@ export default function MailForResetPassword() {
             >
               Enter your email to reset your password
             </p>
-            {/* <form onSubmit={handleSubmit}>
-
-          <div className="mt-3" style={{ position: "relative" }}>
-              <i className="fas fa-user" style={styleIcon}></i>
-                <input
-                  type="email"
-                  className="form-control"
-                  name="email"
-                  placeholder="Email"
-                  style={{ paddingLeft: "35px" }}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-              </div>
-            <div className="d-flex justify-content-center my-4">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{ width: "130px" }}
-                onClick={() => {
-                  setTimeout(() => {
-                    setDisableBtn(true);
-                  }, 1);
-                  setTimeout(() => {
-                    setDisableBtn(false);
-                  }, 3000);
-                }}
-              >
-                Submit
-              </button>
-            </div>
-          </form> */}
-
             <form
               onSubmit={(e) =>
                 dispatch(
