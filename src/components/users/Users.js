@@ -130,7 +130,6 @@ export default function Users() {
           return res.json();
         })
         .then((resData) => {
-          console.log("ssssssssssss", resData);
           if (resData.error) {
             toast(resData.error);
             resolve("error");

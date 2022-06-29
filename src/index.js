@@ -38,7 +38,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <Wrapper apiKey={"AIzaSyCAOnNDfeA7T9gaFY2NJSd6VLDQ6jl9US8"}>
+        <Wrapper apiKey={"AIzaSyDQTxWgTOFL7Df9c_Ov-0BPwIbHtGOvdp4"}>
           <App />
         </Wrapper>
       </BrowserRouter>

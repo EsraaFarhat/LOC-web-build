@@ -58,7 +58,6 @@ export default function GlobalIdenetifiers() {
   } = useSelector((state) => state.globalIdentifier);
 
   const handleDownload = (id, globalidenetifier) => {
-    console.log(id);
     fetch(`https://api.loc.store/api/globalIdentifiers/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -66,7 +65,6 @@ export default function GlobalIdenetifiers() {
     })
       .then((response) => response.blob())
       .then((blob) => {
-        console.log("69-", blob);
         fileDownload(blob, `${globalidenetifier.name}.xlsx`);
         // return res.json();
         // const downloadLink = document.getElementById(`${id}`);

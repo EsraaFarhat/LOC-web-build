@@ -45,7 +45,6 @@ const AddNewProject = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
         // dispatch(onFinishFetchingProjects(resData.projects));
         // dispatch(onFinishFetchingGlobalIdentifiers(resData.globalIdentifier));

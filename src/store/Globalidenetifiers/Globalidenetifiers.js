@@ -158,7 +158,6 @@ export const onAddingGlobalIdentifier = (e, token, name, navigate) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log("44", resData);
         dispatch(onFinishAddingGlobalIdentifier());
         if (resData.error && resData.error[0] && resData.error[0].message) {
           toast(resData.error[0].message);
@@ -204,7 +203,6 @@ export const onFetchingGlobalIdentifiers = (token) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         dispatch(onFinishFetchingGlobalIdentifiers(resData.globalIdentifiers));
       });
   };
@@ -258,7 +256,6 @@ export const onEditingIdentifier = (e, token, identifierId, name) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         if (resData.error) {
           toast.error(resData.error);
         }
@@ -341,7 +338,6 @@ const finishDeletingIdentifier = (state, action) => {
   const updatedIdentifierList = identifiers.filter(
     (identifier) => identifier.gid !== action.identifierId
   );
-  console.log("279", identifiers);
   return updateObject(state, {
     loadingDelete: false,
     globalIdentifiers: updatedIdentifierList,
@@ -401,7 +397,6 @@ export const onSearchingIdentifier = (text, token, id) => {
         return res.json();
       })
       .then((resData) => {
-        console.log("api searching identifier", resData);
         dispatch(onFinishSearchingIdentifier(resData.globalIdentifiers));
         if (text === "") {
           dispatch(onChangeRenderedItem("identifier"));

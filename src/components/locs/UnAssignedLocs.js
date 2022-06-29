@@ -43,9 +43,6 @@ const UnAssignedLocs = () => {
   const [project, setProject] = useState(null);
   const [location, setLocation] = useState(null);
   const token = useSelector((state) => state.login.token);
-  const { selectedIdentifier } = useSelector((state) => state.globalIdentifier);
-  const { selectedEditProject } = useSelector((state) => state.projects);
-  const { selectedEditLocation } = useSelector((state) => state.locations);
   const [flag, setFlag] = useState(false);
 
   const {
@@ -67,7 +64,6 @@ const UnAssignedLocs = () => {
   const fileHandler = (event) => {
     let fileObj = event.target.files[0];
 
-    console.log("44", fileObj);
     setFile(fileObj);
     //just pass the fileObj as parameter
     ExcelRenderer(fileObj, (err, resp) => {
@@ -78,8 +74,6 @@ const UnAssignedLocs = () => {
           cols: resp.cols,
           rows: resp.rows,
         });
-
-        console.log("57", state);
       }
     });
   };
@@ -89,7 +83,6 @@ const UnAssignedLocs = () => {
     const formData = new FormData();
     formData.append("LocFile", file);
 
-    console.log("65", file);
     fetch(`https://api.loc.store/api/LOCs/upload/${id}`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
@@ -97,16 +90,15 @@ const UnAssignedLocs = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        //   if (resData.message) {
-        //     toast(resData.message);
-        //   }
+        // if (resData.message) {
+        //   toast(resData.message);
+        // }
         // console.log(resData[0].row2[0]);
         // console.log(resData);
 
         if (resData[0]) {
           toast("Error in upload");
           // toast(resData[0]);
-          console.log(resData);
         }
         // if (resData[0].row2[0]) {
         //   toast(resData[0].row2[0]);
@@ -613,7 +605,6 @@ const UnAssignedLocs = () => {
                   <tbody>
                     {renderedItem === "locs" ? (
                       dualLocs.map((loc) => {
-                        console.log("320", loc);
                         return (
                           <tr key={loc.loc_id}>
                             <td scope="row">{loc.route_id}</td>
@@ -645,20 +636,7 @@ const UnAssignedLocs = () => {
                             <td>{loc.LOCDestination?.destination_field_1}</td>
                             <td>{loc.LOCDestination?.destination_field_2}</td>
                             <td>{loc.LOCDestination?.destination_field_3}</td>
-                            {/* <td>{loc.MISC}</td> */}
-                            {/* <td>DF11</td>
-                          <td>DF11</td> */}
-                            {/* <td className="d-flex justify-content-center">
-                            <button
-                              type="button"
-                              className="btn btn-primary btn-sm w-75"
-                            >
-                              view
-                            </button>
-                          </td> */}
-                            {/* <td>{loc.LOCDestination?.latitude}</td>
-                          <td>{loc.LOCDestination?.longitude}</td>
-                          <td>{loc.LOCDestination?.radius}</td> */}
+
                             <td>
                               <span style={{ fontSize: "9px" }}>
                                 Latitude :{" "}
@@ -746,20 +724,7 @@ const UnAssignedLocs = () => {
                             <td>{loc.LOCDestination?.destination_field_1}</td>
                             <td>{loc.LOCDestination?.destination_field_2}</td>
                             <td>{loc.LOCDestination?.destination_field_3}</td>
-                            {/* <td>{loc.MISC}</td> */}
-                            {/* <td>DF11</td>
-                      <td>DF11</td> */}
-                            {/* <td className="d-flex justify-content-center">
-                                <button
-                                  type="button"
-                                  className="btn btn-primary btn-sm w-75"
-                                >
-                                  view
-                                </button>
-                              </td> */}
-                            {/* <td>{loc.LOCDestination?.latitude}</td>
-                              <td>{loc.LOCDestination?.longitude}</td>
-                              <td>{loc.LOCDestination?.radius}</td> */}
+
                             <td>
                               <span style={{ fontSize: "9px" }}>
                                 Latitude :{" "}

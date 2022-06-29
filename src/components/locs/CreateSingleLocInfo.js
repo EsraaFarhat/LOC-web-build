@@ -45,7 +45,6 @@ const CreateSingleLocInfo = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
         setProject(resData.project);
         setLocation(resData.location);

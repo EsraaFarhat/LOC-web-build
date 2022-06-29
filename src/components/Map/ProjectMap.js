@@ -10,7 +10,7 @@ import { getArea, getCity, getState } from "../../util/MapsUtil";
 import { useDispatch, useSelector } from "react-redux";
 import { onChangeProjectInputs } from "../../store/Projects/ProjectsReducer";
 
-Geocode.setApiKey("AIzaSyB26LsBjwYe57N5r5K7Cuno288cIhkoAZQ");
+Geocode.setApiKey("AIzaSyDQTxWgTOFL7Df9c_Ov-0BPwIbHtGOvdp4");
 
 const containerStyle = {
   width: "100%",
@@ -22,7 +22,7 @@ function ProjectsMap({ cmp, radius }) {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCAOnNDfeA7T9gaFY2NJSd6VLDQ6jl9US8",
+    googleMapsApiKey: "AIzaSyDQTxWgTOFL7Df9c_Ov-0BPwIbHtGOvdp4",
   });
   const { projectForm, selectedEditProject } = useSelector(
     (state) => state.projects
@@ -52,8 +52,6 @@ function ProjectsMap({ cmp, radius }) {
           city = getCity(addressArray),
           area = getArea(addressArray),
           state = getState(addressArray);
-
-        console.log("city", city, area, state);
 
         setState({
           address: address ? address : "",

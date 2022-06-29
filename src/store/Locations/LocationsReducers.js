@@ -177,7 +177,6 @@ const selectingLocation = (state, action) => {
     const selectedEditLocation = locations.find(
       (location) => location.id.toString() === action.locationId.toString()
     );
-    console.log("213", selectedEditLocation);
     return updateObject(state, { selectedEditLocation: selectedEditLocation });
   } else {
     return "null";
@@ -206,7 +205,6 @@ export const onEditingLocation = (
 ) => {
   e.preventDefault();
   return (dispatch) => {
-    console.log("ggggggggggggggggggggggggg", globalIdentifierGID);
     dispatch(onStartEditingLocation());
     fetch(`https://api.loc.store/api/locations/${locationId}`, {
       method: "PATCH",
@@ -267,7 +265,6 @@ export const onDeletingLocation = (
 ) => {
   e.preventDefault();
   return (dispatch) => {
-    console.log("dddddddddddd", globalIdentifierGID);
     dispatch(onStartDeletingLocation());
     fetch(`https://api.loc.store/api/locations/${locationId}`, {
       method: "DELETE",
@@ -279,7 +276,6 @@ export const onDeletingLocation = (
         gid: globalIdentifierGID,
       }),
     }).then((res) => {
-      console.log(res);
       if (res.status === 204) {
         dispatch(onChangeRenderedItem("locations"));
         dispatch(onFinishDeletingLocation(locationId));
@@ -344,17 +340,13 @@ const startSearchingLocation = (state, action) => {
 };
 
 export const onSearchingLocation = (text, token, id) => {
-  console.log("390", token);
   return (dispatch) => {
     dispatch(onStartSearchingLocation());
-    fetch(
-      `https://api.loc.store/api/projects/${id}/locations?name=${text}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`https://api.loc.store/api/projects/${id}/locations?name=${text}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         return res.json();
       })

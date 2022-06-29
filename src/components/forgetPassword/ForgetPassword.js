@@ -27,49 +27,43 @@ export default function ForgetPassword() {
   const { userForm, loading } = useSelector((state) => state.newUser);
   const dispatch = useDispatch();
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] =useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [disableBtn, setDisableBtn] = useState(false);
   const search = useLocation().search;
   const token = new URLSearchParams(search).get("token");
   const navigate = useNavigate();
 
-  console.log(password);
-  console.log(confirmPassword);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-   console.log(password,confirmPassword);
 
-   fetch(`https://api.loc.store/api/users/update-password?token=${token}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      password: password,
-      confirmPassword:confirmPassword,
-    }),
-  })
-    .then((res) => {
-      return res.json();
+    fetch(`https://api.loc.store/api/users/update-password?token=${token}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: password,
+        confirmPassword: confirmPassword,
+      }),
     })
-    .then((resData) => {
-      console.log("34", resData);
-      if (resData.error) {
-        toast(resData.error);
-      }
-      if (resData.error && resData.error[0]) {
-        toast(resData.error[0].message);
-      }
-      if (resData.message) {
-        toast.success(resData.message);
-        setTimeout(() => {
-              navigate("/login")
-            }, 2000);
-        // navigate("/login")
-      }
-    });
-
+      .then((res) => {
+        return res.json();
+      })
+      .then((resData) => {
+        if (resData.error) {
+          toast(resData.error);
+        }
+        if (resData.error && resData.error[0]) {
+          toast(resData.error[0].message);
+        }
+        if (resData.message) {
+          toast.success(resData.message);
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
+          // navigate("/login")
+        }
+      });
   };
 
   return (
@@ -109,21 +103,20 @@ export default function ForgetPassword() {
               Reset Your Password
             </p>
             <form onSubmit={handleSubmit}>
-
-            <div className="mt-3" style={{ position: "relative" }}>
-              <i className="fas fa-lock" style={styleIcon}></i>
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                placeholder="Password"
-                style={{ paddingLeft: "35px" }}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
-            <div className="mt-3" style={{ position: "relative" }}>
+              <div className="mt-3" style={{ position: "relative" }}>
+                <i className="fas fa-lock" style={styleIcon}></i>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  placeholder="Password"
+                  style={{ paddingLeft: "35px" }}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="mt-3" style={{ position: "relative" }}>
                 <i className="fas fa-lock" style={styleIcon}></i>
                 <input
                   type="password"
@@ -136,26 +129,26 @@ export default function ForgetPassword() {
                   }}
                 />
               </div>
-            <div className="d-flex justify-content-center my-4">
-              <button
-                type="submit"
-                className="btn btn-primary"
-                style={{ width: "130px" }}
-                onClick={() => {
-                  setTimeout(() => {
-                    setDisableBtn(true);
-                  }, 1);
-                  setTimeout(() => {
-                    setDisableBtn(false);
-                  }, 3000);
-                }}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
+              <div className="d-flex justify-content-center my-4">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{ width: "130px" }}
+                  onClick={() => {
+                    setTimeout(() => {
+                      setDisableBtn(true);
+                    }, 1);
+                    setTimeout(() => {
+                      setDisableBtn(false);
+                    }, 3000);
+                  }}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
 
-{/* Redux */}
+            {/* Redux */}
             {/* <form
               onSubmit={(e) =>
                 dispatch(
@@ -250,7 +243,6 @@ export default function ForgetPassword() {
                 </button>
               </div>
             </form> */}
-
           </div>
         </div>
       </div>

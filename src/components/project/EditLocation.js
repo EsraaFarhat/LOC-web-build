@@ -61,7 +61,6 @@ const EditLocation = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
         setProject(resData.project);
         setGid(resData.globalIdentifier.gid);

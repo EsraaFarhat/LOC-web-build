@@ -28,7 +28,6 @@ const GidLogs = () => {
   }, [dispatch, token, flag]);
 
   const handleMarkAsSeen = (time) => {
-    console.log(token);
     fetch(`https://api.loc.store/api/logs/${time}`, {
       method: "PATCH",
       headers: {
@@ -39,7 +38,6 @@ const GidLogs = () => {
         return res.json();
       })
       .then((resData) => {
-        console.log("seen", resData);
         if (resData.error) {
           toast(resData.error);
         }

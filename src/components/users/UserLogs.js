@@ -31,7 +31,6 @@ const UserLogs = () => {
   }, [dispatch, token, flag]);
 
   const handleMarkAsSeen = (time) => {
-    console.log(time);
     fetch(`https://api.loc.store/api/logs/${time}`, {
       method: "PATCH",
       headers: {
@@ -42,7 +41,6 @@ const UserLogs = () => {
         return res.json();
       })
       .then((resData) => {
-        console.log("seen", resData);
         if (resData.error) {
           toast(resData.error);
         }

@@ -53,10 +53,7 @@ const EditProject = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
-        console.log("kkkk", resData);
-        console.log("jjjjj", globalIdentifier);
       });
   }, []);
   return (

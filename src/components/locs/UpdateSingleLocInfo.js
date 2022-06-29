@@ -34,9 +34,9 @@ const UpdateSingleLocInfo = () => {
   const { selectedEditProject } = useSelector((state) => state.projects);
   const { selectedEditLocation } = useSelector((state) => state.locations);
 
-  const [globalIdentifier , setGlobalIdenetifier] = useState(null)
-  const [project , setProject] = useState(null)
-  const [location , setLocation] = useState(null)
+  const [globalIdentifier, setGlobalIdenetifier] = useState(null);
+  const [project, setProject] = useState(null);
+  const [location, setLocation] = useState(null);
   const [gid, setGid] = useState("");
 
   const { specificLoc, singleLocForm, loadEdit } = useSelector(
@@ -59,53 +59,43 @@ const UpdateSingleLocInfo = () => {
     }
   }, [specificLoc]);
 
-
   useEffect(() => {
-    fetch(
-      `https://api.loc.store/api/LOCs/${id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    fetch(`https://api.loc.store/api/LOCs/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
-        setGlobalIdenetifier(resData.globalIdentifier)
-        setProject(resData.project)
-        setLocation(resData.location)
-        setGid(resData.globalIdentifier.gid)
+        setGlobalIdenetifier(resData.globalIdentifier);
+        setProject(resData.project);
+        setLocation(resData.location);
+        setGid(resData.globalIdentifier.gid);
       });
-      
   }, []);
-
 
   return (
     <Fragment>
       <ToastContainer />
       <div className="container">
-      {globalIdentifier?.name && project?.name && location?.name ? (
-           <Fragment>
-          <Link to={"/globalidenetifiers/projects/"+ globalIdentifier.gid} style={styleLinkBack}>
-            {globalIdentifier.name}
-          </Link>
-          <span className="mx-2" style={{ color: "#28345C" }}>
+        {globalIdentifier?.name && project?.name && location?.name ? (
+          <Fragment>
+            <Link
+              to={"/globalidenetifiers/projects/" + globalIdentifier.gid}
+              style={styleLinkBack}
+            >
+              {globalIdentifier.name}
+            </Link>
+            <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/locations/" + project.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/locations/" + project.id} style={styleLinkBack}>
               {project.name}
             </Link>
             <span className="mx-2" style={{ color: "#28345C" }}>
               <i className="fas fa-chevron-right"></i>
               <i className="fas fa-chevron-right"></i>
             </span>
-            <Link
-              to={"/viewlocs/" + location.id}
-              style={styleLinkBack}
-            >
+            <Link to={"/viewlocs/" + location.id} style={styleLinkBack}>
               {location.name}
             </Link>
           </Fragment>

@@ -71,7 +71,6 @@ export default function Project() {
       .then((response) => response.blob())
       .then((blob) => {
         fileDownload(blob, `${location.name}.xlsx`);
-        console.log("ffffffffffffff", blob.error);
         // .then((res) => {
         //   // return res.json();
         //   const downloadLink = document.getElementById(`${id}`);
@@ -102,11 +101,9 @@ export default function Project() {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
         setProject(resData.project);
         setGid(resData.globalIdentifier.gid);
-        console.log("kkkk".resData);
       });
   }, [dispatch, searchForm.textVal.value]);
   return (

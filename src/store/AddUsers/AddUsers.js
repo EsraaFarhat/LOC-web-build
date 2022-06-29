@@ -99,7 +99,6 @@ export const onAddingNewUser = ({
         return res.json();
       })
       .then((resData) => {
-        console.log("117", resData);
         dispatch(onFinishAddingUser(resData.user));
         if (resData.error) {
           toast(resData.error);
@@ -129,7 +128,6 @@ export const onSendingMailForResetPassword = ({ e, email, navigate }) => {
         return res.json();
       })
       .then((resData) => {
-        console.log("117", resData);
         dispatch(onFinishAddingUser(resData.user));
         if (resData.error) {
           toast(resData.error);
@@ -168,7 +166,6 @@ export const onSendingPasswordForResetPassword = ({
         return res.json();
       })
       .then((resData) => {
-        console.log("34", resData);
         if (resData.error) {
           toast(resData.error);
         }
@@ -221,7 +218,6 @@ export const onFetchingUsers = (token) => {
         return res.json();
       })
       .then((resData) => {
-        console.log("api fetching users", resData);
         dispatch(onFinishFetchingUsers(resData.users));
       })
       .catch((err) => {
@@ -289,7 +285,6 @@ export const onEditingUser = ({
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log("237", resData);
         dispatch(onFinishEditingUser(resData.user, userId));
 
         if (resData.error) {
@@ -343,7 +338,6 @@ export const onDeletingUser = (e, userId, token) => {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
-        console.log("235", res);
         if (res.status === 204) {
           dispatch(onChangeRenderedItem("users"));
           dispatch(onFinishDeletingUser(userId));
@@ -414,7 +408,6 @@ const startSearchingUser = (state, action) => {
 };
 
 export const onSearchingUser = (text, token, type) => {
-  console.log("390", token);
   return (dispatch) => {
     dispatch(onStartSearchingUser());
     fetch(
@@ -432,7 +425,6 @@ export const onSearchingUser = (text, token, type) => {
       })
       .then((resData) => {
         dispatch(onFinishSearchingUser(resData.users));
-        console.log("api fetching users", resData);
         if (text === "") {
           dispatch(onChangeRenderedItem("users"));
         } else {
@@ -471,8 +463,6 @@ export const onResetNewUserForm = () => {
 
 const resetNewUserForm = (state, action) => {
   const updatedUserForm = updateObject(state.userForm, userIS.userForm);
-
-  console.log("470-", updatedUserForm);
   return updateObject(state, {
     ...state,
     userForm: updatedUserForm,

@@ -12,7 +12,7 @@ import { onChangeProjectInputs } from "../../store/Projects/ProjectsReducer";
 import { onChangeLocationInputs } from "../../store/Locations/LocationsReducers";
 import { onChangeLocsDualInputs } from "../../store/Locs/LocsReducer";
 
-Geocode.setApiKey("AIzaSyB26LsBjwYe57N5r5K7Cuno288cIhkoAZQ");
+Geocode.setApiKey("AIzaSyDQTxWgTOFL7Df9c_Ov-0BPwIbHtGOvdp4");
 
 const containerStyle = {
   width: "100%",
@@ -24,7 +24,7 @@ function EditLocationMap({ radius, locationLat, locationLong }) {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCAOnNDfeA7T9gaFY2NJSd6VLDQ6jl9US8",
+    googleMapsApiKey: "AIzaSyDQTxWgTOFL7Df9c_Ov-0BPwIbHtGOvdp4",
   });
 
   const [state, setState] = useState({
@@ -42,7 +42,7 @@ function EditLocationMap({ radius, locationLat, locationLong }) {
     },
   });
   const center = { lat: locationLat, lng: locationLong };
-// console.log("===================",locationLat,"-------",locationLong);
+  // console.log("===================",locationLat,"-------",locationLong);
   useEffect(() => {
     Geocode.fromLatLng(state.mapPosition.lat, state.mapPosition.lng).then(
       (response) => {
@@ -51,8 +51,6 @@ function EditLocationMap({ radius, locationLat, locationLong }) {
           city = getCity(addressArray),
           area = getArea(addressArray),
           state = getState(addressArray);
-
-        console.log("city", city, area, state);
 
         setState({
           address: address ? address : "",
@@ -76,10 +74,7 @@ function EditLocationMap({ radius, locationLat, locationLong }) {
     if (state.mapPosition.lat !== 53.349804) {
       dispatch(onChangeLocationInputs(state.markerPosition.lat, "lat"));
       dispatch(onChangeLocationInputs(state.markerPosition.lng, "long"));
-      console.log("111=========");
     } else {
-      console.log("112=========");
-      console.log({ locationLat, locationLong });
       dispatch(onChangeLocationInputs(locationLat, "lat"));
       dispatch(onChangeLocationInputs(locationLong, "long"));
     }
@@ -119,7 +114,6 @@ function EditLocationMap({ radius, locationLat, locationLong }) {
     );
   };
 
-  console.log("123", locationLat);
   return (
     <div style={{ width: "100%", margin: "10px 0" }}>
       {isLoaded && locationLat && locationLong ? (

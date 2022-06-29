@@ -48,11 +48,8 @@ const AddNewLocation = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
         setProject(resData.project);
-        console.log("kkkk".resData);
-        console.log("jjjjj", globalIdentifier);
       });
 
     dispatch(onFetchingSpecificProject(id, token));

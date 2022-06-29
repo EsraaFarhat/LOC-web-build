@@ -26,7 +26,6 @@ export default function SuspendBtn(props) {
 
   const handleTheSuspend = async () => {
     const result = await handleSuspend(id);
-    console.log(result);
 
     if (result == "success") {
       if (flag === false) {

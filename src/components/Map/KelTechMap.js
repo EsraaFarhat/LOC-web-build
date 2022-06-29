@@ -12,7 +12,7 @@ import { onChangeProjectInputs } from "../../store/Projects/ProjectsReducer";
 import { onChangeLocationInputs } from "../../store/Locations/LocationsReducers";
 import { onChangeLocsDualInputs } from "../../store/Locs/LocsReducer";
 
-Geocode.setApiKey("AIzaSyB26LsBjwYe57N5r5K7Cuno288cIhkoAZQ");
+Geocode.setApiKey("AIzaSyDQTxWgTOFL7Df9c_Ov-0BPwIbHtGOvdp4");
 
 const containerStyle = {
   width: "100%",
@@ -24,7 +24,7 @@ function KelTechMap({ cmp, radius }) {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCAOnNDfeA7T9gaFY2NJSd6VLDQ6jl9US8",
+    googleMapsApiKey: "AIzaSyDQTxWgTOFL7Df9c_Ov-0BPwIbHtGOvdp4",
   });
   const { projectForm, selectedEditProject } = useSelector(
     (state) => state.projects
@@ -55,8 +55,6 @@ function KelTechMap({ cmp, radius }) {
           area = getArea(addressArray),
           state = getState(addressArray);
 
-        console.log("city", city, area, state);
-
         setState({
           address: address ? address : "",
           area: area ? area : "",
@@ -76,7 +74,6 @@ function KelTechMap({ cmp, radius }) {
         console.error(error);
       }
     );
-    console.log("73", projectForm.radius.value);
   }, [projectForm.radius.value]);
 
   const onMarkerDragEnd = (event) => {

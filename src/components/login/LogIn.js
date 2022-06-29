@@ -40,8 +40,6 @@ const LogIn = (props) => {
   const [showlogoutButton, setShowlogoutButton] = useState(false);
   const token = useSelector((state) => state.login.token);
   const onLoginSuccess = (res) => {
-    console.log("Login Success:", res.profileObj);
-    console.log("26", res.profileObj);
     dispatch(
       onAddingNewUser({
         e: null,

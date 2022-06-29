@@ -100,7 +100,6 @@ export const onLoginHandler = (e, email, pass, navigate) => {
     email: email,
     password: pass,
   };
-  console.log("44", authData);
   return (dispatch) => {
     dispatch(onStartLogin());
     fetch("https://api.loc.store/api/auth/login", {

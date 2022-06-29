@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import UsersPage from "./pages/users/UsersPage";
 import LoginPage from "./pages/login/LoginPage";
@@ -18,7 +19,7 @@ import EditProjectPage from "./pages/project/EditProjectPage";
 import AddNewLocationPage from "./pages/project/AddNewLocationPage";
 import EditLocationPage from "./pages/project/EditLocationPage";
 import { authCheckState } from "./store/Login/Login";
-import { useDispatch, useSelector } from "react-redux";
+
 import { useEffect } from "react";
 import ProjectsPage from "./pages/project/ProjectsPage";
 import ViewLocsPage from "./pages/locs/ViewLocsPage";

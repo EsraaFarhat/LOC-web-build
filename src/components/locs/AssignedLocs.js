@@ -63,8 +63,6 @@ const AssignedLocs = () => {
   const [file, setFile] = useState({});
   const fileHandler = (event) => {
     let fileObj = event.target.files[0];
-
-    console.log("44", fileObj);
     setFile(fileObj);
     //just pass the fileObj as parameter
     ExcelRenderer(fileObj, (err, resp) => {
@@ -75,8 +73,6 @@ const AssignedLocs = () => {
           cols: resp.cols,
           rows: resp.rows,
         });
-
-        console.log("57", state);
       }
     });
   };
@@ -85,8 +81,6 @@ const AssignedLocs = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("LocFile", file);
-
-    console.log("65", file);
     fetch("https://api.loc.store/api/LOCs/upload", {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
@@ -104,7 +98,6 @@ const AssignedLocs = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         setGlobalIdenetifier(resData.globalIdentifier);
         setProject(resData.project);
         setLocation(resData.location);
@@ -545,8 +538,6 @@ const AssignedLocs = () => {
               <h6 className="mt-4">Dual LOC’s</h6>
               <div
                 className="table-responsive"
-                style={{ maxHeight: 600, overflowY: "scroll" }}
-                style={{ maxHeight: 600, overflowY: "scroll" }}
                 style={{ maxHeight: 400, overflowY: "auto" }}
               >
                 <table
@@ -588,7 +579,6 @@ const AssignedLocs = () => {
                   <tbody>
                     {renderedItem === "locs" ? (
                       dualLocs.map((loc) => {
-                        console.log("411", loc);
                         return (
                           <tr key={loc.route_id}>
                             <td scope="row">{loc.route_id}</td>
