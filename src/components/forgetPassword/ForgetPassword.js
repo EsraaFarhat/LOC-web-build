@@ -47,7 +47,6 @@ export default function ForgetPassword() {
           setTimeout(() => {
             navigate("/login");
           }, 2000);
-          // navigate("/login")
         }
       });
   };
@@ -56,7 +55,6 @@ export default function ForgetPassword() {
     <Fragment>
       <div className="container">
         <ToastContainer />
-        {/* {token} */}
         <div className="row mt-5">
           <div className="col-10 col-md-6 col-lg-4 m-auto ">
             <div className="d-flex justify-content-center ms-3">

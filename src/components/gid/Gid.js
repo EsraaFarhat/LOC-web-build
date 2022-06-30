@@ -10,9 +10,6 @@ export default function Gid() {
   return (
     <Fragment>
       <div className="container">
-        {/* <Link to={"/gid"} style={styleLinkBack}>
-            GID 1
-        </Link> */}
         <div className="row">
           <div className="col-12 col-md-6  m-auto">
             <h3 className="text-center mt-2">GID1</h3>

@@ -1,7 +1,9 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import logo from "./logo.svg";
+import "./App.css";
 
 import UsersPage from "./pages/users/UsersPage";
 import LoginPage from "./pages/login/LoginPage";
@@ -18,9 +20,6 @@ import AddNewProjectPage from "./pages/project/AddNewProjectPage";
 import EditProjectPage from "./pages/project/EditProjectPage";
 import AddNewLocationPage from "./pages/project/AddNewLocationPage";
 import EditLocationPage from "./pages/project/EditLocationPage";
-import { authCheckState } from "./store/Login/Login";
-
-import { useEffect } from "react";
 import ProjectsPage from "./pages/project/ProjectsPage";
 import ViewLocsPage from "./pages/locs/ViewLocsPage";
 import AssignedLocsPage from "./pages/locs/AssignedLocsPage";
@@ -33,10 +32,14 @@ import NotFound404Page from "./pages/NotFound404/NotFound404Page";
 import ForgetPasswordPage from "./pages/forgetPassword/ForgetPasswordPage";
 import MailForResetPasswordPage from "./pages/forgetPassword/MailForResetPasswordPage";
 
+import { authCheckState } from "./store/Login/Login";
+
 function App(props) {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
-
+  useEffect(() => {
+    document.title = "Label on Cable";
+  }, []);
   useEffect(() => {
     dispatch(authCheckState());
   }, [dispatch, token]);

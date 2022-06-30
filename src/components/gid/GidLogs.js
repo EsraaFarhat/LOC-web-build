@@ -6,21 +6,15 @@ import {
   onFetchingIdentifierLogs,
   onFetchingSpecificIdentifier,
 } from "../../store/LogsReducer/LogsReducer";
-import formatAMPM from "../../util/DateFormat";
 
 const GidLogs = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   const [flag, setFlag] = useState(false);
   const { id } = useParams();
-  const {
-    specificIdnetifier,
-    loadSpecificUser,
-    identifierLogs,
-    loadingIdentifierLogs,
-    error,
-    errorMsg,
-  } = useSelector((state) => state.logs);
+  const { specificIdnetifier, identifierLogs } = useSelector(
+    (state) => state.logs
+  );
 
   useEffect(() => {
     dispatch(onFetchingSpecificIdentifier(id, token));
@@ -45,7 +39,6 @@ const GidLogs = () => {
           toast(resData.error[0].message);
         }
         if (resData.message) {
-          // toast.success(resData.message);
           setFlag(false);
         }
       });
@@ -81,7 +74,6 @@ const GidLogs = () => {
                     width: "20%",
                   }}
                 >
-                  {/* <label style={{ marginRight: 5, fontSize: 18 }}>State</label> */}
                   <select
                     id="select"
                     className="form-select"
@@ -172,8 +164,6 @@ const GidLogs = () => {
                               </td>
                               <td>{identifier.user_name}</td>
                               <td>{new Date(identifier.time).toUTCString()}</td>
-                              {/* <td>{identifier.state}</td> */}
-                              {/* <td>{identifier.status_code}</td> */}
                               <td>
                                 {identifier.state ? (
                                   <button className="btn btn-primary" disabled>
@@ -216,8 +206,6 @@ const GidLogs = () => {
                               </td>
                               <td>{identifier.user_name}</td>
                               <td>{new Date(identifier.time).toUTCString()}</td>
-                              {/* <td>{identifier.state}</td> */}
-                              {/* <td>{identifier.status_code}</td> */}
                               <td>
                                 {identifier.state ? (
                                   <button className="btn btn-primary" disabled>
@@ -245,9 +233,7 @@ const GidLogs = () => {
             </div>
           ) : (
             <div style={{ textAlign: "center", padding: "20px 0" }}>
-              <div className="spinner-border" role="status">
-                {/* <span className="sr-only">Loading...</span> */}
-              </div>
+              <div className="spinner-border" role="status"></div>
             </div>
           )}
         </div>
