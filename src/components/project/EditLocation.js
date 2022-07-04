@@ -11,7 +11,7 @@ import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProjectsMap from "../Map/ProjectMap";
+import { url } from "../../constants";
 import EditLocationMap from "../Map/EditLocationMap";
 
 const styleLinkBack = {
@@ -56,7 +56,7 @@ const EditLocation = () => {
   }, [specificLocation, dispatch]);
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/locations/${id}`, {
+    fetch(`${url}/api/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

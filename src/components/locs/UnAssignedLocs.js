@@ -15,6 +15,9 @@ import { OutTable, ExcelRenderer } from "react-excel-renderer";
 
 import Modal from "react-modal";
 import styles from "./../project/Project.module.css";
+
+import { url } from "../../constants";
+
 const styleLinkBack = {
   textDecoration: "none",
   color: "#717993",
@@ -83,7 +86,7 @@ const UnAssignedLocs = () => {
     const formData = new FormData();
     formData.append("LocFile", file);
 
-    fetch(`https://api.loc.store/api/LOCs/upload/${id}`, {
+    fetch(`${url}/api/LOCs/upload/${id}`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -102,7 +105,7 @@ const UnAssignedLocs = () => {
   };
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/locations/${id}`, {
+    fetch(`${url}/api/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

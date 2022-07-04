@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import log from "../../assets/images/log.png";
+import { url } from "../../constants";
 import Modal from "react-modal";
 import styles from "./Project.module.css";
 import fileDownload from "js-file-download";
@@ -49,7 +49,7 @@ export default function Projects() {
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
 
   const handleDownload = (id, project) => {
-    fetch(`https://api.loc.store/api/projects/${id}/download-web`, {
+    fetch(`${url}/api/projects/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -62,7 +62,7 @@ export default function Projects() {
 
   useEffect(() => {
     dispatch(onFetchingProjects(id, token));
-    fetch(`https://api.loc.store/api/globalIdentifiers/${id}/projects`, {
+    fetch(`${url}/api/globalIdentifiers/${id}/projects`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

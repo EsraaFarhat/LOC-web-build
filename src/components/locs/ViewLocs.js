@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 
 import { onFetchingLocations } from "../../store/Locations/LocationsReducers";
 
+import { url } from "../../constants";
+
 const styleLinkBack = {
   textDecoration: "none",
   color: "#717993",
@@ -26,7 +28,7 @@ const ViewLocs = () => {
   useEffect(() => {
     dispatch(onFetchingLocations(id, token));
 
-    fetch(`https://api.loc.store/api/locations/${id}`, {
+    fetch(`${url}/api/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

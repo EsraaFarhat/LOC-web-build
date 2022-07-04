@@ -11,6 +11,8 @@ import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "../../constants";
+
 const styleLinkBack = {
   textDecoration: "none",
   color: "#717993",
@@ -97,7 +99,7 @@ const UpdateDualLocInfo = () => {
   }, [specificLoc]);
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/LOCs/${id}`, {
+    fetch(`${url}/api/LOCs/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

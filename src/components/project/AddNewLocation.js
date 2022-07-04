@@ -17,6 +17,8 @@ import {
   onSelectingProject,
 } from "../../store/Projects/ProjectsReducer";
 
+import { url } from "../../constants";
+
 const styleLinkBack = {
   textDecoration: "none",
   color: "#717993",
@@ -43,7 +45,7 @@ const AddNewLocation = () => {
   const [project, setProject] = useState(null);
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/projects/${id}/locations`, {
+    fetch(`${url}/api/projects/${id}/locations`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

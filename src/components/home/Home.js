@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import logo from "../../assets/images/LOC.gif";
 import LOClogo from "../../assets/images/loc-logo.png";
 

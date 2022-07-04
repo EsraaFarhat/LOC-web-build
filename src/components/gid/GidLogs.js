@@ -6,6 +6,7 @@ import {
   onFetchingIdentifierLogs,
   onFetchingSpecificIdentifier,
 } from "../../store/LogsReducer/LogsReducer";
+import { url } from "../../constants";
 
 const GidLogs = () => {
   const dispatch = useDispatch();

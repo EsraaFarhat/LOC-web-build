@@ -6,7 +6,7 @@ import {
   onFetchingLocs,
   onSearchingLoc,
 } from "../../store/Locs/LocsReducer";
-import formatAMPM from "../../util/DateFormat";
+import { url } from "../../constants";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { OutTable, ExcelRenderer } from "react-excel-renderer";
@@ -27,6 +27,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
+
 const AssignedLocs = () => {
   const [DeleteSingleIsOpen, setDeleteSingleIsOpen] = useState(false);
   const [singleLocID, setSingleLocID] = useState("");
@@ -81,7 +82,7 @@ const AssignedLocs = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("LocFile", file);
-    fetch("https://api.loc.store/api/LOCs/upload", {
+    fetch(`${url}/api/LOCs/upload`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -89,7 +90,7 @@ const AssignedLocs = () => {
   };
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/locations/${id}`, {
+    fetch(`${url}/api/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

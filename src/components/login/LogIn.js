@@ -7,11 +7,7 @@ import { onChangeLoginInput, onLoginHandler } from "../../store/Login/Login";
 import { PropagateLoader } from "react-spinners";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GoogleLogin, GoogleLogout } from "react-google-login";
-import { onAddingNewUser } from "../../store/AddUsers/AddUsers";
 
-const clientId =
-  "438107565814-1qnje9u0lfd3ephmf06rvngmu48eq0h8.apps.googleusercontent.com";
 const styleIcon = {
   position: "absolute",
   top: "12px",

@@ -1,15 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { renderIntoDocument } from "react-dom/test-utils";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import {
-  onFetchingLogs,
   onFetchingSpecificUser,
   onFetchingUserLogs,
 } from "../../store/LogsReducer/LogsReducer";
-import { onChangeSearchVal } from "../../store/Projects/ProjectsReducer";
-import formatAMPM from "../../util/DateFormat";
+import { url } from "../../constants";
 
 const UserLogs = () => {
   const dispatch = useDispatch();
@@ -31,7 +28,7 @@ const UserLogs = () => {
   }, [dispatch, token, flag]);
 
   const handleMarkAsSeen = (time) => {
-    fetch(`https://api.loc.store/api/logs/${time}`, {
+    fetch(`${url}/api/logs/${time}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

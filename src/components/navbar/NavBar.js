@@ -79,12 +79,6 @@ export default function NavBar() {
                   </li>
                 </ul>
                 <ul className="navbar-nav">
-                  {/* <li className="nav-item">
-                  <NavLink className="nav-link" to={"/login"}>LOGIN</NavLink>
-                </li>
-                <li>
-                  <NavLink className="nav-link" style={{color:"#0987B1"}} to={"/signup"}>SIGN UP</NavLink>
-                </li> */}
                   {token ? (
                     <li onClick={() => dispatch(onLogout(navigate))}>
                       <NavLink

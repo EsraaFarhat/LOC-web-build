@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { useLocation } from "react-router-dom";
+import { url } from "../../constants";
 
 import logo from "../../assets/images/logo.png";
 
@@ -22,7 +23,7 @@ export default function ForgetPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`https://api.loc.store/api/users/update-password?token=${token}`, {
+    fetch(`${url}/api/users/update-password?token=${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

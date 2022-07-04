@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import logo from "./logo.svg";
 import "./App.css";
 
 import UsersPage from "./pages/users/UsersPage";
@@ -34,12 +33,14 @@ import MailForResetPasswordPage from "./pages/forgetPassword/MailForResetPasswor
 
 import { authCheckState } from "./store/Login/Login";
 
-function App(props) {
+function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
+
   useEffect(() => {
     document.title = "Label on Cable";
   }, []);
+
   useEffect(() => {
     dispatch(authCheckState());
   }, [dispatch, token]);

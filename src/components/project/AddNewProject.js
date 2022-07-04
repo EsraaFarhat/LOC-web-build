@@ -4,14 +4,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   onAddingProject,
   onChangeProjectInputs,
-  onSelectingProject,
 } from "../../store/Projects/ProjectsReducer";
 import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import KelTechMap from "../Map/KelTechMap";
 import ProjectsMap from "../Map/ProjectMap";
+import { url } from "../../constants";
 
 const override = css`
   display: block;
@@ -39,7 +38,7 @@ const AddNewProject = () => {
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/globalIdentifiers/${id}/projects`, {
+    fetch(`${url}/api/globalIdentifiers/${id}/projects`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

@@ -1,5 +1,6 @@
 import { checkValidity, updateObject } from "../../util/utility";
 import { toast } from "react-toastify";
+import { url } from "../../constants";
 
 const CHNAGE_GLOBAL_IDENTIFIER_INPUT =
   "KELTECH/STORE/GLOBALIDENTIFIER/CHANG_GLOBAL_IDENTIFIER_INPUT";
@@ -148,7 +149,7 @@ export const onAddingGlobalIdentifier = (e, token, name, navigate) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingGlobalIdentifier());
-    fetch("https://api.loc.store/api/globalIdentifiers", {
+    fetch(`${url}/api/globalIdentifiers`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -196,7 +197,7 @@ const startFetchingGlobalIdentifiers = (state, action) => {
 export const onFetchingGlobalIdentifiers = (token) => {
   return (dispatch) => {
     dispatch(onStartFetchingGlobalIdentifiers());
-    fetch("https://api.loc.store/api/globalIdentifiers", {
+    fetch(`${url}/api/globalIdentifiers`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -246,7 +247,7 @@ export const onEditingIdentifier = (e, token, identifierId, name) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingIdentifier());
-    fetch("https://api.loc.store/api/globalIdentifiers/" + identifierId, {
+    fetch(`${url}/api/globalIdentifiers/` + identifierId, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -314,7 +315,7 @@ const startDeletingIdentifier = (state, action) => {
 export const onDeletingIdentifier = (identifierId, token) => {
   return (dispatch) => {
     dispatch(onStartDeletingIdentifier());
-    fetch("https://api.loc.store/api/globalIdentifiers/" + identifierId, {
+    fetch(`${url}/api/globalIdentifiers/` + identifierId, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     }).then((res) => {
@@ -388,7 +389,7 @@ const startSearchingIdentifier = (state, action) => {
 export const onSearchingIdentifier = (text, token, id) => {
   return (dispatch) => {
     dispatch(onStartSearchingIdentifier());
-    fetch(`https://api.loc.store/api/globalIdentifiers?name=${text}`, {
+    fetch(`${url}/api/globalIdentifiers?name=${text}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

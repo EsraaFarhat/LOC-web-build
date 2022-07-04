@@ -11,6 +11,8 @@ import { css } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { url } from "../../constants";
+
 const styleLinkBack = {
   textDecoration: "none",
   color: "#717993",
@@ -40,7 +42,7 @@ const CreateSingleLocInfo = () => {
   const [gid, setGid] = useState("");
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/locations/${id}`, {
+    fetch(`${url}/api/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

@@ -1,4 +1,5 @@
 import { updateObject } from "../../util/utility";
+import { url } from "../../constants";
 
 const START_FETCHING_USERS_LOGS =
   "KELTECH/STORE/LOGS/START_FETCHING_USERS_LOGS";
@@ -49,7 +50,7 @@ const startFetchingSpecificUser = (state, action) => {
 export const onFetchingSpecificUser = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificUser());
-    fetch("https://api.loc.store/api/users/" + id, {
+    fetch(`${url}/api/users/` + id, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -81,7 +82,7 @@ const startFetchingUserLogs = (state, action) => {
 export const onFetchingUserLogs = (id, token) => {
   return (disptach) => {
     disptach(onStartFetchingUserLogs());
-    fetch(`https://api.loc.store/api/users/${id}/logs`, {
+    fetch(`${url}/api/users/${id}/logs`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -127,7 +128,7 @@ const startFetchingSpecificIdentifier = (state, action) => {
 export const onFetchingSpecificIdentifier = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificIdentifier());
-    fetch("https://api.loc.store/api/globalIdentifiers/" + id, {
+    fetch(`${url}/api/globalIdentifiers/` + id, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -160,7 +161,7 @@ const startFetchingIdentifierLogs = (state, action) => {
 export const onFetchingIdentifierLogs = (id, token) => {
   return (disptach) => {
     disptach(onStartFetchingIdentifierLogs());
-    fetch(`https://api.loc.store/api/globalidentifiers/${id}/logs`, {
+    fetch(`${url}/api/globalidentifiers/${id}/logs`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

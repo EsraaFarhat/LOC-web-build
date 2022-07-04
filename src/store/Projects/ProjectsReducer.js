@@ -1,6 +1,7 @@
 import { checkValidity, updateObject } from "../../util/utility";
 import { toast } from "react-toastify";
 import { projectIS } from "./IS";
+import { url } from "../../constants";
 
 const CHANGE_PROJECT_INPUTS = "KELTECH/STORE/PROJECTS/CHANGE_PROJECT_INPUTS";
 
@@ -93,7 +94,7 @@ export const onAddingProject = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingProject());
-    fetch("https://api.loc.store/api/projects", {
+    fetch(`${url}/api/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,7 +167,7 @@ const startFetchingSpecificProject = (state, action) => {
 export const onFetchingSpecificProject = (projectId, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificProject());
-    fetch(`https://api.loc.store/api/projects/${projectId}`, {
+    fetch(`${url}/api/projects/${projectId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -204,12 +205,9 @@ const startFetchingProjects = (state, action) => {
 export const onFetchingProjects = (identifierId, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingProjects());
-    fetch(
-      `https://api.loc.store/api/globalIdentifiers/${identifierId}/projects`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    fetch(`${url}/api/globalIdentifiers/${identifierId}/projects`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((resData) => {
         dispatch(onFinishFetchingProjects(resData.projects));
@@ -268,7 +266,7 @@ export const onEditingProject = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartFetchingProjects());
-    fetch(`https://api.loc.store/api/projects/${projectId}`, {
+    fetch(`${url}/api/projects/${projectId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -317,7 +315,7 @@ export const onDeletingProject = (e, projectId, token) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingProject());
-    fetch(`https://api.loc.store/api/projects/${projectId}`, {
+    fetch(`${url}/api/projects/${projectId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -390,14 +388,11 @@ const startSearchingProject = (state, action) => {
 export const onSearchingProject = (text, token, id) => {
   return (dispatch) => {
     dispatch(onStartSearchingProject());
-    fetch(
-      `https://api.loc.store/api/globalIdentifiers/${id}/projects?name=${text}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`${url}/api/globalIdentifiers/${id}/projects?name=${text}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
         return res.json();
       })

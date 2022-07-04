@@ -1,6 +1,7 @@
 import { checkValidity, updateObject } from "../../util/utility";
 import { toast } from "react-toastify";
 import { locationIs } from "./IS";
+import { url } from "../../constants";
 
 const CHANGE_LOCATION_INPUT_HANDLER =
   "KELTECH/STORE/LOCATIONS/CHANGE_LOCATION_INPUT_HANDLER";
@@ -78,7 +79,7 @@ const startFetchingLocations = (state, action) => {
 export const onFetchingLocations = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingLocations());
-    fetch(`https://api.loc.store/api/projects/${id}/locations`, {
+    fetch(`${url}/api/projects/${id}/locations`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -121,7 +122,7 @@ export const onAddingLocation = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingLocation());
-    fetch("https://api.loc.store/api/locations", {
+    fetch(`${url}/api/locations`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -205,7 +206,7 @@ export const onEditingLocation = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingLocation());
-    fetch(`https://api.loc.store/api/locations/${locationId}`, {
+    fetch(`${url}/api/locations/${locationId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -264,7 +265,7 @@ export const onDeletingLocation = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingLocation());
-    fetch(`https://api.loc.store/api/locations/${locationId}`, {
+    fetch(`${url}/api/locations/${locationId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -340,7 +341,7 @@ const startSearchingLocation = (state, action) => {
 export const onSearchingLocation = (text, token, id) => {
   return (dispatch) => {
     dispatch(onStartSearchingLocation());
-    fetch(`https://api.loc.store/api/projects/${id}/locations?name=${text}`, {
+    fetch(`${url}/api/projects/${id}/locations?name=${text}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -394,7 +395,7 @@ const startFetchingSpecificLocation = (state, action) => {
 export const onFetchingSpecificLocation = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificLocation());
-    fetch(`https://api.loc.store/api/locations/${id}`, {
+    fetch(`${url}/api/locations/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

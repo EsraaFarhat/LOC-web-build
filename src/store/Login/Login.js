@@ -1,5 +1,6 @@
 import { checkValidity, updateObject } from "../../util/utility";
 import { toast } from "react-toastify";
+import { url } from "../../constants";
 
 const START_LOGIN_HANDLER = "KELTECH/STORE/LOGIN/START_LOGIN_HANDLER";
 const ON_LOGIN_SUCCESS = "KELTECH/LOGIN/ON_LOGIN_SUCCESS";
@@ -102,7 +103,7 @@ export const onLoginHandler = (e, email, pass, navigate) => {
   };
   return (dispatch) => {
     dispatch(onStartLogin());
-    fetch("https://api.loc.store/api/auth/login", {
+    fetch(`${url}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

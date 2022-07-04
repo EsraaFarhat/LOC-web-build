@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import SuspendBtn from "../suspendBtn";
+import UpgradeBtn from "../upgradeBtn";
 import {
   onAddingNewUser,
   onChangeAddUserInput,
@@ -20,6 +21,7 @@ import { css } from "@emotion/react";
 import log from "../../assets/images/log.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { url } from "../../constants";
 
 const override = css`
   display: block;
@@ -53,8 +55,8 @@ export default function Users() {
     renderedItem,
   } = useSelector((state) => state.newUser);
 
-  const [addIsOpen, setAddIsOpen] = React.useState(false);
-  const [editIsOpen, setEditIsOpen] = React.useState(false);
+  const [addIsOpen, setAddIsOpen] = useState(false);
+  const [editIsOpen, setEditIsOpen] = useState(false);
   const [DeleteIsOpen, setDeleteIsOpen] = useState(false);
   const [userID, setUserID] = useState("");
   const [flag, setFlag] = useState(false);
@@ -87,7 +89,7 @@ export default function Users() {
 
   const handleSuspend = (id) => {
     return new Promise((resolve, reject) => {
-      fetch(`https://api.loc.store/api/users/${id}/suspend`, {
+      fetch(`${url}/api/users/${id}/suspend`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -113,6 +115,10 @@ export default function Users() {
           }
         });
     });
+  };
+
+  const handleUpgrade = (id) => {
+    console.log(id);
   };
 
   return (
@@ -186,7 +192,11 @@ export default function Users() {
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Role</th>
-                        <th scope="col"></th>
+                        <th scope="col">Wallet</th>
+                        <th scope="col" className="text-center">
+                          {" "}
+                          Settings
+                        </th>
                       </tr>
                     </thead>
 
@@ -224,8 +234,26 @@ export default function Users() {
                                   </div>
                                 </td>
                                 <td>{user.email}</td>
+
                                 <td>{user.role}</td>
                                 <td>
+                                  {user.wallet ? "Wallet " : "0 out of 0"}
+                                </td>
+                                <td className="flex justify-around items-between">
+                                  <Link
+                                    to={"/userslogs/" + user.user_id}
+                                    style={{ textDecoration: "none" }}
+                                  >
+                                    <img
+                                      style={{
+                                        width: "18px",
+                                        height: "16px",
+                                        paddingLeft: "5px",
+                                      }}
+                                      src={log}
+                                    />
+                                  </Link>
+
                                   <button
                                     className="btn p-0 m-0 mx-2"
                                     type="button"
@@ -237,6 +265,17 @@ export default function Users() {
                                     <i className="fas fa-pencil-alt text-secondary "></i>
                                   </button>
 
+                                  {/* suspend */}
+
+                                  <SuspendBtn
+                                    suspend={user.suspend}
+                                    handleSuspend={handleSuspend}
+                                    id={user.user_id}
+                                  />
+                                  <UpgradeBtn
+                                    handleUpgrade={handleUpgrade}
+                                    id={user.user_id}
+                                  />
                                   <button
                                     className="btn p-0 m-0"
                                     type="button"
@@ -247,14 +286,6 @@ export default function Users() {
                                   >
                                     <i className="far fa-trash-alt text-danger"></i>
                                   </button>
-
-                                  {/* suspend */}
-
-                                  <SuspendBtn
-                                    suspend={user.suspend}
-                                    handleSuspend={handleSuspend}
-                                    id={user.user_id}
-                                  />
                                 </td>
                               </tr>
                             </tbody>

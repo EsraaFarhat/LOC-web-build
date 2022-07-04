@@ -1,4 +1,4 @@
-import { createDispatchHook } from "react-redux";
+import { url } from "../../constants";
 import { toast } from "react-toastify";
 import { checkValidity, updateObject } from "../../util/utility";
 import { userIS } from "./userIS";
@@ -82,7 +82,7 @@ export const onAddingNewUser = ({
   e && e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingUser());
-    fetch("https://api.loc.store/api/users", {
+    fetch(`${url}/api/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +114,7 @@ export const onSendingMailForResetPassword = ({ e, email, navigate }) => {
   e && e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingUser());
-    fetch("https://api.loc.store/api/users/reset-password", {
+    fetch(`${url}/api/users/reset-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -152,7 +152,7 @@ export const onSendingPasswordForResetPassword = ({
   e && e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingUser());
-    fetch(`https://api.loc.store/api/users/update-password?token=${token}`, {
+    fetch(`${url}/api/users/update-password?token=${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -209,7 +209,7 @@ const startFetchingUsers = (state, action) => {
 export const onFetchingUsers = (token) => {
   return (dispatch) => {
     dispatch(onStartFetchingUsers());
-    fetch("https://api.loc.store/api/users", {
+    fetch(`${url}/api/users`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -268,7 +268,7 @@ export const onEditingUser = ({
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingUser());
-    fetch("https://api.loc.store/api/users/" + userId, {
+    fetch(`${url}/api/users/` + userId, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -333,7 +333,7 @@ export const onDeletingUser = (e, userId, token) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingUser());
-    fetch("https://api.loc.store/api/users/" + userId, {
+    fetch(`${url}/api/users/` + userId, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -412,8 +412,8 @@ export const onSearchingUser = (text, token, type) => {
     dispatch(onStartSearchingUser());
     fetch(
       type === "email"
-        ? `https://api.loc.store/api/users?email=${text}`
-        : `https://api.loc.store/api/users?fullName=${text}`,
+        ? `${url}/api/users?email=${text}`
+        : `${url}/api/users?fullName=${text}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

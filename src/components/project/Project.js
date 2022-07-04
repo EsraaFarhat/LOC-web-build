@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import fileDownload from "js-file-download";
 import {
-  onChangeLocationInputs,
-  onChangeRenderedItem,
   onChangeSearchVal,
   onDeletingLocation,
   onFetchingLocations,
@@ -12,7 +10,7 @@ import {
   onSearchingLocation,
   onSelectingLocation,
 } from "../../store/Locations/LocationsReducers";
-import Dropdown from "react-dropdown";
+import { url } from "../../constants";
 import "react-dropdown/style.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,7 +18,6 @@ import Modal from "react-modal";
 import styles from "./Project.module.css";
 
 const options = ["one", "two", "three"];
-const defaultOption = options[0];
 
 const styleLinkBack = {
   textDecoration: "none",
@@ -57,7 +54,7 @@ export default function Project() {
   const [gid, setGid] = useState("");
 
   const handleDownload = (id, location) => {
-    fetch(`https://api.loc.store/api/locations/${id}/download-web`, {
+    fetch(`${url}/api/locations/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -71,7 +68,7 @@ export default function Project() {
   useEffect(() => {
     dispatch(onFetchingLocations(id, token));
 
-    fetch(`https://api.loc.store/api/projects/${id}/locations`, {
+    fetch(`${url}/api/projects/${id}/locations`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

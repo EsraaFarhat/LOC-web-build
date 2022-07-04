@@ -4,14 +4,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   onChangeProjectInputs,
   onEditingProject,
-  onFetchingProjects,
   onSelectingProject,
 } from "../../store/Projects/ProjectsReducer";
 import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProjectsMap from "../Map/ProjectMap";
+import { url } from "../../constants";
 import EditProjectMap from "../Map/EditProjectMap";
 
 const styleLinkBack = {
@@ -48,7 +47,7 @@ const EditProject = () => {
   }, [projects, selectedEditProject]);
 
   useEffect(() => {
-    fetch(`https://api.loc.store/api/projects/${id}/locations`, {
+    fetch(`${url}/api/projects/${id}/locations`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

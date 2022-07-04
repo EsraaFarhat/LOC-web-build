@@ -1,6 +1,7 @@
 import { checkValidity, updateObject } from "../../util/utility";
 import { toast } from "react-toastify";
 import { locInitialState } from "./IS.js";
+import { url } from "../../constants";
 
 const CHANGE_LOCS_INPUT_HANDLER =
   "KELTECH/STORE/LOCS/CHANGE_LOCS_INPUT_HANDLER";
@@ -126,7 +127,7 @@ export const onAddingSingleLoc = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingSingleLoc());
-    fetch("https://api.loc.store/api/LOCs", {
+    fetch(`${url}/api/LOCs`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -207,7 +208,7 @@ export const onAddingDualLoc = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingDualLoc());
-    fetch("https://api.loc.store/api/LOCs", {
+    fetch(`${url}/api/LOCs`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -274,7 +275,7 @@ export const onFetchingLocs = (id, token, assigned, sortBy) => {
   return (dispatch) => {
     dispatch(onStartFetchingLocs());
     fetch(
-      `https://api.loc.store/api/LOCs/${id}/${assigned}?order_by=${
+      `${url}/api/LOCs/${id}/${assigned}?order_by=${
         sortBy ? sortBy : "createdAt"
       }`,
       {
@@ -312,7 +313,7 @@ const startFetchingSpecificLoc = (state, action) => {
 export const onFetchingSpecificLoc = (id, token) => {
   return (dispatch) => {
     dispatch(onStartFetchingSpecificLoc());
-    fetch("https://api.loc.store/api/LOCs/" + id, {
+    fetch(`${url}/api/LOCs/` + id, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -361,7 +362,7 @@ export const onEditingSingleLoc = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingSingleLoc());
-    fetch("https://api.loc.store/api/LOCs/" + locId, {
+    fetch(`${url}/api/LOCs/` + locId, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -444,7 +445,7 @@ export const onEditingDualLoc = (
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingDualLoc());
-    fetch("https://api.loc.store/api/LOCs/" + locId, {
+    fetch(`${url}/api/LOCs/` + locId, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -512,7 +513,7 @@ export const onDeletingLoc = (e, id, token, type, gid) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartDeletingLoc());
-    fetch("https://api.loc.store/api/LOCs/" + id, {
+    fetch(`${url}/api/LOCs/` + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -592,7 +593,7 @@ const startSearchingLoc = (state, action) => {
 export const onSearchingLoc = (id, text, token, type) => {
   return (dispatch) => {
     dispatch(onStartSearchingLoc());
-    fetch(`https://api.loc.store/api/LOCs/${id}/${type}?route_id=${text}`, {
+    fetch(`${url}/api/LOCs/${id}/${type}?route_id=${text}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -630,7 +631,7 @@ const startUploadingFile = (state, action) => {
 
 export const onUploadFile = () => {
   return (dispatch) => {
-    fetch(`https://api.loc.store/api/LOCs/upload`);
+    fetch(`${url}/api/LOCs/upload`);
   };
 };
 
