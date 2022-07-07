@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./navbar.css";
 import logo from "../../assets/images/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.login.token);
+  const fullName = useSelector((state) => state.login.fullName);
 
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -65,10 +66,7 @@ export default function NavBar() {
               >
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <NavLink
-                      className="nav-link active"
-                      to={"/globalidenetifiers"}
-                    >
+                    <NavLink className="nav-link" to={"/globalidenetifiers"}>
                       HOME
                     </NavLink>
                   </li>
@@ -80,15 +78,20 @@ export default function NavBar() {
                 </ul>
                 <ul className="navbar-nav">
                   {token ? (
-                    <li onClick={() => dispatch(onLogout(navigate))}>
-                      <NavLink
-                        className="nav-link"
-                        style={{ color: "#0987B1" }}
-                        to={"/home"}
-                      >
-                        LOG OUT
-                      </NavLink>
-                    </li>
+                    <>
+                      <li className="nav-link active font-bold">
+                        Hello, {fullName}
+                      </li>
+                      <li onClick={() => dispatch(onLogout(navigate))}>
+                        <NavLink
+                          className="nav-link"
+                          style={{ color: "rgb(220 38 38)" }}
+                          to={"/home"}
+                        >
+                          LOG OUT
+                        </NavLink>
+                      </li>
+                    </>
                   ) : (
                     <li onClick={() => dispatch(onLogout(navigate))}>
                       <NavLink

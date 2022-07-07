@@ -83,51 +83,6 @@ const CreateSingleLocInfo = () => {
           </Fragment>
         ) : null}
 
-        {/* {selectedEditProject.name && selectedIdentifier.name ? (
-          <Fragment>
-            <Link to={"/globalidenetifiers"} style={styleLinkBack}>
-              {selectedIdentifier.name}
-            </Link>
-            <span className="mx-2" style={{ color: "#28345C" }}>
-              <i className="fas fa-chevron-right"></i>
-              <i className="fas fa-chevron-right"></i>
-            </span>
-            <Link
-              to={"/globalidenetifiers/projects/" + selectedEditProject.gid}
-              style={styleLinkBack}
-            >
-              {selectedEditProject.name}
-            </Link>
-            <span className="mx-2" style={{ color: "#28345C" }}>
-              <i className="fas fa-chevron-right"></i>
-              <i className="fas fa-chevron-right"></i>
-            </span>
-            <Link
-              to={"/viewlocs/" + selectedEditLocation.id}
-              style={styleLinkBack}
-            >
-              {selectedEditLocation.name}
-            </Link>
-          </Fragment>
-        ) : null} */}
-
-        {/* <Link to={"/gid"} style={styleLinkBack}>
-          GID 1
-        </Link>
-        <span className="mx-2" style={{ color: "#28345C" }}>
-          <i className="fas fa-chevron-right"></i>
-          <i className="fas fa-chevron-right"></i>
-        </span>
-        <Link to={"/gid"} style={styleLinkBack}>
-          Project 1
-        </Link>
-        <span className="mx-2" style={{ color: "#28345C" }}>
-          <i className="fas fa-chevron-right"></i>
-          <i className="fas fa-chevron-right"></i>
-        </span>
-        <Link to={"/gid"} style={styleLinkBack}>
-          Location 1
-        </Link> */}
         <div className="row">
           <div className="col-12 col-md-6 m-auto">
             <h3 className="text-center mt-3">Create single LOC</h3>

@@ -23,7 +23,7 @@ const GidLogs = () => {
   }, [dispatch, token, flag]);
 
   const handleMarkAsSeen = (time) => {
-    fetch(`https://api.loc.store/api/logs/${time}`, {
+    fetch(`${url}/api/logs/${time}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,

@@ -49,7 +49,6 @@ export default function Users() {
     selectedUser,
     loadFetching,
     loadEditing,
-    errorMsg,
     searchResult,
     searchForm,
     renderedItem,
@@ -58,6 +57,7 @@ export default function Users() {
   const [addIsOpen, setAddIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
   const [DeleteIsOpen, setDeleteIsOpen] = useState(false);
+  const [upgradeModalIsOpen, setUpgradeModalIsOpen] = useState(false);
   const [userID, setUserID] = useState("");
   const [flag, setFlag] = useState(false);
   useEffect(() => {
@@ -108,8 +108,6 @@ export default function Users() {
             toast(resData.error[0].message);
           }
           if (resData.message) {
-            // setFlag(false)
-            // dispatch(onFetchingUsers(token));
             toast.success(resData.message);
             resolve("success");
           }
@@ -118,7 +116,7 @@ export default function Users() {
   };
 
   const handleUpgrade = (id) => {
-    console.log(id);
+    setUpgradeModalIsOpen(true);
   };
 
   return (
@@ -192,9 +190,8 @@ export default function Users() {
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Role</th>
-                        <th scope="col">Wallet</th>
+                        <th scope="col">Available Tags</th>
                         <th scope="col" className="text-center">
-                          {" "}
                           Settings
                         </th>
                       </tr>
@@ -203,7 +200,6 @@ export default function Users() {
                     {users && users.length > 0
                       ? users.map((user) => {
                           return user ? (
-                            // user.email !== "admin@gmail.com" ? (
                             <tbody key={user.user_id}>
                               <tr>
                                 <td
@@ -214,7 +210,6 @@ export default function Users() {
                                     textAlign: "left",
                                   }}
                                 >
-                                  {/* <a href="#">{user.fullName}</a> */}
                                   {user.fullName}
 
                                   <div style={{ marginRight: "20%" }}>
@@ -237,55 +232,52 @@ export default function Users() {
 
                                 <td>{user.role}</td>
                                 <td>
-                                  {user.wallet ? "Wallet " : "0 out of 0"}
+                                  <div className="flex flex-row">
+                                    <div className="w-6/12 ">
+                                      {user.tags
+                                        ? `(${user.available_tags} of ${user.tags})`
+                                        : "Empty Wallet"}
+                                    </div>
+                                    <div className="w-6/12 ">
+                                      <UpgradeBtn
+                                        handleUpgrade={handleUpgrade}
+                                        id={user.user_id}
+                                      />
+                                    </div>
+                                  </div>
                                 </td>
                                 <td className="flex justify-around items-between">
-                                  <Link
-                                    to={"/userslogs/" + user.user_id}
-                                    style={{ textDecoration: "none" }}
-                                  >
-                                    <img
-                                      style={{
-                                        width: "18px",
-                                        height: "16px",
-                                        paddingLeft: "5px",
+                                  <div className="w-9/12">
+                                    <button
+                                      className="btn p-0 m-0 mx-2"
+                                      type="button"
+                                      onClick={() => {
+                                        dispatch(
+                                          onSelectEditUser(user.user_id)
+                                        );
+                                        setEditIsOpen(true);
                                       }}
-                                      src={log}
+                                    >
+                                      <i className="fas fa-pencil-alt text-secondary "></i>
+                                    </button>
+                                    <button
+                                      className="btn p-0 m-0"
+                                      type="button"
+                                      onClick={() => {
+                                        setUserID(user.user_id);
+                                        setDeleteIsOpen(true);
+                                      }}
+                                    >
+                                      <i className="far fa-trash-alt text-danger"></i>
+                                    </button>
+                                    {/* suspend */}
+
+                                    <SuspendBtn
+                                      suspend={user.suspend}
+                                      handleSuspend={handleSuspend}
+                                      id={user.user_id}
                                     />
-                                  </Link>
-
-                                  <button
-                                    className="btn p-0 m-0 mx-2"
-                                    type="button"
-                                    onClick={() => {
-                                      dispatch(onSelectEditUser(user.user_id));
-                                      setEditIsOpen(true);
-                                    }}
-                                  >
-                                    <i className="fas fa-pencil-alt text-secondary "></i>
-                                  </button>
-
-                                  {/* suspend */}
-
-                                  <SuspendBtn
-                                    suspend={user.suspend}
-                                    handleSuspend={handleSuspend}
-                                    id={user.user_id}
-                                  />
-                                  <UpgradeBtn
-                                    handleUpgrade={handleUpgrade}
-                                    id={user.user_id}
-                                  />
-                                  <button
-                                    className="btn p-0 m-0"
-                                    type="button"
-                                    onClick={() => {
-                                      setUserID(user.user_id);
-                                      setDeleteIsOpen(true);
-                                    }}
-                                  >
-                                    <i className="far fa-trash-alt text-danger"></i>
-                                  </button>
+                                  </div>
                                 </td>
                               </tr>
                             </tbody>

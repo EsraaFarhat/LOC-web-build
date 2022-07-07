@@ -10,7 +10,6 @@ import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import KelTechMap from "../Map/KelTechMap";
 import LOCMap from "../Map/LOCMap";
 import { onFetchingSpecificLocation } from "../../store/Locations/LocationsReducers";
 

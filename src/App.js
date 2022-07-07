@@ -30,6 +30,7 @@ import UpdateSingleLocInfoPage from "./pages/locs/UpdateSingleLocInfoPage";
 import NotFound404Page from "./pages/NotFound404/NotFound404Page";
 import ForgetPasswordPage from "./pages/forgetPassword/ForgetPasswordPage";
 import MailForResetPasswordPage from "./pages/forgetPassword/MailForResetPasswordPage";
+import UpgradeTags from "./pages/upgradeTags";
 
 import { authCheckState } from "./store/Login/Login";
 
@@ -109,6 +110,7 @@ function App() {
           path="/UpdateSingleLocInfo/:id"
           element={<UpdateSingleLocInfoPage />}
         />
+        <Route path="/UpgradeTags/:id" element={<UpgradeTags />} />
       </Routes>
     </div>
   );

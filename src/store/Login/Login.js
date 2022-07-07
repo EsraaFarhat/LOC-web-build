@@ -16,6 +16,7 @@ const initialState = {
   token: null,
   userId: null,
   role: null,
+  fullName: null,
   loginForm: {
     email: {
       value: "",
@@ -123,6 +124,7 @@ export const onLoginHandler = (e, email, pass, navigate) => {
           localStorage.setItem("token", resData.token);
           localStorage.setItem("userId", resData.user.user_id);
           localStorage.setItem("role", resData.user.role);
+          localStorage.setItem("fullName", resData.user.fullName);
         }
         return resData;
       })
@@ -133,7 +135,8 @@ export const onLoginHandler = (e, email, pass, navigate) => {
             onLoginSuccess(
               resData.token,
               resData.user.user_id,
-              resData.user.role
+              resData.user.role,
+              resData.user.fullName
             )
         );
         return resData;
@@ -154,8 +157,8 @@ const loginFailed = (state, action) => {
   return updateObject(state, { loading: false });
 };
 
-export const onLoginSuccess = (token, userId, role) => {
-  return { type: ON_LOGIN_SUCCESS, token, userId, role };
+export const onLoginSuccess = (token, userId, role, fullName) => {
+  return { type: ON_LOGIN_SUCCESS, token, userId, role, fullName };
 };
 
 const loginHandlerSuccess = (state, action) => {
@@ -163,6 +166,7 @@ const loginHandlerSuccess = (state, action) => {
     token: action.token,
     userId: action.userId,
     role: action.role,
+    fullName: action.fullName,
     loading: false,
   });
 };
@@ -171,10 +175,12 @@ export const authCheckState = (navigate) => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
+    const role = localStorage.getItem("role");
+    const fullName = localStorage.getItem("fullName");
     if (!token) {
       dispatch(onSubmitLogout());
     } else {
-      dispatch(onLoginSuccess(token, userId, navigate));
+      dispatch(onLoginSuccess(token, userId, role, fullName, navigate));
     }
   };
 };
@@ -183,6 +189,7 @@ export const onLogout = (navigate) => {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
   localStorage.removeItem("role");
+  localStorage.removeItem("fullName");
 
   return {
     type: ON_LOGOUT_HANDLER,
@@ -198,6 +205,7 @@ const logoutHandler = (state, action) => {
     token: null,
     userId: null,
     role: null,
+    fullName: null,
     redirectToLogin: true,
   });
 };

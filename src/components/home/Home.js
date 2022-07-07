@@ -31,9 +31,14 @@ const Home = () => {
               cost-effective and reliable tracking of assets
             </p>
             <div className="text-center">
-              <button type="button" className="btn btn-primary btn-sm">
-                Link to User Guide
-              </button>
+              <a
+                target="_blank"
+                href="https://www.keltechnetworkinnovations.com/products/label-on-cable-loc/"
+              >
+                <button type="button" className="btn btn-primary btn-sm">
+                  See Pricing Options
+                </button>
+              </a>
             </div>
           </div>
           <div className="col-12 col-md-12 col-lg-6 mb-5">

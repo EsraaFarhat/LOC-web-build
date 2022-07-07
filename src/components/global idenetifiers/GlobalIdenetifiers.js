@@ -59,7 +59,7 @@ export default function GlobalIdenetifiers() {
   } = useSelector((state) => state.globalIdentifier);
 
   const handleDownload = (id, globalidenetifier) => {
-    fetch(`https://api.loc.store/api/globalIdentifiers/${id}/download-web`, {
+    fetch(`${url}/api/globalIdentifiers/${id}/download-web`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
