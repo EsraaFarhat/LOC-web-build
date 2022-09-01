@@ -16,6 +16,7 @@ import {
 } from "../../store/Projects/ProjectsReducer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { notUser } from "../../util/roles";
 
 const styleLinkBack = {
   textDecoration: "none",
@@ -37,7 +38,8 @@ export default function Projects() {
   const [projectID, setProjectID] = useState("");
   const dispatch = useDispatch();
   const { id } = useParams();
-  const token = useSelector((state) => state.login.token);
+  const { token, role } = useSelector((state) => state.login);
+
   const {
     projects,
     loadFetchingProjects,
@@ -136,17 +138,20 @@ export default function Projects() {
                             className="fa fa-download text-secondary mt-1"
                             onClick={() => handleDownload(project.id, project)}
                           ></i>
-
-                          <Link to={"/editproject/" + project.id}>
-                            <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
-                          </Link>
-                          <i
-                            className="far fa-trash-alt text-danger mx-2 mt-1"
-                            onClick={(e) => {
-                              setProjectID(project.id);
-                              setDeleteIsOpen(true);
-                            }}
-                          ></i>
+                          {notUser.includes(role) && (
+                            <>
+                              <Link to={"/editproject/" + project.id}>
+                                <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
+                              </Link>
+                              <i
+                                className="far fa-trash-alt text-danger mx-2 mt-1"
+                                onClick={(e) => {
+                                  setProjectID(project.id);
+                                  setDeleteIsOpen(true);
+                                }}
+                              ></i>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -188,16 +193,20 @@ export default function Projects() {
                               handleDownload(project.id, project);
                             }}
                           ></i>
-                          <Link to={"/editproject/" + project.id}>
-                            <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
-                          </Link>
-                          <i
-                            className="far fa-trash-alt text-danger mx-2 mt-1"
-                            onClick={(e) => {
-                              setProjectID(project.id);
-                              setDeleteIsOpen(true);
-                            }}
-                          ></i>
+                          {notUser.includes(role) && (
+                            <>
+                              <Link to={"/editproject/" + project.id}>
+                                <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
+                              </Link>
+                              <i
+                                className="far fa-trash-alt text-danger mx-2 mt-1"
+                                onClick={(e) => {
+                                  setProjectID(project.id);
+                                  setDeleteIsOpen(true);
+                                }}
+                              ></i>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -209,18 +218,19 @@ export default function Projects() {
             <div style={{ textAlign: "center" }}>Projects deosn't exists.</div>
           )
         ) : null}
-
-        <div className="row my-4">
-          <div className="col-6 col-md-5 w-100 d-flex justify-content-center">
-            <Link
-              onClick={() => dispatch(onResetProjectForm())}
-              className="btn btn-primary"
-              to={"/addnewproject/" + id}
-            >
-              Add new project
-            </Link>
+        {notUser.includes(role) && (
+          <div className="row my-4">
+            <div className="col-6 col-md-5 w-100 d-flex justify-content-center">
+              <Link
+                onClick={() => dispatch(onResetProjectForm())}
+                className="btn btn-primary"
+                to={"/addnewproject/" + id}
+              >
+                Add new project
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Delete Modal */}

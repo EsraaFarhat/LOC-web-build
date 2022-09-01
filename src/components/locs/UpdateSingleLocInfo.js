@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { url } from "../../constants";
+import { notUser } from "../../util/roles";
 
 const styleLinkBack = {
   textDecoration: "none",
@@ -31,7 +32,8 @@ const UpdateSingleLocInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [disableBtn, setDisableBtn] = useState(false);
-  const token = useSelector((state) => state.login.token);
+  const { token, role } = useSelector((state) => state.login);
+
   const { selectedIdentifier } = useSelector((state) => state.globalIdentifier);
   const { selectedEditProject } = useSelector((state) => state.projects);
   const { selectedEditLocation } = useSelector((state) => state.locations);
@@ -178,156 +180,160 @@ const UpdateSingleLocInfo = () => {
                 );
               }}
             >
-              <div className="mb-3 m-auto col-8 col-md-8">
-                <label
-                  htmlFor="RouteID"
-                  className="form-label"
-                  style={{ color: "#0987B1" }}
-                >
-                  Route ID
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="RouteID"
-                  defaultValue="r1"
-                  id="RouteID"
-                  value={singleLocForm.routeId.value}
-                  onChange={(e) =>
-                    dispatch(onChangeLocsInputs(e.target.value, "routeId"))
-                  }
-                  style={
-                    singleLocForm.routeId.valid
-                      ? {}
-                      : { border: "1px solid red" }
-                  }
-                />
-                {singleLocForm.routeId.valid ? null : (
-                  <div style={{ color: "red", fontSize: 14 }}>
-                    {singleLocForm.routeId.validationError}
+              {notUser.includes(role) && (
+                <>
+                  <div className="mb-3 m-auto col-8 col-md-8">
+                    <label
+                      htmlFor="RouteID"
+                      className="form-label"
+                      style={{ color: "#0987B1" }}
+                    >
+                      Route ID
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="RouteID"
+                      defaultValue="r1"
+                      id="RouteID"
+                      value={singleLocForm.routeId.value}
+                      onChange={(e) =>
+                        dispatch(onChangeLocsInputs(e.target.value, "routeId"))
+                      }
+                      style={
+                        singleLocForm.routeId.valid
+                          ? {}
+                          : { border: "1px solid red" }
+                      }
+                    />
+                    {singleLocForm.routeId.valid ? null : (
+                      <div style={{ color: "red", fontSize: 14 }}>
+                        {singleLocForm.routeId.validationError}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="mb-3 m-auto col-8 col-md-8">
-                <label
-                  htmlFor="Origin"
-                  className="form-label"
-                  style={{ color: "#0987B1" }}
-                >
-                  Origin
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="Origin"
-                  defaultValue="CO1"
-                  id="Origin"
-                  value={singleLocForm.origin.value}
-                  onChange={(e) =>
-                    dispatch(onChangeLocsInputs(e.target.value, "origin"))
-                  }
-                  style={
-                    singleLocForm.origin.valid
-                      ? {}
-                      : { border: "1px solid red" }
-                  }
-                />
-                {singleLocForm.origin.valid ? null : (
-                  <div style={{ color: "red", fontSize: 14 }}>
-                    {singleLocForm.origin.validationError}
+                  <div className="mb-3 m-auto col-8 col-md-8">
+                    <label
+                      htmlFor="Origin"
+                      className="form-label"
+                      style={{ color: "#0987B1" }}
+                    >
+                      Origin
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Origin"
+                      defaultValue="CO1"
+                      id="Origin"
+                      value={singleLocForm.origin.value}
+                      onChange={(e) =>
+                        dispatch(onChangeLocsInputs(e.target.value, "origin"))
+                      }
+                      style={
+                        singleLocForm.origin.valid
+                          ? {}
+                          : { border: "1px solid red" }
+                      }
+                    />
+                    {singleLocForm.origin.valid ? null : (
+                      <div style={{ color: "red", fontSize: 14 }}>
+                        {singleLocForm.origin.validationError}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="mb-3 m-auto col-8 col-md-8">
-                <label
-                  htmlFor="Field1"
-                  className="form-label"
-                  style={{ color: "#0987B1" }}
-                >
-                  Field 1
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="Field1"
-                  defaultValue="OF11"
-                  id="Field1"
-                  value={singleLocForm.filed1.value}
-                  onChange={(e) =>
-                    dispatch(onChangeLocsInputs(e.target.value, "filed1"))
-                  }
-                  style={
-                    singleLocForm.filed1.valid
-                      ? {}
-                      : { border: "1px solid red" }
-                  }
-                />
-                {singleLocForm.filed1.valid ? null : (
-                  <div style={{ color: "red", fontSize: 14 }}>
-                    {singleLocForm.filed1.validationError}
+                  <div className="mb-3 m-auto col-8 col-md-8">
+                    <label
+                      htmlFor="Field1"
+                      className="form-label"
+                      style={{ color: "#0987B1" }}
+                    >
+                      Field 1
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Field1"
+                      defaultValue="OF11"
+                      id="Field1"
+                      value={singleLocForm.filed1.value}
+                      onChange={(e) =>
+                        dispatch(onChangeLocsInputs(e.target.value, "filed1"))
+                      }
+                      style={
+                        singleLocForm.filed1.valid
+                          ? {}
+                          : { border: "1px solid red" }
+                      }
+                    />
+                    {singleLocForm.filed1.valid ? null : (
+                      <div style={{ color: "red", fontSize: 14 }}>
+                        {singleLocForm.filed1.validationError}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="mb-3 m-auto col-8 col-md-8">
-                <label
-                  htmlFor="Field2"
-                  className="form-label"
-                  style={{ color: "#0987B1" }}
-                >
-                  Field 2
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="Field2"
-                  defaultValue="OF12"
-                  id="Field2"
-                  value={singleLocForm.filed2.value}
-                  onChange={(e) =>
-                    dispatch(onChangeLocsInputs(e.target.value, "filed2"))
-                  }
-                  style={
-                    singleLocForm.filed2.valid
-                      ? {}
-                      : { border: "1px solid red" }
-                  }
-                />
-                {singleLocForm.filed2.valid ? null : (
-                  <div style={{ color: "red", fontSize: 14 }}>
-                    {singleLocForm.filed2.validationError}
+                  <div className="mb-3 m-auto col-8 col-md-8">
+                    <label
+                      htmlFor="Field2"
+                      className="form-label"
+                      style={{ color: "#0987B1" }}
+                    >
+                      Field 2
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Field2"
+                      defaultValue="OF12"
+                      id="Field2"
+                      value={singleLocForm.filed2.value}
+                      onChange={(e) =>
+                        dispatch(onChangeLocsInputs(e.target.value, "filed2"))
+                      }
+                      style={
+                        singleLocForm.filed2.valid
+                          ? {}
+                          : { border: "1px solid red" }
+                      }
+                    />
+                    {singleLocForm.filed2.valid ? null : (
+                      <div style={{ color: "red", fontSize: 14 }}>
+                        {singleLocForm.filed2.validationError}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="mb-3 m-auto col-8 col-md-8">
-                <label
-                  htmlFor="Field3"
-                  className="form-label"
-                  style={{ color: "#0987B1" }}
-                >
-                  Field 3
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="Field3"
-                  defaultValue="OF12"
-                  id="Field3"
-                  value={singleLocForm.filed3.value}
-                  onChange={(e) =>
-                    dispatch(onChangeLocsInputs(e.target.value, "filed3"))
-                  }
-                  style={
-                    singleLocForm.filed3.valid
-                      ? {}
-                      : { border: "1px solid red" }
-                  }
-                />
-                {singleLocForm.filed3.valid ? null : (
-                  <div style={{ color: "red", fontSize: 14 }}>
-                    {singleLocForm.filed3.validationError}
+                  <div className="mb-3 m-auto col-8 col-md-8">
+                    <label
+                      htmlFor="Field3"
+                      className="form-label"
+                      style={{ color: "#0987B1" }}
+                    >
+                      Field 3
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="Field3"
+                      defaultValue="OF12"
+                      id="Field3"
+                      value={singleLocForm.filed3.value}
+                      onChange={(e) =>
+                        dispatch(onChangeLocsInputs(e.target.value, "filed3"))
+                      }
+                      style={
+                        singleLocForm.filed3.valid
+                          ? {}
+                          : { border: "1px solid red" }
+                      }
+                    />
+                    {singleLocForm.filed3.valid ? null : (
+                      <div style={{ color: "red", fontSize: 14 }}>
+                        {singleLocForm.filed3.validationError}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                </>
+              )}
               <div className="mb-3 m-auto col-8 col-md-8">
                 <label
                   htmlFor="Field3"

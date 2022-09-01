@@ -4,12 +4,14 @@ import logo from "../../assets/images/logo.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { onLogout } from "../../store/Login/Login";
 import { useDispatch, useSelector } from "react-redux";
+import roles from "../../util/roles";
 
 export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector((state) => state.login.token);
   const fullName = useSelector((state) => state.login.fullName);
+  const role = useSelector((state) => state.login.role);
 
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
@@ -65,11 +67,13 @@ export default function NavBar() {
                 id="navbarToggle"
               >
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to={"/globalidenetifiers"}>
-                      HOME
-                    </NavLink>
-                  </li>
+                  {role !== roles.admin && (
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to={"/globalidenetifiers"}>
+                        HOME
+                      </NavLink>
+                    </li>
+                  )}
                   <li className="nav-item">
                     <NavLink className="nav-link" to={"/users"}>
                       ADMIN

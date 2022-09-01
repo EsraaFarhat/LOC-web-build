@@ -17,6 +17,7 @@ import Modal from "react-modal";
 import styles from "./../project/Project.module.css";
 
 import { url } from "../../constants";
+import { notUser } from "../../util/roles";
 
 const styleLinkBack = {
   textDecoration: "none",
@@ -45,7 +46,8 @@ const UnAssignedLocs = () => {
   const [gid, setGid] = useState("");
   const [project, setProject] = useState(null);
   const [location, setLocation] = useState(null);
-  const token = useSelector((state) => state.login.token);
+  const { token, role } = useSelector((state) => state.login);
+
   const [flag, setFlag] = useState(false);
 
   const {
@@ -215,86 +217,90 @@ const UnAssignedLocs = () => {
         <Link to={"/gid"} style={styleLinkBack}>
             UNASSIGNED
         </Link> */}
-        <div className="row w-75 m-auto mb-3 mt-4">
-          <div className="col d-flex justify-content-end">
-            <Link
-              to={"/CreateDualLocInfo/" + id}
-              className="btn btn-primary btn-sm"
-              onClick={() => dispatch(onResetingDualLocForm())}
-            >
-              Create new dual LOC
-            </Link>
-          </div>
-          <div className="col d-flex justify-content-center">
-            <Link
-              to={"/CreateSingleLocInfo/" + id}
-              className="btn btn-primary btn-sm"
-              onClick={() => dispatch(onResetingSingleLocForm())}
-            >
-              Create new single LOC
-            </Link>
-          </div>
-          <div className="col d-flex justify-content-right">
-            <button
-              type="button"
-              className="btn btn-success btn-sm"
-              data-bs-toggle="modal"
-              data-bs-target="#ImportModal"
-              onClick={() => setAddFileIsOpen(true)}
-            >
-              Import LOC’s via Excel
-            </button>
-          </div>
-          {/* Model */}
-          <Modal
-            isOpen={addFileIsOpen}
-            style={customStyles}
-            onRequestClose={() => setAddFileIsOpen(false)}
-            contentLabel="Add Modal"
-            ariaHideApp={false}
-            className={styles.Modal}
-            overlayClassName={styles.Overlay}
-          >
-            <div className="modal-body">
-              <div className="row">
-                <form
-                  onSubmit={(e) => {
-                    onUploadFile(e);
-                    setAddFileIsOpen(false);
-                  }}
+        {notUser.includes(role) && (
+          <>
+            <div className="row w-75 m-auto mb-3 mt-4">
+              <div className="col d-flex justify-content-end">
+                <Link
+                  to={"/CreateDualLocInfo/" + id}
+                  className="btn btn-primary btn-sm"
+                  onClick={() => dispatch(onResetingDualLocForm())}
                 >
-                  <div className="col">
-                    <h3 className="text-center mt-5 text-primary">
-                      IMPORT LOC INFO
-                    </h3>
-                    <div className="d-flex justify-content-center">
-                      <label className="btn btn-outline-primary btn-sm my-3">
-                        <input
-                          type="file"
-                          style={{ display: "none" }}
-                          onChange={(e) => fileHandler(e)}
-                        />
-                        Choose File
-                      </label>
-                    </div>
-                    <p className="text-center">
-                      Only .xlsx files can be uploaded
-                    </p>
-                    <div className="d-flex justify-content-center mb-5">
-                      <button
-                        type="submit"
-                        className="btn btn-primary btn-sm w-25"
-                      >
-                        Upload
-                      </button>
-                    </div>
-                  </div>
-                </form>
+                  Create new dual LOC
+                </Link>
               </div>
+              <div className="col d-flex justify-content-center">
+                <Link
+                  to={"/CreateSingleLocInfo/" + id}
+                  className="btn btn-primary btn-sm"
+                  onClick={() => dispatch(onResetingSingleLocForm())}
+                >
+                  Create new single LOC
+                </Link>
+              </div>
+              <div className="col d-flex justify-content-right">
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#ImportModal"
+                  onClick={() => setAddFileIsOpen(true)}
+                >
+                  Import LOC’s via Excel
+                </button>
+              </div>
+              {/* Model */}
+              <Modal
+                isOpen={addFileIsOpen}
+                style={customStyles}
+                onRequestClose={() => setAddFileIsOpen(false)}
+                contentLabel="Add Modal"
+                ariaHideApp={false}
+                className={styles.Modal}
+                overlayClassName={styles.Overlay}
+              >
+                <div className="modal-body">
+                  <div className="row">
+                    <form
+                      onSubmit={(e) => {
+                        onUploadFile(e);
+                        setAddFileIsOpen(false);
+                      }}
+                    >
+                      <div className="col">
+                        <h3 className="text-center mt-5 text-primary">
+                          IMPORT LOC INFO
+                        </h3>
+                        <div className="d-flex justify-content-center">
+                          <label className="btn btn-outline-primary btn-sm my-3">
+                            <input
+                              type="file"
+                              style={{ display: "none" }}
+                              onChange={(e) => fileHandler(e)}
+                            />
+                            Choose File
+                          </label>
+                        </div>
+                        <p className="text-center">
+                          Only .xlsx files can be uploaded
+                        </p>
+                        <div className="d-flex justify-content-center mb-5">
+                          <button
+                            type="submit"
+                            className="btn btn-primary btn-sm w-25"
+                          >
+                            Upload
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </Modal>
+              {/* End Model */}
             </div>
-          </Modal>
-          {/* End Model */}
-        </div>
+          </>
+        )}
         <div className="row">
           <div className="col-7 col-md-7 m-auto">
             <h3 className="text-center my-3">Unassigned LOC’s</h3>
@@ -429,22 +435,23 @@ const UnAssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(e, loc.loc_id, token, "single")
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setSingleLocID(loc.loc_id);
-                                  setDeleteSingleIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(e, loc.loc_id, token, "single")
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setSingleLocID(loc.loc_id);
+                                    setDeleteSingleIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );
@@ -500,27 +507,28 @@ const UnAssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(
-                                //       e,
-                                //       loc.loc_id,
-                                //       token,
-                                //       "single"
-                                //     )
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setSingleLocID(loc.loc_id);
-                                  setDeleteSingleIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(
+                                  //       e,
+                                  //       loc.loc_id,
+                                  //       token,
+                                  //       "single"
+                                  //     )
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setSingleLocID(loc.loc_id);
+                                    setDeleteSingleIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );
@@ -655,22 +663,23 @@ const UnAssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(e, loc.loc_id, token, "dual")
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setDualLocID(loc.loc_id);
-                                  setDeleteDualIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(e, loc.loc_id, token, "dual")
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setDualLocID(loc.loc_id);
+                                    setDeleteDualIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );
@@ -743,22 +752,23 @@ const UnAssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(e, loc.loc_id, token, "dual")
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setDualLocID(loc.loc_id);
-                                  setDeleteDualIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(e, loc.loc_id, token, "dual")
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setDualLocID(loc.loc_id);
+                                    setDeleteDualIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );

@@ -51,6 +51,15 @@ const initialState = {
       validationError: "Required",
       touched: false,
     },
+    privacy: {
+      value: "public",
+      valid: false,
+      validation: {
+        required: false,
+      },
+      validationError: "Required",
+      touched: false,
+    },
   },
   loading: false,
 
@@ -127,6 +136,15 @@ const resetGlobalIdentifierForm = (state, action) => {
       validationError: "Required",
       touched: false,
     }),
+    ["privacy"]: updateObject(state.globalIdentifierName["privacy"], {
+      value: "public",
+      valid: false,
+      validation: {
+        required: false,
+      },
+      validationError: "Required",
+      touched: false,
+    }),
   });
 
   return updateObject(state, {
@@ -145,7 +163,7 @@ const startAddingGlobalIdentifier = (state, action) => {
   return updateObject(state, { loading: true });
 };
 
-export const onAddingGlobalIdentifier = (e, token, name, navigate) => {
+export const onAddingGlobalIdentifier = (e, token, value, navigate) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartAddingGlobalIdentifier());
@@ -155,7 +173,7 @@ export const onAddingGlobalIdentifier = (e, token, name, navigate) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify(value),
     })
       .then((res) => res.json())
       .then((resData) => {
@@ -243,7 +261,14 @@ const startEditingIdenifier = (state, action) => {
   return updateObject(state, { loadingEdit: true });
 };
 
-export const onEditingIdentifier = (e, token, identifierId, name) => {
+export const onEditingIdentifier = (
+  e,
+  token,
+  identifierId,
+  name,
+  privacy,
+  assignedUsers
+) => {
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingIdentifier());
@@ -253,19 +278,34 @@ export const onEditingIdentifier = (e, token, identifierId, name) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name, privacy }),
     })
       .then((res) => res.json())
       .then((resData) => {
         if (resData.error) {
           toast.error(resData.error);
-        }
-        if (resData.message) {
-          dispatch(onChangeRenderedItem("identifier"));
-          toast.success(resData.message);
-          dispatch(
-            onFinishEditingIdentifier(identifierId, resData.globalIdentifier)
-          );
+        } else {
+          fetch(`${url}/api/globalIdentifiers/` + identifierId + "/assign", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ users: assignedUsers }),
+          })
+            .then((res1) => res1.json())
+            .then(() => {
+              if (resData.message) {
+                dispatch(onChangeRenderedItem("identifier"));
+                toast.success(resData.message);
+                dispatch(
+                  onFinishEditingIdentifier(
+                    identifierId,
+                    resData.globalIdentifier
+                  )
+                );
+              }
+            });
         }
       });
   };

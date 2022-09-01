@@ -5,9 +5,9 @@ import Users from "../../components/users/Users";
 const UsersPage = () => {
   return (
     <Fragment>
-         <NavBar />
-         <Users />
+      <NavBar />
+      <Users />
     </Fragment>
-    );
-}
+  );
+};
 export default UsersPage;

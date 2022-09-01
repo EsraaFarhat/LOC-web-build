@@ -5,9 +5,9 @@ import UserLogs from "../../components/users/UserLogs";
 const UserLogsPage = () => {
   return (
     <Fragment>
-         <NavBar />
-         <UserLogs />
+      <NavBar />
+      <UserLogs />
     </Fragment>
-    );
-}
+  );
+};
 export default UserLogsPage;

@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { OutTable, ExcelRenderer } from "react-excel-renderer";
 import Modal from "react-modal";
 import styles from "./../project/Project.module.css";
+import { notUser } from "../../util/roles";
+
 const styleLinkBack = {
   textDecoration: "none",
   color: "#717993",
@@ -35,7 +37,8 @@ const AssignedLocs = () => {
   const [dualLocID, setDualLocID] = useState("");
   const { id } = useParams();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.token);
+  const { token, role } = useSelector((state) => state.login);
+
   const [globalIdentifier, setGlobalIdenetifier] = useState(null);
   const [gid, setGid] = useState("");
   const [project, setProject] = useState(null);
@@ -408,27 +411,28 @@ const AssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(
-                                //       e,
-                                //       loc.loc_id,
-                                //       token,
-                                //       "single"
-                                //     )
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setSingleLocID(loc.loc_id);
-                                  setDeleteSingleIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(
+                                  //       e,
+                                  //       loc.loc_id,
+                                  //       token,
+                                  //       "single"
+                                  //     )
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setSingleLocID(loc.loc_id);
+                                    setDeleteSingleIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );
@@ -484,27 +488,28 @@ const AssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(
-                                //       e,
-                                //       loc.loc_id,
-                                //       token,
-                                //       "single"
-                                //     )
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setSingleLocID(loc.loc_id);
-                                  setDeleteSingleIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(
+                                  //       e,
+                                  //       loc.loc_id,
+                                  //       token,
+                                  //       "single"
+                                  //     )
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setSingleLocID(loc.loc_id);
+                                    setDeleteSingleIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );
@@ -649,22 +654,23 @@ const AssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(e, loc.loc_id, token, "dual")
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setDualLocID(loc.loc_id);
-                                  setDeleteDualIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(e, loc.loc_id, token, "dual")
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setDualLocID(loc.loc_id);
+                                    setDeleteDualIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );
@@ -750,22 +756,23 @@ const AssignedLocs = () => {
                               >
                                 <i className="fas fa-pencil-alt text-secondary"></i>
                               </Link>
-
-                              <button
-                                className="btn p-0 m-o"
-                                type="button"
-                                // onClick={(e) =>
-                                //   dispatch(
-                                //     onDeletingLoc(e, loc.loc_id, token, "dual")
-                                //   )
-                                // }
-                                onClick={(e) => {
-                                  setDualLocID(loc.loc_id);
-                                  setDeleteDualIsOpen(true);
-                                }}
-                              >
-                                <i className="far fa-trash-alt text-danger"></i>
-                              </button>
+                              {notUser.includes(role) && (
+                                <button
+                                  className="btn p-0 m-o"
+                                  type="button"
+                                  // onClick={(e) =>
+                                  //   dispatch(
+                                  //     onDeletingLoc(e, loc.loc_id, token, "dual")
+                                  //   )
+                                  // }
+                                  onClick={(e) => {
+                                    setDualLocID(loc.loc_id);
+                                    setDeleteDualIsOpen(true);
+                                  }}
+                                >
+                                  <i className="far fa-trash-alt text-danger"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );

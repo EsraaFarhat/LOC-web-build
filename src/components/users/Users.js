@@ -539,6 +539,7 @@ export default function Users() {
                     }
                   >
                     <option value="">Role</option>
+                    <option value="saas admin">SAAS ADMIN</option>
                     <option value="admin">ADMIN</option>
                     <option value="super user">SUPER USER</option>
                     <option value="user">USER</option>

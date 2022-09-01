@@ -16,6 +16,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import styles from "./Project.module.css";
+import { notUser } from "../../util/roles";
 
 const options = ["one", "two", "three"];
 
@@ -39,7 +40,8 @@ export default function Project() {
   const [locationID, setLocationID] = useState("");
   const dispatch = useDispatch();
   const { id } = useParams();
-  const token = useSelector((state) => state.login.token);
+  const { token, role } = useSelector((state) => state.login);
+
   const {
     locations,
     loadLocations,
@@ -156,21 +158,25 @@ export default function Project() {
                               handleDownload(location.id, location)
                             }
                           ></i>
-                          <Link
-                            to={"/editlocation/" + location.id}
-                            onClick={() =>
-                              dispatch(onSelectingLocation(location.id))
-                            }
-                          >
-                            <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
-                          </Link>
-                          <i
-                            className="far fa-trash-alt text-danger mx-2 mt-1"
-                            onClick={() => {
-                              setLocationID(location.id);
-                              setDeleteIsOpen(true);
-                            }}
-                          ></i>
+                          {notUser.includes(role) && (
+                            <>
+                              <Link
+                                to={"/editlocation/" + location.id}
+                                onClick={() =>
+                                  dispatch(onSelectingLocation(location.id))
+                                }
+                              >
+                                <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
+                              </Link>
+                              <i
+                                className="far fa-trash-alt text-danger mx-2 mt-1"
+                                onClick={() => {
+                                  setLocationID(location.id);
+                                  setDeleteIsOpen(true);
+                                }}
+                              ></i>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -206,21 +212,25 @@ export default function Project() {
                             className="fa fa-download text-secondary mt-1"
                             onClick={() => handleDownload(result.id, result)}
                           ></i>
-                          <Link
-                            to={"/editlocation/" + result.id}
-                            onClick={() =>
-                              dispatch(onSelectingLocation(result.id))
-                            }
-                          >
-                            <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
-                          </Link>
-                          <i
-                            className="far fa-trash-alt text-danger mx-2 mt-1"
-                            onClick={(e) => {
-                              setLocationID(result.id);
-                              setDeleteIsOpen(true);
-                            }}
-                          ></i>
+                          {notUser.includes(role) && (
+                            <>
+                              <Link
+                                to={"/editlocation/" + result.id}
+                                onClick={() =>
+                                  dispatch(onSelectingLocation(result.id))
+                                }
+                              >
+                                <i className="fas fa-pencil-alt text-secondary mx-2 mt-1"></i>
+                              </Link>
+                              <i
+                                className="far fa-trash-alt text-danger mx-2 mt-1"
+                                onClick={(e) => {
+                                  setLocationID(result.id);
+                                  setDeleteIsOpen(true);
+                                }}
+                              ></i>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -232,18 +242,19 @@ export default function Project() {
             )
           ) : null}
         </div>
-
-        <div className="row my-4">
-          <div className="col-6 col-md-5 w-100 d-flex justify-content-center">
-            <Link
-              onClick={() => dispatch(onResetingLocationForm())}
-              className="btn btn-primary"
-              to={"/addnewlocation/" + id}
-            >
-              Add New Location
-            </Link>
+        {notUser.includes(role) && (
+          <div className="row my-4">
+            <div className="col-6 col-md-5 w-100 d-flex justify-content-center">
+              <Link
+                onClick={() => dispatch(onResetingLocationForm())}
+                className="btn btn-primary"
+                to={"/addnewlocation/" + id}
+              >
+                Add New Location
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Delete Modal */}

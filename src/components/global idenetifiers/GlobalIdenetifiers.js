@@ -14,7 +14,10 @@ import {
   onSearchingIdentifier,
   onSelectingIdentifier,
 } from "../../store/Globalidenetifiers/Globalidenetifiers";
+import { onFetchingUsers } from "../../store/AddUsers/AddUsers";
+
 import { onSelectingIdentifierId } from "../../store/Projects/ProjectsReducer";
+import useAssignedUsers from "../../hooks/useAssignedUsers";
 
 import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -22,6 +25,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./GlobalIdentifiers.module.css";
 import { url } from "../../constants";
+
+import { notUser } from "../../util/roles";
 
 const override = css`
   display: block;
@@ -46,7 +51,8 @@ export default function GlobalIdenetifiers() {
   const [DeleteIsOpen, setDeleteIsOpen] = useState(false);
   const [globalIdentifierGID, setGlobalIdentifierGID] = useState("");
   // const [downloadLink, setDownloadLink] = useState(null);
-  const { token } = useSelector((state) => state.login);
+  const { token, userId, role } = useSelector((state) => state.login);
+
   const {
     globalIdentifierName,
     globalIdentifiers,
@@ -57,6 +63,14 @@ export default function GlobalIdenetifiers() {
     loadSearch,
     renderedItem,
   } = useSelector((state) => state.globalIdentifier);
+
+  const {
+    assignedUsers,
+    onAssignUser,
+    usersLoading,
+    users,
+    loading: assignedUsersLoading,
+  } = useAssignedUsers(selectedIdentifier?.gid, token);
 
   const handleDownload = (id, globalidenetifier) => {
     fetch(`${url}/api/globalIdentifiers/${id}/download-web`, {
@@ -72,12 +86,18 @@ export default function GlobalIdenetifiers() {
 
   useEffect(() => {
     dispatch(onFetchingGlobalIdentifiers(token));
+    dispatch(onFetchingUsers(token));
   }, []);
 
   useEffect(() => {
     if (selectedIdentifier.name !== "") {
       dispatch(
         onChangeAddGlobalIdentifierInput(selectedIdentifier.name, "name")
+      );
+    }
+    if (selectedIdentifier.privacy !== "") {
+      dispatch(
+        onChangeAddGlobalIdentifierInput(selectedIdentifier.privacy, "privacy")
       );
     }
   }, [selectedIdentifier]);
@@ -165,10 +185,13 @@ export default function GlobalIdenetifiers() {
                                     height: "16px",
                                   }}
                                   src={log}
+                                  alt="log"
+                                  s
                                 />
                               </Link>
                             </div>
                           </div>
+
                           <div className="col-4 col-md-4 d-flex justify-content-end ">
                             {/* <a
                               id={globalIdentifier.gid}
@@ -188,26 +211,33 @@ export default function GlobalIdenetifiers() {
                                 );
                               }}
                             ></i>
-
-                            <i
-                              className="fas fa-pencil-alt text-secondary mx-2 mt-1"
-                              type="button"
-                              data-bs-toggle="modal"
-                              data-bs-target="#editIdentifier"
-                              onClick={() => {
-                                dispatch(
-                                  onSelectingIdentifier(globalIdentifier.gid)
-                                );
-                                setIsOpen(true);
-                              }}
-                            ></i>
-                            <i
-                              className="far fa-trash-alt text-danger mx-2 mt-1"
-                              onClick={() => {
-                                setGlobalIdentifierGID(globalIdentifier.gid);
-                                setDeleteIsOpen(true);
-                              }}
-                            ></i>
+                            {notUser.includes(role) && (
+                              <>
+                                <i
+                                  className="fas fa-pencil-alt text-secondary mx-2 mt-1"
+                                  type="button"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#editIdentifier"
+                                  onClick={() => {
+                                    dispatch(
+                                      onSelectingIdentifier(
+                                        globalIdentifier.gid
+                                      )
+                                    );
+                                    setIsOpen(true);
+                                  }}
+                                ></i>
+                                <i
+                                  className="far fa-trash-alt text-danger mx-2 mt-1"
+                                  onClick={() => {
+                                    setGlobalIdentifierGID(
+                                      globalIdentifier.gid
+                                    );
+                                    setDeleteIsOpen(true);
+                                  }}
+                                ></i>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -261,6 +291,7 @@ export default function GlobalIdenetifiers() {
                                 className="mx-2 mt-1"
                                 style={{ width: "18px", height: "16px" }}
                                 src={log}
+                                alt="log"
                               />
                             </Link>
                           </div>
@@ -284,25 +315,33 @@ export default function GlobalIdenetifiers() {
                             >
                               <i className="fa fa-download text-secondary mt-1"></i>
                             </a> */}
-                            <i
-                              className="fas fa-pencil-alt text-secondary mx-2 mt-1"
-                              type="button"
-                              data-bs-toggle="modal"
-                              data-bs-target="#editIdentifier"
-                              onClick={() => {
-                                dispatch(
-                                  onSelectingIdentifier(globalIdentifier.gid)
-                                );
-                                setIsOpen(true);
-                              }}
-                            ></i>
-                            <i
-                              className="far fa-trash-alt text-danger mx-2 mt-1"
-                              onClick={() => {
-                                setGlobalIdentifierGID(globalIdentifier.gid);
-                                setDeleteIsOpen(true);
-                              }}
-                            ></i>
+                            {notUser.includes(role) && (
+                              <>
+                                <i
+                                  className="fas fa-pencil-alt text-secondary mx-2 mt-1"
+                                  type="button"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#editIdentifier"
+                                  onClick={() => {
+                                    dispatch(
+                                      onSelectingIdentifier(
+                                        globalIdentifier.gid
+                                      )
+                                    );
+                                    setIsOpen(true);
+                                  }}
+                                ></i>
+                                <i
+                                  className="far fa-trash-alt text-danger mx-2 mt-1"
+                                  onClick={() => {
+                                    setGlobalIdentifierGID(
+                                      globalIdentifier.gid
+                                    );
+                                    setDeleteIsOpen(true);
+                                  }}
+                                ></i>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -318,20 +357,22 @@ export default function GlobalIdenetifiers() {
           )
         ) : null}
 
-        <div className="row my-4">
-          <div className="col-6 col-md-4 w-100 d-flex justify-content-center">
-            {/* <button type="button" className="btn btn-primary">
+        {notUser.includes(role) && (
+          <div className="row my-4">
+            <div className="col-6 col-md-4 w-100 d-flex justify-content-center">
+              {/* <button type="button" className="btn btn-primary">
               Add new Global Identifier
             </button> */}
-            <Link
-              onClick={() => dispatch(onResettingGlobalIdentifierForm())}
-              className="btn btn-primary"
-              to={"/addglobalidenetifiers"}
-            >
-              Add new Global Identifier
-            </Link>
+              <Link
+                onClick={() => dispatch(onResettingGlobalIdentifierForm())}
+                className="btn btn-primary"
+                to={"/addglobalidenetifiers"}
+              >
+                Add new Global Identifier
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <Modal
@@ -354,7 +395,9 @@ export default function GlobalIdenetifiers() {
                       e,
                       token,
                       selectedIdentifier && selectedIdentifier.gid,
-                      globalIdentifierName.name.value
+                      globalIdentifierName.name.value,
+                      globalIdentifierName.privacy.value,
+                      assignedUsers
                     )
                   );
                   setIsOpen(false);
@@ -386,6 +429,70 @@ export default function GlobalIdenetifiers() {
                     {globalIdentifierName.name.validationError}
                   </div>
                 )}
+                {selectedIdentifier && selectedIdentifier.user_id === userId && (
+                  <div className="flex items-center mt-2">
+                    <input
+                      onChange={(e) => {
+                        if (globalIdentifierName.privacy.value === "private") {
+                          //value then name
+                          dispatch(
+                            onChangeAddGlobalIdentifierInput(
+                              "public",
+                              "privacy"
+                            )
+                          );
+                        } else {
+                          dispatch(
+                            onChangeAddGlobalIdentifierInput(
+                              "private",
+                              "privacy"
+                            )
+                          );
+                        }
+                      }}
+                      checked={globalIdentifierName.privacy.value === "private"}
+                      id="checked-checkbox"
+                      type="checkbox"
+                      className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                    <label
+                      for="checked-checkbox"
+                      className="ml-2 text-sm font-medium"
+                    >
+                      Private
+                    </label>
+                  </div>
+                )}
+
+                {!usersLoading &&
+                  !assignedUsersLoading &&
+                  globalIdentifierName.privacy.value === "private" && (
+                    <div className="mt-4">
+                      <h6>Assigned Users</h6>
+                      <div className="mt-2">
+                        {users.map((user) => (
+                          <div
+                            key={user.user_id}
+                            className="flex items-center my-2 mr-2"
+                          >
+                            <input
+                              onChange={() => onAssignUser(user.user_id)}
+                              checked={assignedUsers.includes(user.user_id)}
+                              id="checked-checkbox"
+                              type="checkbox"
+                              className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                            <label
+                              htmlFor="checked-checkbox"
+                              className="ml-2 text-sm font-medium"
+                            >
+                              {user.fullName}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                 <div className="d-flex justify-content-center my-3">
                   <button

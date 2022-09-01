@@ -12,6 +12,7 @@ import { css } from "@emotion/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { url } from "../../constants";
+import { notUser } from "../../util/roles";
 
 const styleLinkBack = {
   textDecoration: "none",
@@ -30,7 +31,8 @@ const UpdateDualLocInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [disableBtn, setDisableBtn] = useState(false);
-  const token = useSelector((state) => state.login.token);
+  const { token, role } = useSelector((state) => state.login);
+
   const { selectedIdentifier } = useSelector((state) => state.globalIdentifier);
   const { selectedEditProject } = useSelector((state) => state.projects);
   const { selectedEditLocation } = useSelector((state) => state.locations);
@@ -221,166 +223,192 @@ const UpdateDualLocInfo = () => {
                   );
               }}
             >
-              <div className="mb-3 m-auto col-10 col-md-5">
-                <label
-                  htmlFor="RouteID"
-                  className="form-label"
-                  style={{ color: "#0987B1" }}
-                >
-                  Route ID
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="RouteID"
-                  defaultValue="r1"
-                  id="RouteID"
-                  value={dualLocForm.routeId.value}
-                  onChange={(e) =>
-                    dispatch(onChangeLocsDualInputs(e.target.value, "routeId"))
-                  }
-                  style={
-                    dualLocForm.routeId.valid ? {} : { border: "1px solid red" }
-                  }
-                />
-                {dualLocForm.routeId.valid ? null : (
-                  <div style={{ color: "red", fontSize: 14 }}>
-                    {dualLocForm.routeId.validationError}
-                  </div>
-                )}
-              </div>
+              {notUser.includes(role) && (
+                <div className="mb-3 m-auto col-10 col-md-5">
+                  <label
+                    htmlFor="RouteID"
+                    className="form-label"
+                    style={{ color: "#0987B1" }}
+                  >
+                    Route ID
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="RouteID"
+                    defaultValue="r1"
+                    id="RouteID"
+                    value={dualLocForm.routeId.value}
+                    onChange={(e) =>
+                      dispatch(
+                        onChangeLocsDualInputs(e.target.value, "routeId")
+                      )
+                    }
+                    style={
+                      dualLocForm.routeId.valid
+                        ? {}
+                        : { border: "1px solid red" }
+                    }
+                  />
+                  {dualLocForm.routeId.valid ? null : (
+                    <div style={{ color: "red", fontSize: 14 }}>
+                      {dualLocForm.routeId.validationError}
+                    </div>
+                  )}
+                </div>
+              )}
 
               <div className="row">
                 <div className="col-12 col-md-6 m-auto">
                   <div className="mb-3 m-auto col-10 col-md-8">
                     <h5 className="mt-3">LOC Origin</h5>
-                    <label
-                      htmlFor="CableOrigin"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Cable Origin
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="CableOrigin"
-                      defaultValue="CO1"
-                      id="RouteID"
-                      value={dualLocForm.cableOrigin.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(e.target.value, "cableOrigin")
-                        )
-                      }
-                      style={
-                        dualLocForm.cableOrigin.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.cableOrigin.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.cableOrigin.validationError}
-                      </div>
+                    {notUser.includes(role) && (
+                      <>
+                        <label
+                          htmlFor="CableOrigin"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Cable Origin
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="CableOrigin"
+                          defaultValue="CO1"
+                          id="RouteID"
+                          value={dualLocForm.cableOrigin.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "cableOrigin"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.cableOrigin.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.cableOrigin.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.cableOrigin.validationError}
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
-                  <div className="mb-3 m-auto col-10 col-md-8">
-                    <label
-                      htmlFor="Field1"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Field 1
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="Field1"
-                      defaultValue="OF11"
-                      id="Field1"
-                      value={dualLocForm.filed1Origin.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(e.target.value, "filed1Origin")
-                        )
-                      }
-                      style={
-                        dualLocForm.filed1Origin.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.filed1Origin.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.filed1Origin.validationError}
+                  {notUser.includes(role) && (
+                    <>
+                      <div className="mb-3 m-auto col-10 col-md-8">
+                        <label
+                          htmlFor="Field1"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Field 1
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="Field1"
+                          defaultValue="OF11"
+                          id="Field1"
+                          value={dualLocForm.filed1Origin.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "filed1Origin"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.filed1Origin.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.filed1Origin.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.filed1Origin.validationError}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                  <div className="mb-3 m-auto col-10 col-md-8">
-                    <label
-                      htmlFor="Field2"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Field 2
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="Field2"
-                      defaultValue="OF11"
-                      id="Field2"
-                      value={dualLocForm.filed2Origin.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(e.target.value, "filed2Origin")
-                        )
-                      }
-                      style={
-                        dualLocForm.filed2Origin.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.filed2Origin.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.filed2Origin.validationError}
+                      <div className="mb-3 m-auto col-10 col-md-8">
+                        <label
+                          htmlFor="Field2"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Field 2
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="Field2"
+                          defaultValue="OF11"
+                          id="Field2"
+                          value={dualLocForm.filed2Origin.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "filed2Origin"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.filed2Origin.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.filed2Origin.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.filed2Origin.validationError}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                  <div className="mb-3 m-auto col-10 col-md-8">
-                    <label
-                      htmlFor="Field3"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Field 3
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="Field3"
-                      defaultValue="OF11"
-                      id="Field3"
-                      value={dualLocForm.filed3Origin.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(e.target.value, "filed3Origin")
-                        )
-                      }
-                      style={
-                        dualLocForm.filed3Origin.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.filed3Origin.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.filed3Origin.validationError}
+                      <div className="mb-3 m-auto col-10 col-md-8">
+                        <label
+                          htmlFor="Field3"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Field 3
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="Field3"
+                          defaultValue="OF11"
+                          id="Field3"
+                          value={dualLocForm.filed3Origin.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "filed3Origin"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.filed3Origin.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.filed3Origin.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.filed3Origin.validationError}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
+                    </>
+                  )}
 
                   <div className="mb-3 m-auto col-10 col-md-8">
                     <label
@@ -424,146 +452,153 @@ const UpdateDualLocInfo = () => {
                 <div className="col-12 col-md-6 m-auto">
                   <div className="mb-3 m-auto col-10 col-md-8">
                     <h5 className="mt-3">LOC Destination</h5>
-                    <label
-                      htmlFor="CableDestination"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Cable Destination
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="CableDestination"
-                      defaultValue="CO1"
-                      id="RouteID"
-                      value={dualLocForm.cableDestination.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(
-                            e.target.value,
-                            "cableDestination"
-                          )
-                        )
-                      }
-                      style={
-                        dualLocForm.cableDestination.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.cableDestination.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.cableDestination.validationError}
-                      </div>
+                    {notUser.includes(role) && (
+                      <>
+                        <label
+                          htmlFor="CableDestination"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Cable Destination
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="CableDestination"
+                          defaultValue="CO1"
+                          id="RouteID"
+                          value={dualLocForm.cableDestination.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "cableDestination"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.cableDestination.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.cableDestination.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.cableDestination.validationError}
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
-                  <div className="mb-3 m-auto col-10 col-md-8">
-                    <label
-                      htmlFor="Field1"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Field 1
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="Field1"
-                      defaultValue="OF11"
-                      id="Field1"
-                      value={dualLocForm.filed1Destination.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(
-                            e.target.value,
-                            "filed1Destination"
-                          )
-                        )
-                      }
-                      style={
-                        dualLocForm.filed1Destination.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.filed1Destination.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.filed1Destination.validationError}
+                  {notUser.includes(role) && (
+                    <>
+                      <div className="mb-3 m-auto col-10 col-md-8">
+                        <label
+                          htmlFor="Field1"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Field 1
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="Field1"
+                          defaultValue="OF11"
+                          id="Field1"
+                          value={dualLocForm.filed1Destination.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "filed1Destination"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.filed1Destination.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.filed1Destination.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.filed1Destination.validationError}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                  <div className="mb-3 m-auto col-10 col-md-8">
-                    <label
-                      htmlFor="Field2"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Field 2
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="Field2"
-                      defaultValue="OF11"
-                      id="Field2"
-                      value={dualLocForm.filed2Destination.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(
-                            e.target.value,
-                            "filed2Destination"
-                          )
-                        )
-                      }
-                      style={
-                        dualLocForm.filed2Destination.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.filed2Destination.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.filed2Destination.validationError}
+                      <div className="mb-3 m-auto col-10 col-md-8">
+                        <label
+                          htmlFor="Field2"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Field 2
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="Field2"
+                          defaultValue="OF11"
+                          id="Field2"
+                          value={dualLocForm.filed2Destination.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "filed2Destination"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.filed2Destination.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.filed2Destination.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.filed2Destination.validationError}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                  <div className="mb-3 m-auto col-10 col-md-8">
-                    <label
-                      htmlFor="Field3"
-                      className="form-label"
-                      style={{ color: "#0987B1" }}
-                    >
-                      Field 3
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="Field3"
-                      defaultValue="OF11"
-                      id="Field3"
-                      value={dualLocForm.filed3Destination.value}
-                      onChange={(e) =>
-                        dispatch(
-                          onChangeLocsDualInputs(
-                            e.target.value,
-                            "filed3Destination"
-                          )
-                        )
-                      }
-                      style={
-                        dualLocForm.filed3Destination.valid
-                          ? {}
-                          : { border: "1px solid red" }
-                      }
-                    />
-                    {dualLocForm.filed3Destination.valid ? null : (
-                      <div style={{ color: "red", fontSize: 14 }}>
-                        {dualLocForm.filed3Destination.validationError}
+                      <div className="mb-3 m-auto col-10 col-md-8">
+                        <label
+                          htmlFor="Field3"
+                          className="form-label"
+                          style={{ color: "#0987B1" }}
+                        >
+                          Field 3
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="Field3"
+                          defaultValue="OF11"
+                          id="Field3"
+                          value={dualLocForm.filed3Destination.value}
+                          onChange={(e) =>
+                            dispatch(
+                              onChangeLocsDualInputs(
+                                e.target.value,
+                                "filed3Destination"
+                              )
+                            )
+                          }
+                          style={
+                            dualLocForm.filed3Destination.valid
+                              ? {}
+                              : { border: "1px solid red" }
+                          }
+                        />
+                        {dualLocForm.filed3Destination.valid ? null : (
+                          <div style={{ color: "red", fontSize: 14 }}>
+                            {dualLocForm.filed3Destination.validationError}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-
+                    </>
+                  )}
                   <div className="mb-3 m-auto col-10 col-md-8">
                     <label
                       htmlFor="Field3"
