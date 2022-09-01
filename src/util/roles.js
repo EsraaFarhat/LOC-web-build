@@ -6,15 +6,12 @@ const roles = {
 };
 
 export const isHeigherPermission = (userRole, comparedRole) => {
-  console.log(userRole, comparedRole);
   const rolesValue = {
     user: 0,
     "super user": 1,
     admin: 2,
     "saas admin": 3,
   };
-  console.log(rolesValue[userRole], rolesValue[comparedRole]);
-
   return rolesValue[userRole] > rolesValue[comparedRole];
 };
 

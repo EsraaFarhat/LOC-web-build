@@ -726,17 +726,8 @@ export default function Users() {
                       userForm.password &&
                       userForm.password.value
                     }
-                    style={
-                      userForm.password.valid
-                        ? { borderColor: "#ccc" }
-                        : { borderColor: "red" }
-                    }
+                    style={{ borderColor: "#ccc" }}
                   />
-                  {userForm.password.valid ? null : (
-                    <div style={{ color: "red", fontSize: 14 }}>
-                      {userForm.password.validationError}
-                    </div>
-                  )}
 
                   <input
                     type="password"
@@ -753,17 +744,8 @@ export default function Users() {
                       userForm.confirmPassword &&
                       userForm.confirmPassword.value
                     }
-                    style={
-                      userForm.confirmPassword.valid
-                        ? { borderColor: "#ccc" }
-                        : { borderColor: "red" }
-                    }
+                    style={{ borderColor: "#ccc" }}
                   />
-                  {userForm.confirmPassword.valid ? null : (
-                    <div style={{ color: "red", fontSize: 14 }}>
-                      {userForm.confirmPassword.validationError}
-                    </div>
-                  )}
 
                   <select
                     id="select1"

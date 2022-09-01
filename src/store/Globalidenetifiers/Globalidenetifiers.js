@@ -285,27 +285,40 @@ export const onEditingIdentifier = (
         if (resData.error) {
           toast.error(resData.error);
         } else {
-          fetch(`${url}/api/globalIdentifiers/` + identifierId + "/assign", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ users: assignedUsers }),
-          })
-            .then((res1) => res1.json())
-            .then(() => {
-              if (resData.message) {
-                dispatch(onChangeRenderedItem("identifier"));
-                toast.success(resData.message);
-                dispatch(
-                  onFinishEditingIdentifier(
-                    identifierId,
-                    resData.globalIdentifier
-                  )
-                );
-              }
-            });
+          if (privacy === "public") {
+            if (resData.message) {
+              dispatch(onChangeRenderedItem("identifier"));
+              toast.success(resData.message);
+              dispatch(
+                onFinishEditingIdentifier(
+                  identifierId,
+                  resData.globalIdentifier
+                )
+              );
+            }
+          } else if (privacy === "private") {
+            fetch(`${url}/api/globalIdentifiers/` + identifierId + "/assign", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ users: assignedUsers }),
+            })
+              .then((res1) => res1.json())
+              .then(() => {
+                if (resData.message) {
+                  dispatch(onChangeRenderedItem("identifier"));
+                  toast.success(resData.message);
+                  dispatch(
+                    onFinishEditingIdentifier(
+                      identifierId,
+                      resData.globalIdentifier
+                    )
+                  );
+                }
+              });
+          }
         }
       });
   };
