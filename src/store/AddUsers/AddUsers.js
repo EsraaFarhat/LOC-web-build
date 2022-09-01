@@ -240,6 +240,7 @@ export const onSelectEditUser = (userId) => {
 };
 
 const selectEditUser = (state, action) => {
+  console.log(state);
   const users = [...state.users];
   const selectedUser = users.find((user) => user.user_id === action.userId);
   return updateObject(state, { selectedUser: selectedUser });
@@ -265,6 +266,17 @@ export const onEditingUser = ({
   confirmPassword,
   role,
 }) => {
+  const body = {
+    fullName: firstName + " " + lastName,
+    email,
+    role,
+  };
+  if (password.trim() !== "") {
+    body.password = password;
+  }
+  if (confirmPassword.trim() !== "") {
+    body.confirmPassword = confirmPassword;
+  }
   e.preventDefault();
   return (dispatch) => {
     dispatch(onStartEditingUser());
@@ -274,14 +286,7 @@ export const onEditingUser = ({
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        fullName: firstName + " " + lastName,
-        email: email,
-        password: password,
-        confirmPassword,
-        confirmPassword,
-        role: role,
-      }),
+      body: JSON.stringify(body),
     })
       .then((res) => res.json())
       .then((resData) => {
@@ -463,6 +468,7 @@ export const onResetNewUserForm = () => {
 
 const resetNewUserForm = (state, action) => {
   const updatedUserForm = updateObject(state.userForm, userIS.userForm);
+  console.log(updatedUserForm);
   return updateObject(state, {
     ...state,
     userForm: updatedUserForm,
