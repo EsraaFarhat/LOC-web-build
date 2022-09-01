@@ -26,7 +26,7 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./GlobalIdentifiers.module.css";
 import { url } from "../../constants";
 
-import { notUser } from "../../util/roles";
+import roles, { notUser } from "../../util/roles";
 
 const override = css`
   display: block;
@@ -432,7 +432,7 @@ export default function GlobalIdenetifiers() {
                     {globalIdentifierName.name.validationError}
                   </div>
                 )}
-                {selectedIdentifier && selectedIdentifier.user_id === userId && (
+                {selectedIdentifier && (
                   <div className="flex items-center mt-2">
                     <input
                       onChange={(e) => {
@@ -454,6 +454,10 @@ export default function GlobalIdenetifiers() {
                         }
                       }}
                       checked={globalIdentifierName.privacy.value === "private"}
+                      disabled={
+                        role !== roles.saas_admin &&
+                        selectedIdentifier.user_id !== userId
+                      }
                       id="checked-checkbox"
                       type="checkbox"
                       className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -469,10 +473,16 @@ export default function GlobalIdenetifiers() {
 
                 {!usersLoading &&
                   !assignedUsersLoading &&
-                  globalIdentifierName.privacy.value === "private" && (
+                  globalIdentifierName.privacy.value === "private" &&
+                  selectedIdentifier &&
+                  (selectedIdentifier.user_id === userId ||
+                    role === roles.saas_admin) && (
                     <div className="mt-4">
                       <h6>Assigned Users</h6>
-                      <div className="mt-2">
+                      <div
+                        className="mt-2"
+                        style={{ height: "150px", overflowY: "scroll" }}
+                      >
                         {users.map((user) => (
                           <div
                             key={user.user_id}
@@ -481,6 +491,10 @@ export default function GlobalIdenetifiers() {
                             <input
                               onChange={() => onAssignUser(user.user_id)}
                               checked={assignedUsers.includes(user.user_id)}
+                              disabled={
+                                role !== roles.saas_admin &&
+                                selectedIdentifier.user_id !== userId
+                              }
                               id="checked-checkbox"
                               type="checkbox"
                               className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
