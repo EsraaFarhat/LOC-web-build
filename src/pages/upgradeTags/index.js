@@ -75,10 +75,15 @@ function UpgradeTags() {
       userData?.role === roles.admin ? (
         <UpgradeSuperUserTags userData={userData} currentUser={currentUser} />
       ) : null}
-      {/* {currentUser?.role === "admin" && userData?.role === "user" ? (
+      {currentUser?.role === roles.saas_admin &&
+      userData?.role === roles.super_user ? (
         <UpgradeSuperUserTags userData={userData} currentUser={currentUser} />
-      ) : null} */}
-      {/* {currentUser?.role === "super user" ? <BuySuperUserTags /> : null} */}
+      ) : null}
+      {currentUser?.role === roles.saas_admin &&
+      userData?.role === roles.user ? (
+        <UpgradeSuperUserTags userData={userData} currentUser={currentUser} />
+      ) : null}
+      {currentUser?.role === roles.admin ? <BuySuperUserTags /> : null}
     </>
   );
 }
