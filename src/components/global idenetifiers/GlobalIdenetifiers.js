@@ -173,22 +173,23 @@ export default function GlobalIdenetifiers() {
                               >
                                 {globalIdentifier.name}
                               </Link>
-
-                              <Link
-                                to={"/gidlogs/" + globalIdentifier.gid}
-                                style={{ marginLeft: 15 }}
-                              >
-                                <img
-                                  className="mx-2 mt-1"
-                                  style={{
-                                    width: "18px",
-                                    height: "16px",
-                                  }}
-                                  src={log}
-                                  alt="log"
-                                  s
-                                />
-                              </Link>
+                              {notUser.includes(role) && (
+                                <Link
+                                  to={"/gidlogs/" + globalIdentifier.gid}
+                                  style={{ marginLeft: 15 }}
+                                >
+                                  <img
+                                    className="mx-2 mt-1"
+                                    style={{
+                                      width: "18px",
+                                      height: "16px",
+                                    }}
+                                    src={log}
+                                    alt="log"
+                                    s
+                                  />
+                                </Link>
+                              )}
                             </div>
                           </div>
 
@@ -286,14 +287,16 @@ export default function GlobalIdenetifiers() {
                             >
                               {globalIdentifier.name}
                             </Link>
-                            <Link to={"/gidlogs/" + globalIdentifier.gid}>
-                              <img
-                                className="mx-2 mt-1"
-                                style={{ width: "18px", height: "16px" }}
-                                src={log}
-                                alt="log"
-                              />
-                            </Link>
+                            {notUser.includes(role) && (
+                              <Link to={"/gidlogs/" + globalIdentifier.gid}>
+                                <img
+                                  className="mx-2 mt-1"
+                                  style={{ width: "18px", height: "16px" }}
+                                  src={log}
+                                  alt="log"
+                                />
+                              </Link>
+                            )}
                           </div>
                           <div className="col-6 d-flex justify-content-end ">
                             <i

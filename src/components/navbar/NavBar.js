@@ -74,11 +74,13 @@ export default function NavBar() {
                       </NavLink>
                     </li>
                   )}
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to={"/users"}>
-                      ADMIN
-                    </NavLink>
-                  </li>
+                  {role !== roles.user && (
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to={"/users"}>
+                        ADMIN
+                      </NavLink>
+                    </li>
+                  )}
                 </ul>
                 <ul className="navbar-nav">
                   {token ? (

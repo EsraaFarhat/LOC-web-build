@@ -22,6 +22,7 @@ import log from "../../assets/images/log.png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { url } from "../../constants";
+import roles, { isHeigherPermission, notSuperUser } from "../../util/roles";
 
 const override = css`
   display: block;
@@ -41,7 +42,7 @@ const customStyles = {
 export default function Users() {
   const [disableBtn, setDisableBtn] = useState(false);
   const dispatch = useDispatch();
-  const { token, userId } = useSelector((state) => state.login);
+  const { token, userId, role } = useSelector((state) => state.login);
   const {
     userForm,
     loading,
@@ -238,45 +239,55 @@ export default function Users() {
                                         ? `(${user.available_tags} of ${user.tags})`
                                         : "Empty Wallet"}
                                     </div>
-                                    <div className="w-6/12 ">
-                                      <UpgradeBtn
-                                        handleUpgrade={handleUpgrade}
-                                        id={user.user_id}
-                                      />
-                                    </div>
+                                    {((role === roles.admin &&
+                                      user.user_id === userId) ||
+                                      role === roles.saas_admin) && (
+                                      <div className="w-6/12 ">
+                                        <UpgradeBtn
+                                          handleUpgrade={handleUpgrade}
+                                          id={user.user_id}
+                                        />
+                                      </div>
+                                    )}
                                   </div>
                                 </td>
                                 <td className="flex justify-around items-between">
                                   <div className="w-9/12">
-                                    <button
-                                      className="btn p-0 m-0 mx-2"
-                                      type="button"
-                                      onClick={() => {
-                                        dispatch(
-                                          onSelectEditUser(user.user_id)
-                                        );
-                                        setEditIsOpen(true);
-                                      }}
-                                    >
-                                      <i className="fas fa-pencil-alt text-secondary "></i>
-                                    </button>
-                                    <button
-                                      className="btn p-0 m-0"
-                                      type="button"
-                                      onClick={() => {
-                                        setUserID(user.user_id);
-                                        setDeleteIsOpen(true);
-                                      }}
-                                    >
-                                      <i className="far fa-trash-alt text-danger"></i>
-                                    </button>
-                                    {/* suspend */}
+                                    {notSuperUser.includes(role) && (
+                                      <>
+                                        <button
+                                          className="btn p-0 m-0 mx-2"
+                                          type="button"
+                                          onClick={() => {
+                                            dispatch(
+                                              onSelectEditUser(user.user_id)
+                                            );
+                                            setEditIsOpen(true);
+                                          }}
+                                        >
+                                          <i className="fas fa-pencil-alt text-secondary "></i>
+                                        </button>
 
-                                    <SuspendBtn
-                                      suspend={user.suspend}
-                                      handleSuspend={handleSuspend}
-                                      id={user.user_id}
-                                    />
+                                        <button
+                                          className="btn p-0 m-0"
+                                          type="button"
+                                          onClick={() => {
+                                            setUserID(user.user_id);
+                                            setDeleteIsOpen(true);
+                                          }}
+                                        >
+                                          <i className="far fa-trash-alt text-danger"></i>
+                                        </button>
+                                      </>
+                                    )}
+                                    {/* suspend */}
+                                    {isHeigherPermission(role, user.role) && (
+                                      <SuspendBtn
+                                        suspend={user.suspend}
+                                        handleSuspend={handleSuspend}
+                                        id={user.user_id}
+                                      />
+                                    )}
                                   </div>
                                 </td>
                               </tr>
@@ -340,52 +351,61 @@ export default function Users() {
                               <td>{user.email}</td>
                               <td>{user.role}</td>
                               <td>
-                                <button
-                                  className="btn p-0 m-0 mx-2"
-                                  type="button"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#editUser"
-                                  onClick={() => {
-                                    dispatch(onSelectEditUser(user.user_id));
-                                    setEditIsOpen(true);
-                                  }}
-                                >
-                                  <i className="fas fa-pencil-alt text-secondary "></i>
-                                </button>
+                                {notSuperUser.includes(role) && (
+                                  <>
+                                    <button
+                                      className="btn p-0 m-0 mx-2"
+                                      type="button"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#editUser"
+                                      onClick={() => {
+                                        dispatch(
+                                          onSelectEditUser(user.user_id)
+                                        );
+                                        setEditIsOpen(true);
+                                      }}
+                                    >
+                                      <i className="fas fa-pencil-alt text-secondary "></i>
+                                    </button>
 
-                                <button
-                                  className="btn p-0 m-0"
-                                  type="button"
-                                  onClick={() => {
-                                    setUserID(user.user_id);
-                                    setDeleteIsOpen(true);
-                                  }}
-                                >
-                                  <i className="far fa-trash-alt text-danger"></i>
-                                </button>
-
-                                {user.suspend ? (
-                                  <button
-                                    className="btn btn-danger btn-sm px-1 py-0 mx-1"
-                                    // type="button"
-                                    onClick={() => {
-                                      handleSuspend(user.user_id);
-                                      setFlag(true);
-                                    }}
-                                  >
-                                    unsuspend
-                                  </button>
-                                ) : (
-                                  <button
-                                    className="btn btn-primary btn-sm px-1 py-0 mx-1"
-                                    // type="button"
-                                    onClick={() => {
-                                      handleSuspend(user.user_id);
-                                      setFlag(true);
-                                    }}
-                                  >
-                                    suspend
-                                  </button>
+                                    <button
+                                      className="btn p-0 m-0"
+                                      type="button"
+                                      onClick={() => {
+                                        setUserID(user.user_id);
+                                        setDeleteIsOpen(true);
+                                      }}
+                                    >
+                                      <i className="far fa-trash-alt text-danger"></i>
+                                    </button>
+                                  </>
+                                )}
+                                {isHeigherPermission(role, user.role) && (
+                                  <>
+                                    {user.suspend ? (
+                                      <button
+                                        className="btn btn-danger btn-sm px-1 py-0 mx-1"
+                                        // type="button"
+                                        onClick={() => {
+                                          handleSuspend(user.user_id);
+                                          setFlag(true);
+                                        }}
+                                      >
+                                        unsuspend
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="btn btn-primary btn-sm px-1 py-0 mx-1"
+                                        // type="button"
+                                        onClick={() => {
+                                          handleSuspend(user.user_id);
+                                          setFlag(true);
+                                        }}
+                                      >
+                                        suspend
+                                      </button>
+                                    )}
+                                  </>
                                 )}
                               </td>
                             </tr>
@@ -400,20 +420,22 @@ export default function Users() {
               </div>
             )}
 
-            <div className="row my-4">
-              <div className="col-12 col-md-4 w-50 m-auto d-flex justify-content-center">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => {
-                    setAddIsOpen(true);
-                    dispatch(onResetNewUserForm());
-                  }}
-                >
-                  Add User
-                </button>
+            {notSuperUser.includes(role) && (
+              <div className="row my-4">
+                <div className="col-12 col-md-4 w-50 m-auto d-flex justify-content-center">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setAddIsOpen(true);
+                      dispatch(onResetNewUserForm());
+                    }}
+                  >
+                    Add User
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         {/* Modal ADD User */}

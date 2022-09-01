@@ -11,16 +11,20 @@ import { url } from "../../constants";
 import UpgradeAdminTags from "./UpgradeAdminTags";
 import UpgradeSuperUserTags from "./UpgradeSuperUserTags";
 import BuySuperUserTags from "./BuySuperUserTags";
+import NotAuthPage from "../../pages/NotAuth/NotAuthPage";
+
+import roles, { notSuperUser, notUser } from "../../util/roles";
 
 const stripePromise = loadStripe(
   "pk_test_51LDV07AoFWV7oCgbIBNbkbVoLrprO4F3h55oPnSZwg9TYgjDLYhczTzDnyLkgyfWo4iBBtY5aFTD78to08mTjXAJ00u7PvEjhn"
 );
 
 function UpgradeTags() {
-  const { token, userId } = useSelector((state) => state.login);
+  const { token, userId, role } = useSelector((state) => state.login);
   const [userData, setUserData] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const { id } = useParams();
+
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
@@ -56,20 +60,25 @@ function UpgradeTags() {
       });
   }, []);
 
+  if (!notUser.includes(role)) return <NotAuthPage />;
+  if (!notSuperUser.includes(role)) return <NotAuthPage />;
+
   return (
     <>
       <NavBar />
 
-      {currentUser?.role === "admin" && userData?.role === "admin" ? (
+      {currentUser?.role === roles.saas_admin &&
+      userData?.role === roles.saas_admin ? (
         <UpgradeAdminTags />
       ) : null}
-      {currentUser?.role === "admin" && userData?.role === "super user" ? (
+      {currentUser?.role === roles.saas_admin &&
+      userData?.role === roles.admin ? (
         <UpgradeSuperUserTags userData={userData} currentUser={currentUser} />
       ) : null}
-      {currentUser?.role === "admin" && userData?.role === "user" ? (
+      {/* {currentUser?.role === "admin" && userData?.role === "user" ? (
         <UpgradeSuperUserTags userData={userData} currentUser={currentUser} />
-      ) : null}
-      {currentUser?.role === "super user" ? <BuySuperUserTags /> : null}
+      ) : null} */}
+      {/* {currentUser?.role === "super user" ? <BuySuperUserTags /> : null} */}
     </>
   );
 }
